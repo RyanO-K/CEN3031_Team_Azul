@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "mocha server/tests",
     "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
@@ -12,10 +13,6 @@
     "build": "cd client && npm build",
     "start": "node server/server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/UFWebApps/React_Template_Repo.git"
   },
   "keywords": [],
   "author": "Dakota Rennemann",
