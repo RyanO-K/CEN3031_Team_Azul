@@ -11,5 +11,5 @@ const horoscopeData = new mongoose.Schema({
 });
 
 
-var horoscopeSchema = mongoose.model('Horoscope', horoscopeSchema);
+var horoscopeSchema = mongoose.model('Horoscope', horoscopeData);
 export default horoscopeSchema;
