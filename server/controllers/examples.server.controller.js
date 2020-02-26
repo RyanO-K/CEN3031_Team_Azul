@@ -1,5 +1,6 @@
-const Example = require('../models/examples.server.model.js')
+import example from '../models/examples.server.model';
 
-exports.hello = function(req, res) {
+function hello(req, res) {
     res.send('world')
 };
+export default hello;
