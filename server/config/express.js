@@ -1,5 +1,3 @@
-//const exampleRouter = require('../routes/examples.server.routes');
-
     import path from 'path';
     import bodyParser from 'body-parser';
     import morgan from 'morgan';
@@ -7,7 +5,7 @@
     import mongoose from 'mongoose';
     import uri from './config.js';
     import model from '../models/horoscopeSchema.js';
-    import exampleRouter from '../routes/examples.server.routes.js';
+    import exampleRouter from '../routes/userRoutes.js';
 
 export default {
     init: () => {
@@ -29,7 +27,7 @@ export default {
         app.use(bodyParser.json());
 
         // add a router
-        app.use('/api/example', exampleRouter);
+        app.use('/api/horoscopeInfo', exampleRouter);
 
         if (process.env.NODE_ENV === 'production') {
             // Serve any static files
