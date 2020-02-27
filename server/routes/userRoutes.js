@@ -3,7 +3,7 @@ import * as horoscopeOperations from '../controllers/userController.js';
     
 var userRouter = express.Router();
 
-userRouter.post('/:horoscopeID',horoscopeOperations.create);
+userRouter.post('/',horoscopeOperations.create);
 userRouter.get('/',horoscopeOperations.list);
 userRouter.get('/:horoscopeID',horoscopeOperations.read);
 userRouter.put('/:horoscopeID',horoscopeOperations.update);
