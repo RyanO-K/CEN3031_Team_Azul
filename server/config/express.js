@@ -4,7 +4,6 @@
     import express from 'express';
     import mongoose from 'mongoose';
     import uri from './config.js';
-    import model from '../models/horoscopeSchema.js';
     import exampleRouter from '../routes/userRoutes.js';
 
 export default {

@@ -5,27 +5,25 @@ import horoscopeCombo from '../models/horoscopeSchema.js';
 export const create = async (req, res) => {
     const horoscope = new horoscopeCombo(req.body);
 
-    //REMOVE THIS LINE ONCE NOT WORKING ON AXIOUS
-    res.status(200).send(horoscope);
-    //END LINE REMOVAL
     
-    //TODO:
-    //uncomment the following code block when setting up crud proper
-/*
     horoscope.save().then(data => {
         res.status(200).send(horoscope);
     }).catch(err => {
+        if(err.code == 11000){
+            res.status(409).send({
+                message: err.message || "Duplication error"
+            });
+        }
         res.status(500).send({
             message: err.message || "Error on create"
         });
     });
-*/
+
 };
 
 //show a horoscope listing
 export const read = async (req, res) => {
     //TODO
-
     horoscopeCombo.findOne({ '_id': req.params.horoscopeID}).then(data =>{
         if(data!=null){
             res.status(200).json(data);
@@ -48,7 +46,7 @@ export const update = async (req, res) => {
 
     const horoscope = new horoscopeCombo(req.body);
     horoscopeCombo.findByIdAndUpdate(req.params.horoscopeID,{
-
+                                            _id:horoscope._id,
                                             house:horoscope.house,
                                             sign: horoscope.sign,
                                             moonphase:horoscope.moonphase,
@@ -61,18 +59,18 @@ export const update = async (req, res) => {
             if(data!=null){
                 res.status(200).json(data);
             }else{
-                res.status(404).send({error: 'Doc not found: ' + req.params.horoscopeID});
+                res.status(404).send({error: 'Doc updated, but lost ' + req.params.horoscopeID});
             }
 
         }).catch(err => {
-            res.status(404).send({
+            res.status(500).send({
                 message: err.message || "Saved Doc not found: " + req.params.horoscopeID
             })
         });
 
     }).catch(err => {
         res.status(404).send({
-            message: err.message || "Doc update failed:  " + req.params.horoscopeID
+            message: err.message || "Doc update failed: " + req.params.horoscopeID
         })
     });
 };
@@ -84,7 +82,7 @@ export const remove = async (req, res) => {
         if(data != null){
             res.status(200).send(data);
         }else{
-             res.status(404).send({error: 'Some message that indicates an error'});
+             res.status(404).send({error: 'Doc not found: '+req.params.horoscopeID});
         }
     }).catch(err => {
         res.status(500).send({
