@@ -5,10 +5,10 @@ import horoscopeCombo from '../models/horoscopeSchema.js';
 export const create = async (req, res) => {
     const horoscope = new horoscopeCombo(req.body);
     horoscope.save().then(data => {
-        res.status(200).send(horoscope)
+        res.status(200).send(horoscope);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Creation failed."
+            message: err.message || "Error on create"
         });
     });
 };
@@ -17,15 +17,15 @@ export const create = async (req, res) => {
 export const read = async (req, res) => {
     //TODO
 
-    horoscopeCombo.findOne({ '_id': req.params.listingId}).then(data =>{
+    horoscopeCombo.findOne({ '_id': req.params.horoscopeID}).then(data =>{
         if(data!=null){
-            res.json(data);
+            res.status(200).json(data);
         }else{
-            res.status(200).send({error: 'Error'});
+            res.status(404).send({error: 'Error doc not found' + req.params.horoscopeID});
         }
     }).catch(err => {
-        res.status(404).send({
-            message: err.message || "Doc not found: " + req.params.listingId
+        res.status(500).send({
+            message: err.message || "Read failed: " + req.params.horoscopeID
         })
     });
 
@@ -38,7 +38,7 @@ export const update = async (req, res) => {
     //TODO
 
     const horoscope = new horoscopeCombo(req.body);
-    horoscopeCombo.findByIdAndUpdate(req.params.listingId,{
+    horoscopeCombo.findByIdAndUpdate(req.params.horoscopeID,{
 
                                             house:horoscope.house,
                                             sign: horoscope.sign,
@@ -47,26 +47,26 @@ export const update = async (req, res) => {
 
                                             },options).then(data =>{
         
-        Listing.findOne({ '_id': req.params.listingId}).then(data=>{
+                                                horoscopeCombo.findOne({ '_id': req.params.horoscopeID}).then(data=>{
             
             res.status(200).json(data);
         }).catch(err => {
             res.status(404).send({
-                message: err.message || "Saved Doc not found: " + req.params.listingId
+                message: err.message || "Saved Doc not found: " + req.params.horoscopeID
             })
         });
 
     }).catch(err => {
         res.status(404).send({
-            message: err.message || "Doc not found or updated: " + req.params.listingId
+            message: err.message || "Doc update failed:  " + req.params.horoscopeID
         })
     });
 };
 
-//remove a horoscope listing
+//remove a horoscopeCombo
 export const remove = async (req, res) => {
     //TODO
-    horoscopeCombo.findOneAndDelete({ '_id': req.params.listingId}).then(data =>{
+    horoscopeCombo.findOneAndDelete({ '_id': req.params.horoscopeID}).then(data =>{
         if(data != null){
             res.status(200).send(data);
         }else{
@@ -74,20 +74,21 @@ export const remove = async (req, res) => {
         }
     }).catch(err => {
         res.status(500).send({
-            message: err.message||"Internal Server Error"
+            message: err.message|| "Remove failed: " + req.params.horoscopeID
+
         });
     });
 };
 
-//list a horoscope listing
+//list a horoscopeCombo
 export const list = async (req, res) => {
     //TODO
 
     horoscopeCombo.find().sort().then(data =>{
-        res.json(data);
+        res.status(200).json(data);
     }).catch(err => {
         res.status(500).send({
-            message: err.message||"Internal Server Error"
+            message: err.message||"List failed"
         });
     });
 };
