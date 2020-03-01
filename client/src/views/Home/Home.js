@@ -6,6 +6,7 @@ import background from '../../assets/moonbackground.jpg';
 import Button from '@material-ui/core/Button'
 import { green, purple } from '@material-ui/core/colors';
 import './Home.css';
+import LoginWithGoogle from '../SignUp/LoginWithGoogle';
 
 const ColorButton = withStyles(theme => ({
     root: {
@@ -49,6 +50,7 @@ function Home() {
                 <div>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/SignUp'> Sign Up </ColorButton>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/LogIn'> Log In</ColorButton>
+                    <LoginWithGoogle></LoginWithGoogle>
                 </div>
             </header>
         </div>
