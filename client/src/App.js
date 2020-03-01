@@ -4,6 +4,8 @@ import Home from "./views/Home/Home";
 import NotFound from "./views/NotFound";
 import NavBar from "./components/Header/NavBar";
 import SignUp from "./views/SignUp/SignUp";
+import SignUp2 from "./views/SignUp/SignUp2";
+import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
 
 const App = () => {
   return (
@@ -16,6 +18,7 @@ const App = () => {
         </Route>
         <Route exact path="/LogIn" component={Home} />
         <Route exact path="/SignUp" component={SignUp} />
+        <Route exact path="/SignUp2" component={SignUp2} />
         <Route component={NotFound}/>
       </Switch>
     </div>
