@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button'
 import './SignUp.css';
 import { useForm } from 'react-hook-form'
+import SignUpWithGoogle from "./SignUpWithGoogle";
+
 
 const ColorButton = withStyles(theme => ({
     root: {
@@ -78,22 +80,26 @@ function SignUp() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input type="text" placeholder="Name" name="name" ref={register} />
                     <div>
-                        <input type="date" placeholder="Date of Birth" name="dob" ref={register} />
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} />
-                    </div>
-                    <div>
                         <input type="email" placeholder="Email Address" name="email" ref={register} />
                     </div>
                     <div>
                         <input type="text" placeholder="Password" name="password" ref={register} />
                     </div>
+                    <div>
+                        <input type="date" placeholder="Date of Birth" name="dob" ref={register} />
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} />
+                    </div>
+                  
 
                     <div>
                         <Button type="submit"> submit</Button>
                     </div>
                 </form>
+                <div>
+                <SignUpWithGoogle></SignUpWithGoogle>
+                </div>
             </header>
         </div>
     );
