@@ -27,5 +27,5 @@ const App = () => {
     </div>
   );
 }
-requestGet('5e5842db3979b444104c1bba');
+//requestGet('5e5842db3979b444104c1bba');
 export default App;
