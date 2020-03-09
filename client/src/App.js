@@ -6,7 +6,8 @@ import NavBar from "./components/Header/NavBar";
 import SignUp from "./views/SignUp/SignUp";
 import SignUp2 from "./views/SignUp/SignUp2";
 import Admin from "./views/Admin/Admin"
-import axios_get from './axios_route.js';
+import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
+//import axios_get from './axios_route.js';
 
 const App = () => {
   return (
@@ -26,6 +27,5 @@ const App = () => {
     </div>
   );
 }
-
-//axios_get("5e5842db3979b444104c1bba");
+//axios_get(1);
 export default App;

@@ -1,15 +1,19 @@
-import request from 'request';
+import react from 'react';
+import axios from 'axios';
 //import schema from '../server/models/horoscopeSchema'
+import express, { response } from 'express';
 
 //let temp = new schema;
-export default async function axios_get(horoscopeid){
-    
-
-    request('http://localhost:5000/api/horoscopeInfo/'+horoscopeid, function (error, response, body) {
-    console.error('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
-});
-
-
+export default function axios_get(horoscopeid){
+/*axios.get('http://localhost:5000/api/horoscopeInfo/5e5842db3979b444104c1bba').then(
+    response => {
+        console.log(response.data);
+        //temp = response.data;   
+    }
+).catch(function(err){
+    console.log(err);
+}
+    )*/
+console.log('here');
+return 'here';
 }
