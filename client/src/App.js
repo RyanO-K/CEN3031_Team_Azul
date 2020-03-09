@@ -7,7 +7,7 @@ import SignUp from "./views/SignUp/SignUp";
 import SignUp2 from "./views/SignUp/SignUp2";
 import Admin from "./views/Admin/Admin"
 import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
-//import axios_get from './axios_route.js';
+import requestGet from '../src/requestDB';
 
 const App = () => {
   return (
@@ -27,5 +27,5 @@ const App = () => {
     </div>
   );
 }
-//axios_get(1);
+requestGet('5e5842db3979b444104c1bba');
 export default App;
