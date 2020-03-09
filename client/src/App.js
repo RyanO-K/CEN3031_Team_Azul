@@ -7,6 +7,7 @@ import SignUp from "./views/SignUp/SignUp";
 import SignUp2 from "./views/SignUp/SignUp2";
 import Admin from "./views/Admin/Admin"
 import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
+//import axios_get from './axios_route.js';
 
 const App = () => {
   return (
@@ -26,5 +27,5 @@ const App = () => {
     </div>
   );
 }
-
+//axios_get(1);
 export default App;
