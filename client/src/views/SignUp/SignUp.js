@@ -60,6 +60,62 @@ function SignUp() {
         //send it here?
     };
 
+
+    const func=(a)=>{
+        const user={
+            name:newUser.name,
+            pob: newUser.pob,
+            dob: a,
+            email:newUser.email,
+            password:newUser.password
+        }
+        setNewUser(user);
+        };
+    
+        const func2=(b)=>{
+            const user={
+                name:newUser.name,
+                pob: b,
+                dob: newUser.dob,
+                email:newUser.email,
+                password:newUser.password
+            }
+            setNewUser(user);
+            };
+
+            const func3=(c)=>{
+                const user={
+                    name:newUser.name,
+                    pob: newUser.pob,
+                    dob: newUser.dob,
+                    email:newUser.email,
+                    password:c
+                }
+                setNewUser(user);
+                };
+
+                const func4=(d)=>{
+                    const user={
+                        name:newUser.name,
+                        pob: newUser.pob,
+                        dob: newUser.dob,
+                        email:d,
+                        password:newUser.password
+                    }
+                    setNewUser(user);
+                    };
+
+                    const func5=(e)=>{
+                        const user={
+                            name:e,
+                            pob: newUser.pob,
+                            dob: newUser.dob,
+                            email:newUser.email,
+                            password:newUser.password
+                        }
+                        setNewUser(user);
+                        };
+
     const classes = useStyles();
 
     return (
@@ -77,26 +133,25 @@ function SignUp() {
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input type="text" placeholder="Name" name="name" ref={register} />
-                    <div>
-                        <input type="email" placeholder="Email Address" name="email" ref={register} />
+                <div>
+                    <input type="text" placeholder="Name" name="name" ref={register} onChange={(e)=>func5(e.target.value)}/>
                     </div>
                     <div>
-                        <input type="text" placeholder="Password" name="password" ref={register} />
+                        <input type="email" placeholder="Email Address" name="email" ref={register} onChange={(e)=>func4(e.target.value)}/>
                     </div>
                     <div>
-                        <input type="date" placeholder="Date of Birth" name="dob" ref={register} />
+                        <input type="text" placeholder="Password" name="password" ref={register} onChange={(e)=>func3(e.target.value)}/>
                     </div>
                     <div>
-                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} />
+                    <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
-                  
-
                     <div>
-                        <Button type="submit"> submit</Button>
-                    </div>
-                </form>
+                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
+                    </div>               
+                    <div>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:'/User',user:{na:newUser}}}> Submit</ColorButton>
+                        </div>
+                
                 <div>
                 <SignUpWithGoogle></SignUpWithGoogle>
                 </div>
