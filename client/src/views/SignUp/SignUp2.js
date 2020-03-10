@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import './SignUp2.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
+import '../Home/Home.css';
 
 
 const ColorButton = withStyles(theme => ({
@@ -47,6 +48,7 @@ function SignUp2(props) {
             dob: data.dob,
             email:newUser.email
         }
+        console.log("User"+data);
         // {...newUser,
         //     name: data.name,
         //     pob: data.pob,
@@ -57,8 +59,28 @@ function SignUp2(props) {
         setNewUser(user);
         e.target.reset();
         console.log(user);
+        
         //send it here?
     };
+   const func=(a)=>{
+    const user={
+        name:newUser.name,
+        pob: newUser.pob,
+        dob: a,
+        email:newUser.email
+    }
+    setNewUser(user);
+    };
+
+    const func2=(b)=>{
+        const user={
+            name:newUser.name,
+            pob: b,
+            dob: newUser.dob,
+            email:newUser.email
+        }
+        setNewUser(user);
+        };
 
     const classes = useStyles();
 
@@ -77,20 +99,25 @@ function SignUp2(props) {
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                <form onSubmit={handleSubmit(onSubmit)}>
+                
                 <div>
-                        <input type="date" placeholder="Date of Birth" name="dob" ref={register} />
+                        <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>
-                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} />
+                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
                     </div>               
                     <div>
-                        <Button type="submit"> submit</Button>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:'/User',user:{na:newUser}}}> Submit</ColorButton>
+                        
+                        
                     </div>
-                </form>
+          
+               
             </header>
         </div>
     );
+
+
 }
 
 export default SignUp2;
