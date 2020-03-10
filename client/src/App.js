@@ -3,6 +3,12 @@ import { Route, Switch, Redirect  } from 'react-router-dom';
 import Home from "./views/Home/Home";
 import NotFound from "./views/NotFound";
 import NavBar from "./components/Header/NavBar";
+import SignUp from "./views/SignUp/SignUp";
+import SignUp2 from "./views/SignUp/SignUp2";
+import Admin from "./views/Admin/Admin"
+import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
+import requestGet from '../src/requestDB';
+import User from "./views/SignUp/User";
 
 const App = () => {
   return (
@@ -13,10 +19,15 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/Home" />
         </Route>
+        <Route exact path="/LogIn" component={Home} />
+        <Route exact path="/SignUp" component={SignUp} />
+        <Route exact path="/SignUp2" component={SignUp2} />
+        <Route exact path="/Admin" component={Admin} />
+        <Route exact path="/User" component={User} />
         <Route component={NotFound}/>
       </Switch>
     </div>
   );
 }
-
+//requestGet('5e5842db3979b444104c1bba');
 export default App;

@@ -2,6 +2,17 @@ body {
     margin: 0;
 }
 
+.button{
+    backgroundColor: #007bff;
+
+}
+
+.MoonFlow{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #0AC98F;
+    margin-bottom: 2px;
+}
+
 .App {
     text-align: center;
     background: #282c34;
@@ -20,6 +31,10 @@ body {
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .App-link {
