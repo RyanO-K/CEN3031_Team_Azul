@@ -1,0 +1,27 @@
+spring:
+
+  mail:
+
+    host: smtp.163.com #SMTPservice address
+
+    username:  Song_Li1124 #loginaccount
+
+    password: Gnosil12 #authorize code
+
+    properties:
+
+      from: Song_Li1124@163.com #email sender
+
+  thymeleaf:
+
+    cache: false
+
+    prefix: classpath:/views/
+
+  servlet:
+
+    multipart:
+
+      max-file-size: 100MB #single file can not be larger than this size
+
+      max-request-size: 500MB #total file cna not be larger than this size

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<head>
+
+    <meta charset="UTF-8"/>
+
+    <title>Send Email</title>
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+    <script th:href="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+
+</head>
+
+
+
+<body>
+
+<div class="col-md-6" style="margin:20px;padding:20px;border: #EEEEEE 1px solid;">
+
+    <marquee behavior="alternate" onfinish="alert(12)" id="mq"
+
+             onMouseOut="this.start();$('#egg').text('start');"
+
+             onMouseOver="this.stop();$('#egg').text('stop');">
+
+        <h5 id="egg">heavenly email</h5><img id="doge" src="http://pics.sc.chinaz.com/Files/pic/faces/3709/7.gif" alt="">
+
+    </marquee>
+
+
+
+    <form class="form-horizontal" id="mailForm">
+
+        <div class="form-group">
+
+            <label class="col-md-2 control-label">Sender:</label>
+
+            <div class="col-md-6">
+
+                <input class="form-control" id="from" name="from" th:value="${from}" readonly="readonly">
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-2 control-label">Receiver:</label>
+
+            <div class="col-md-6">
+
+                <input class="form-control" id="to" name="to" title="multiple email, please use ',' ">
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-2 control-label">Subject:</label>
+
+            <div class="col-md-6">
+
+                <input class="form-control" id="subject" name="subject">
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-2 control-label">Text:</label>
+
+            <div class="col-md-6">
+
+                <textarea class="form-control" id="text" name="text" rows="5"></textarea>
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-2 control-label">Attach:</label>
+
+            <div class="col-md-6">
+
+                <input class="form-control" id="files" name="files" type="file" multiple="multiple">
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-2 control-label">Operation:</label>
+
+            <div class="col-md-3">
+
+                <a class="form-control btn btn-primary" onclick="sendMail()">Send</a>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <a class="form-control btn btn-default" onclick="clearForm()">Clear</a>
+
+            </div>
+
+        </div>
+
+    </form>
+
+
+
+    <script th:inline="javascript">
+
+        var appCtx = [[${#request.getContextPath()}]];
+
+
+
+        function sendMail() {
+
+
+
+            var formData = new FormData($('#mailForm')[0]);
+
+            $.ajax({
+
+                url: appCtx + '/mail/send',
+
+                type: "POST",
+
+                data: formData,
+
+                contentType: false,
+
+                processData: false,
+
+                success: function (result) {
+
+                    alert(result.status === 'ok' ? "Success！" : + result.error);
+
+                },
+
+                error: function () {
+
+                    alert("Fail！");
+
+                }
+
+            });
+
+        }
+
+
+
+        function clearForm() {
+
+            $('#mailForm')[0].reset();
+
+        }
+
+        });
+
+    </script>
+
+</div>
+
+</body>
+
+</html>
