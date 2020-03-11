@@ -1,17 +1,21 @@
 {
-  "name": "react_template_repo",
+  "homepage": "http://jimmyfromrobotics.github.io/jimmyfromrobotics.github.io/",
+  "name": "jimmyfromrobotics.github.io",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "mocha server/tests",
     "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
     "client": "cd client && npm start",
     "server": "nodemon server/server.js",
     "dev": "concurrently \"nodemon server/server.js\" \"cd client && npm run start\"",
-    "build": "cd client && npm build",
-    "start": "node server/server.js",
+    "build": "cd client && npm run build && serve -s build",
+    "start": "serve ./build --single",
+    "gh-pages": "^2.2.0",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "keywords": [],
@@ -23,13 +27,20 @@
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.0",
     "express": "^4.17.1",
+    "gh-pages": "^2.2.0",
     "mocha": "^6.2.1",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-google-login": "^5.1.1",
     "react-hook-form": "^4.9.8",
+    "react-scripts": "^3.4.0",
+    "serve": "^11.3.0",
     "should": "^13.2.3",
-    "supertest": "^4.0.2"
-  },
-  "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme"
+    "supertest": "^4.0.2",
+    "webpack": "^4.41.2",
+    "webpack-dev-server": "^3.9.0"
+  }
 }
