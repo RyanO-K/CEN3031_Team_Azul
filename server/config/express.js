@@ -1,13 +1,12 @@
-    import path from 'path';
-    import bodyParser from 'body-parser';
-    import morgan from 'morgan';
-    import express from 'express';
-    import mongoose from 'mongoose';
-    import uri from './config.js';
-    import exampleRouter from '../routes/userRoutes.js';
+    var path = require('path');
+    var bodyParser = require('body-parser');
+    var morgan = require('morgan');
+    var express = require('express');
+    var mongoose = require('mongoose');
+    var exampleRouter = require('../routes/userRoutes.js');
+    var uri = require('./config.js');
 
-export default {
-    init: () => {
+module.exports.init = () => {
         /* 
             connect to database
             - reference README for db uri
@@ -40,5 +39,3 @@ export default {
 
         return app
     }
-
-}

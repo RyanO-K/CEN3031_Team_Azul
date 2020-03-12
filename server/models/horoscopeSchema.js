@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+var mongoose = require('mongoose');
 
 
 
@@ -11,5 +11,5 @@ const horoscopeData = new mongoose.Schema({
 });
 
 
-var horoscopeSchema = mongoose.model('Horoscope', horoscopeData);
-export default horoscopeSchema;
+const horoscopeSchema = mongoose.model('Horoscope', horoscopeData);
+module.export = horoscopeSchema;

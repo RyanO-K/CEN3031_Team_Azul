@@ -1,5 +1,5 @@
-import express from 'express';
-import * as horoscopeOperations from '../controllers/userController.js';
+var express = require('express');
+var horoscopeOperations = require('../controllers/userController.js');
     
 var userRouter = express.Router();
 
@@ -9,4 +9,4 @@ userRouter.get('/:horoscopeID',horoscopeOperations.read);
 userRouter.put('/:horoscopeID',horoscopeOperations.update);
 userRouter.delete('/:horoscopeID',horoscopeOperations.remove);
   
-export default userRouter;
+module.exports = userRouter;
