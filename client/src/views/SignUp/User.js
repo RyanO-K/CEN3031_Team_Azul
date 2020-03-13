@@ -11,10 +11,10 @@ import SignUp2 from "./SignUp2";
 function User(props){
     console.log(props);
     const [newUser, setNewUser] = useState({
-        name: props.location.user.na.name,
-        pob: props.location.user.na.pob,
-        dob: props.location.user.na.dob,
-        email: props.location.user.na.email
+        name: props.location.state.name,
+        pob: props.location.state.pob,
+        dob: props.location.state.dob,
+        email: props.location.state.email
     });
     return(
   <p>

@@ -36,6 +36,11 @@ function SignUp2(props) {
         dob: '',
         email: props.location.state.email
     });
+    const [problem, setProblem] = useState({
+        pobP: false,
+        dobP: false
+    });
+    const [destination,d]=useState("/SignUp2");
 
     useEffect(() => {
         console.log(newUser)
@@ -62,7 +67,53 @@ function SignUp2(props) {
         
         //send it here?
     };
+
+
+    async function handle(){
+        let bool=false;
+        let l="";
+
+        console.log(newUser.dob);
+        if(newUser.dob.length!==10){
+            problem.dobP=true;
+           bool=true;
+           console.log("dob err");
+        }
+        
+
+        if(newUser.pob.length===0){
+            problem.pobP=true;
+            bool=true;
+            console.log("pob err");
+        }
+
+
+
+        let err="";
+
+        if(bool){       
+            if(problem.pobP){
+                err+="No place of birth given\n";
+                problem.pobP=false;
+            }
+
+            if(problem.dobP){
+                err+="No date of birth given\n";
+                problem.dobP=false;
+            }
+
+            alert(err);
+            
+                    }
+
+    }
+
+
    const func=(a)=>{
+    if(a.length==10 && newUser.pob.length>0)
+    d('/User');
+else
+    d('/SignUp2');
     const user={
         name:newUser.name,
         pob: newUser.pob,
@@ -73,6 +124,11 @@ function SignUp2(props) {
     };
 
     const func2=(b)=>{
+
+        if(newUser.dob.length==10 && b.length>0)
+        d('/User');
+    else
+        d('/SignUp2');
         const user={
             name:newUser.name,
             pob: b,
@@ -107,7 +163,7 @@ function SignUp2(props) {
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
                     </div>               
                     <div>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:'/User',user:{na:newUser}}}> Submit</ColorButton>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination,state:newUser}}> Submit</ColorButton>
                         
                         
                     </div>
