@@ -26,7 +26,7 @@ module.exports.init = () => {
         app.use(bodyParser.json());
 
         // add a router
-        app.use('/api/horoscopeInfo', userRouter);
+        app.use('/api', userRouter);
 
         // add CORS Headers
         app.use(function(req, res, next) {

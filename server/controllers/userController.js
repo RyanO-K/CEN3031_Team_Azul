@@ -27,7 +27,7 @@ const create = async (req, res) => {
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
-    horoscopeCombo.findOne({ '_id': req.params.horoscopeID}).then(data =>{
+    v.findOne({ '_id': req.params.horoscopeID}).then(data =>{
         if(data!=null){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(200).json(data);
@@ -48,8 +48,8 @@ const read = async (req, res) => {
 
 //update a horoscope listing
 const update = async (req, res) => {
-  const horoscope = new horoscopeCombo(req.body);
-    horoscopeCombo.findByIdAndUpdate(req.params.horoscopeID,{
+  const horoscope = new horoscopeModel(req.body);
+  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,{
                                             _id:horoscope._id,
                                             house:horoscope.house,
                                             sign: horoscope.sign,
@@ -58,7 +58,7 @@ const update = async (req, res) => {
 
                                             }).then(data =>{
         
-        horoscopeCombo.findOne({ '_id': req.params.horoscopeID}).then(data=>{
+    horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data=>{
             
             if(data!=null){
                 res.header('Access-Control-Allow-Origin', '*');
@@ -86,7 +86,7 @@ const update = async (req, res) => {
 //remove a horoscopeCombo
 const remove = async (req, res) => {
     console.log('should have header');
-    horoscopeCombo.findOneAndDelete({ '_id': req.params.horoscopeID}).then(data =>{
+    horoscopeModel.findOneAndDelete({ '_id': req.params.horoscopeID}).then(data =>{
         if(data != null){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(200).send(data);
@@ -104,10 +104,10 @@ const remove = async (req, res) => {
 };
 
 //list all horoscopeCombos
-export const list = async (req, res) => {
+const list = async (req, res) => {
     //TODO
     console.log('listing')
-    horoscopeCombo.find().sort().then(data =>{
+    horoscopeModel.find().sort().then(data =>{
         console.log('returning');
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json(data);
