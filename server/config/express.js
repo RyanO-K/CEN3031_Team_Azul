@@ -4,7 +4,6 @@
     var express = require('express');
     var mongoose = require('mongoose');
     var horoscopeRouter = require('../routes/horoscopeRoutes.js');
-    var personRouter = require('../routes/personalInformationRouter.js');
     var uri = require('./config.js');
 
 module.exports.init = () => {
