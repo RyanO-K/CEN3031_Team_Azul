@@ -22,7 +22,12 @@ async makeDeleteRequest(url) {
 
 async makeUpdateRequest(url) {
   
-  let res = await axios.put('http://localhost:5000/api/' + url).then(function (response){
+  let res = await axios.put('http://localhost:5000/api/' + url,
+  {
+    house: "Mike",
+    sign: "idk",
+    moonphase: "full"
+  }).then(function (response){
     console.log(response.data);
     return response.data;
   });
@@ -31,7 +36,12 @@ async makeUpdateRequest(url) {
 
 async makeCreateRequest(url) {
   
-  let res = await axios.post('http://localhost:5000/api/' + url).then(function (response){
+  let res = await axios.post('http://localhost:5000/api/' + url,
+  {
+    house: "Ryan",
+    sign: "idk",
+    moonphase: "full"
+  }).then(function (response){
     console.log(response.data);
     return response.data;
   });

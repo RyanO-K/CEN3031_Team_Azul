@@ -5,6 +5,7 @@
     var mongoose = require('mongoose');
     var horoscopeRouter = require('../routes/horoscopeRoutes.js');
     var uri = require('./config.js');
+    var cors = require('cors');
 
 module.exports.init = () => {
         /* 
@@ -17,7 +18,12 @@ module.exports.init = () => {
 
         // initialize app
         const app = express();
+        const corsOptions = {
+            origin: true,
+            credentials: true
+          }
 
+          app.options('*', cors(corsOptions));
         // enable request logging for development debugging
         app.use(morgan('dev'));
 
