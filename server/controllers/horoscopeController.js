@@ -5,8 +5,7 @@ var cors = require('cors');
 //create a horoscope combo
 const create = async (req, res) => {
     const horoscope = new horoscopeModel(req.body);
-
-
+    console.log('attempting to create');
     horoscope.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(horoscope);
@@ -50,21 +49,27 @@ const read = async (req, res) => {
 //update a horoscope listing
 const update = async (req, res) => {
   const horoscope = new horoscopeModel(req.body);
-  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,{
-                                            _id:horoscope._id,
-                                            house:horoscope.house,
-                                            sign: horoscope.sign,
-                                            moonphase:horoscope.moonphase,
-                                            description:horoscope.description
+  console.log(req.params.horoscopeID);
 
-                                            }).then(data =>{
+  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
+                {
+                    _id:req.params.horoscopeID || _id,
+                    house:req.body.house || house,
+                    sign: req.body.sign || sign,
+                    moonphase:req.body.moonphase || moonphase,
+                    description:req.body.description || ""
+
+                }
+                                            
+                ).then(data =>{
         
-    horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data=>{
+            horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data=>{
             
             if(data!=null){
                 res.header('Access-Control-Allow-Origin', '*');
                 res.status(200).json(data);
             }else{
+                console.log('Doc is lost');
                 res.header('Access-Control-Allow-Origin', '*');
                 res.status(404).send({error: 'Doc updated, but lost ' + req.params.horoscopeID});
             }
@@ -109,7 +114,6 @@ const list = async (req, res) => {
     //TODO
     console.log('listing')
     horoscopeModel.find().sort().then(data =>{
-        console.log('returning');
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json(data);
     }).catch(err => {
@@ -123,7 +127,7 @@ const list = async (req, res) => {
 };
 
 const options = async (req, res) => {
-
+    console.log('options')
     var corsOptions = {
         "origin": "*",
         "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
