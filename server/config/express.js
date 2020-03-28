@@ -3,7 +3,8 @@
     var morgan = require('morgan');
     var express = require('express');
     var mongoose = require('mongoose');
-    var exampleRouter = require('../routes/userRoutes.js');
+    var userRouter = require('../routes/userRoutes.js');
+    var personRouter = require('../routes/personalInformationRouter.js');
     var uri = require('./config.js');
 
 module.exports.init = () => {
@@ -11,7 +12,7 @@ module.exports.init = () => {
             connect to database
             - reference README for db uri
         */
-        mongoose.connect(String(uri.db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
+        mongoose.connect(String(uri.test_db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
         mongoose.set('useCreateIndex', true);
         mongoose.set('useFindAndModify', false);
 
@@ -25,7 +26,7 @@ module.exports.init = () => {
         app.use(bodyParser.json());
 
         // add a router
-        app.use('/api/horoscopeInfo', exampleRouter);
+        app.use('/api/horoscopeInfo', userRouter);
 
         if (process.env.NODE_ENV === 'production') {
             // Serve any static files

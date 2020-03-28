@@ -1,9 +1,9 @@
 //horoscopeCombo is the object we will create when making a new entry
-var horoscopeCombo = require('../models/horoscopeSchema.js');
+var horoscopeModel = require('../models/horoscopeSchema.js');
 
 //create a horoscope combo
 const create = async (req, res) => {
-    const horoscope = new horoscopeCombo(req.body);
+    const horoscope = new horoscopeModel(req.body);
 
 
     horoscope.save().then(data => {
@@ -24,7 +24,7 @@ const create = async (req, res) => {
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
-    horoscopeCombo.findOne({ '_id': req.params.horoscopeID }).then(data => {
+    horoscopeModel.findOne({ '_id': req.params.horoscopeID }).then(data => {
         if (data != null) {
             res.status(200).json(data);
         } else {
@@ -44,8 +44,8 @@ const read = async (req, res) => {
 const update = async (req, res) => {
     //TODO
 
-    const horoscope = new horoscopeCombo(req.body);
-    horoscopeCombo.findByIdAndUpdate(req.params.horoscopeID, {
+    const horoscope = new horoscopeModel(req.body);
+    horoscopeModel.findByIdAndUpdate(req.params.horoscopeID, {
         _id: horoscope._id,
         house: horoscope.house,
         sign: horoscope.sign,
@@ -54,7 +54,7 @@ const update = async (req, res) => {
 
     }).then(data => {
 
-        horoscopeCombo.findOne({ '_id': req.params.horoscopeID }).then(data => {
+        horoscopeModel.findOne({ '_id': req.params.horoscopeID }).then(data => {
 
             if (data != null) {
                 res.status(200).json(data);
@@ -78,7 +78,7 @@ const update = async (req, res) => {
 //remove a horoscopeCombo
 const remove = async (req, res) => {
     //TODO
-    horoscopeCombo.findOneAndDelete({ '_id': req.params.horoscopeID }).then(data => {
+    horoscopeModel.findOneAndDelete({ '_id': req.params.horoscopeID }).then(data => {
         if (data != null) {
             res.status(200).send(data);
         } else {
@@ -95,8 +95,8 @@ const remove = async (req, res) => {
 //list a horoscopeCombo
 const list = async (req, res) => {
     //TODO
-
-    horoscopeCombo.find().sort().then(data => {
+    console.log(horoscopeModel);
+    horoscopeModel.find().sort().then(data => {
         res.status(200).json(data);
     }).catch(err => {
         res.status(500).send({
