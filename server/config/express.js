@@ -3,7 +3,7 @@
     var morgan = require('morgan');
     var express = require('express');
     var mongoose = require('mongoose');
-    var userRouter = require('../routes/userRoutes.js');
+    var horoscopeRouter = require('../routes/horoscopeRoutes.js');
     var personRouter = require('../routes/personalInformationRouter.js');
     var uri = require('./config.js');
 
@@ -26,7 +26,7 @@ module.exports.init = () => {
         app.use(bodyParser.json());
 
         // add a router
-        app.use('/api/horoscopeInfo', userRouter);
+        app.use('/api/', horoscopeRouter);
 
         // add CORS Headers
         app.use(function(req, res, next) {
