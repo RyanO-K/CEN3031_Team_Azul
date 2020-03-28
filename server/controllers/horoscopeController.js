@@ -1,5 +1,6 @@
 //horoscopeModel is the object we will create when making a new entry
 var horoscopeModel = require('../models/horoscopeSchema.js');
+var cors = require('cors');
 
 //create a horoscope combo
 const create = async (req, res) => {
@@ -121,11 +122,24 @@ const list = async (req, res) => {
     });
 };
 
+const options = async (req, res) => {
+
+    var corsOptions = {
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 204
+      }
+    res.header('Access-Control-Allow-Origin', '*');
+
+}
+
 module.exports = {
     list,
     remove,
     update,
     read,
     create,
+    options
 };
 

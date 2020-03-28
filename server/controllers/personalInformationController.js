@@ -106,10 +106,23 @@ const list = async (req, res) => {
     });
 };
 
+const options = async (req, res) => {
+
+    var corsOptions = {
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 204
+      }
+    res.header('Access-Control-Allow-Origin', '*');
+
+}
+
 module.exports = {
     list,
     remove,
     update,
     read,
     create,
+    options
 };

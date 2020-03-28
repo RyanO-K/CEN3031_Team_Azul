@@ -31,5 +31,7 @@ const App = () => {
 }
 axiosPath.makeGetRequest('horoscopeInfo/');
 axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
+axiosPath.makeCreateRequest('horoscopeInfo/5e5842db3979b444104c1bba');
+axiosPath.makeUpdateRequest('horoscopeInfo/5e5842db3979b444104c1bba');
 
 export default App;
