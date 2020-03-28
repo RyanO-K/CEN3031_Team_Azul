@@ -7,8 +7,8 @@ import SignUp from "./views/SignUp/SignUp";
 import SignUp2 from "./views/SignUp/SignUp2";
 import Admin from "./views/Admin/Admin"
 import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
-import requestGet from '../src/requestDB';
 import User from "./views/SignUp/User";
+import axiosPath from './axiosRequests';
 
 const App = () => {
   return (
@@ -29,5 +29,7 @@ const App = () => {
     </div>
   );
 }
-//requestGet('5e5842db3979b444104c1bba');
+axiosPath.makeGetRequest('horoscopeInfo/');
+axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
+
 export default App;
