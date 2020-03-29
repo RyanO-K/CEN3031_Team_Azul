@@ -4,6 +4,8 @@
     var express = require('express');
     var mongoose = require('mongoose');
     var horoscopeRouter = require('../routes/horoscopeRoutes.js');
+    var horoscopeSchema = require('../models/horoscopeSchema.js');
+    var personalSchema = require('../models/personalInformationSchema.js');
     var uri = require('./config.js');
     var cors = require('cors');
 
@@ -12,7 +14,12 @@ module.exports.init = () => {
             connect to database
             - reference README for db uri
         */
-        mongoose.connect(String(uri.test_db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
+        const horoscopeConnection = mongoose.createConnection(String(uri.db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
+        const horoscopeModel = horoscopeConnection.model('Horoscope');
+
+        const personalConnection = mongoose.createConnection(String(uri.test_db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
+        const personalModel = horoscopeConnection.model('Person');
+
         mongoose.set('useCreateIndex', true);
         mongoose.set('useFindAndModify', false);
 

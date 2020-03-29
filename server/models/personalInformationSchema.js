@@ -14,4 +14,4 @@ const personalInformationData = new mongoose.Schema({
 
 
 var personalInformationSchema = mongoose.model('Person', personalInformationData);
-module.exports = personalInformationSchema;
+module.exports = personalInformationData;
