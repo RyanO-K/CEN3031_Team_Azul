@@ -1,4 +1,4 @@
-const writeJsonFile = require('write-json-file');
+
 
 var UserProfile = (function() {
     var full_name = "";
