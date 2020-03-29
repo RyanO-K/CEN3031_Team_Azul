@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button'
 import './SignUp.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
-import UserProfile from './UserState';
 
 
 const ColorButton = withStyles(theme => ({
@@ -36,9 +35,7 @@ function SignUp() {
         dob: '',
         email: '',
         password: '',
-        tob: ''
     });
-    console.log(UserProfile.getLocalStorageisLoggedIn());
 
     const [problem, setProblem] = useState({
         nameP:false,
@@ -46,8 +43,7 @@ function SignUp() {
         dobP: false,
         emailP: false,
         emailAt: false,
-        password: false,
-        tobP: false
+        password: false
     });
 
     useEffect(() => {
@@ -117,10 +113,6 @@ function SignUp() {
             bool=true;
             console.log("pword err");
         }
-        if(newUser.tob.length===0){
-            problem.tobP=true;
-            bool=true;
-        }
         let err="";
 
         if(bool){
@@ -128,10 +120,9 @@ function SignUp() {
                 err+="No name given\n";
                 problem.nameP=false;
             }   
-            if(problem.emailAt){
+            if(problem.emailAt && !problem.emailP){
                 err+="Invalid email given\n";
                 problem.emailAt=false;
-
             }
             if(problem.emailP){
                 err+="No email given\n";
@@ -147,47 +138,19 @@ function SignUp() {
             if(problem.dobP){
                 err+="No date of birth given\n";
                 problem.dobP=false;
-
             }
 
             if(problem.passwordP){
                 err+="No password given\n";
                 problem.passwordP=false;
             }
-            if(problem.tobP){
-                err+="No time of birth given\n";
-
-            }
-            console.log(UserProfile.getLocalStorageisLoggedIn());
-            if(err==="" && UserProfile.getLocalStorageisLoggedIn())
-                err+="You are already logged in with email "+UserProfile.getEmail();
             alert(err);
             
                     }
 
-
-
-                    else{
-                        console.log("move n");
-                        UserProfile.loggingInWithoutGoogle();
-                        UserProfile.setName(newUser.name);
-                        UserProfile.setEmail(newUser.email);
-                        UserProfile.setBirthday(newUser.dob);
-                        UserProfile.setBirthplace(newUser.pob);
-                        UserProfile.setBirthTime(newUser.tob);
-                        UserProfile.setLocalStorageBTime();
-                        UserProfile.setLocalStorageBDay();
-                        UserProfile.setLocalStorageBPlace();
-                        UserProfile.setLocalStorageEmail();
-                        UserProfile.setLocalStorageName();
-                        UserProfile.setLocalStorageisLoggedIn();
-                        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-                        console.log(destination);
-                    }
-
     }
     const func=(a)=>{
-        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
+        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -197,15 +160,12 @@ function SignUp() {
             dob: a,
             email:newUser.email,
             password:newUser.password,
-            tob:newUser.tob
         }
-        if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
         setNewUser(user);
         };
     
         const func2=(b)=>{
-            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
+            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -214,16 +174,13 @@ function SignUp() {
                 pob: b,
                 dob: newUser.dob,
                 email:newUser.email,
-                password:newUser.password, 
-                tob:newUser.tob
+                password:newUser.password
             }
-            if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
             setNewUser(user);
             };
 
             const func3=(c)=>{
-                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0)
+                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -232,16 +189,13 @@ function SignUp() {
                     pob: newUser.pob,
                     dob: newUser.dob,
                     email:newUser.email,
-                    password:c,
-                    tob:newUser.tob
+                    password:c
                 }
-                if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
                 setNewUser(user);
                 };
 
                 const func4=(de)=>{
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
+                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -250,16 +204,13 @@ function SignUp() {
                         pob: newUser.pob,
                         dob: newUser.dob,
                         email:de,
-                        password:newUser.password,
-                        tob:newUser.tob
+                        password:newUser.password
                     }
-                    if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
                     setNewUser(user);
                     };
 
                     const func5=(e)=>{
-                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
+                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -268,34 +219,10 @@ function SignUp() {
                             pob: newUser.pob,
                             dob: newUser.dob,
                             email:newUser.email,
-                            password:newUser.password,
-                            tob:newUser.tob
+                            password:newUser.password
                         }
-                        if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
                         setNewUser(user);
                         };
-
-
-
-
-                        const func6=(efg)=>{
-                            if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0)
-                d('/User');
-            else
-                d('/SignUp');
-                            const user={
-                                name:newUser.name,
-                                pob: newUser.pob,
-                                dob: newUser.dob,
-                                email:newUser.email,
-                                password:newUser.password,
-                                tob:efg
-                            }
-                            if(UserProfile.getLocalStorageisLoggedIn()===true)
-                d('/SignUp');
-                            setNewUser(user);
-                            };
 
     const classes = useStyles();
 
@@ -328,9 +255,6 @@ function SignUp() {
                     </div>
                     <div>
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
-                    </div>     
-                    <div>
-                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>               
                     <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:newUser}}> Submit</ColorButton>
@@ -339,15 +263,6 @@ function SignUp() {
                 <div>
                 <SignUpWithGoogle></SignUpWithGoogle>
                 </div>
-
-                <p>
-                    <br></br><br></br>
-                    Already a User?
-                </p>
-                <div>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Login',state:newUser}}> Go Login Now</ColorButton>
-                        </div>
-                
             </header>
         </div>
     );
