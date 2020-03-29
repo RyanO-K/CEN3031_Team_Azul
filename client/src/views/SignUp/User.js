@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 }));
 function User(){
     console.log(UserProfile.getLocalStorageName());
+    const [st, newStat]=useState(0);
     const [newUser, setNewUser] = useState({
         name: UserProfile.getLocalStorageName(),
         pob: UserProfile.getLocalStorageBPlace(),
@@ -40,11 +41,11 @@ function User(){
     });
     //if(newUser.name!==null && newUser.name.length===0)
       //  window.location.reload();
-    
+      console.log(st);
     const classes = useStyles();
 
 
-    function handle(){
+  function handle(){
         console.log("Hi");
         UserProfile.setEmail('');
         UserProfile.setName('');
@@ -59,6 +60,8 @@ function User(){
             b:true
             };
             setNewUser(a);
+            newStat(3);
+            setTimeout(3000);
         UserProfile.setLocalStorageBDay();
         UserProfile.setLocalStorageBPlace();
         UserProfile.setLocalStorageEmail();
@@ -66,15 +69,17 @@ function User(){
         UserProfile.setLocalStorageisLoggedIn();
         UserProfile.setLocalStorageisLoggedInWithGoogle();
         UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+        newStat(2);
 
-        let q={
-        name: '',
-        pob: '',
-        dob: '',
-        email: '',
-        b:true
-        };
-        setNewUser(q);
+        let r={
+            name: '',
+            pob: '',
+            dob: '',
+            email: '',
+            b:true
+            };
+            setNewUser(r);
+            console.log(UserProfile.getLocalStorageisLoggedIn())
 
     }
     console.log(newUser.name);
