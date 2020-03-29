@@ -36,6 +36,7 @@ function SignUp() {
         dob: '',
         email: '',
         password: '',
+        tob: ''
     });
     console.log(UserProfile.getLocalStorageisLoggedIn());
 
@@ -46,6 +47,7 @@ function SignUp() {
         emailP: false,
         emailAt: false,
         password: false,
+        tobP: false
     });
 
     useEffect(() => {
@@ -115,6 +117,10 @@ function SignUp() {
             bool=true;
             console.log("pword err");
         }
+        if(newUser.tob.length===0){
+            problem.tobP=true;
+            bool=true;
+        }
         let err="";
 
         if(bool){
@@ -125,6 +131,7 @@ function SignUp() {
             if(problem.emailAt){
                 err+="Invalid email given\n";
                 problem.emailAt=false;
+
             }
             if(problem.emailP){
                 err+="No email given\n";
@@ -140,11 +147,16 @@ function SignUp() {
             if(problem.dobP){
                 err+="No date of birth given\n";
                 problem.dobP=false;
+
             }
 
             if(problem.passwordP){
                 err+="No password given\n";
                 problem.passwordP=false;
+            }
+            if(problem.tobP){
+                err+="No time of birth given\n";
+
             }
             console.log(UserProfile.getLocalStorageisLoggedIn());
             if(err==="" && UserProfile.getLocalStorageisLoggedIn())
@@ -162,6 +174,8 @@ function SignUp() {
                         UserProfile.setEmail(newUser.email);
                         UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthplace(newUser.pob);
+                        UserProfile.setBirthTime(newUser.tob);
+                        UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageBDay();
                         UserProfile.setLocalStorageBPlace();
                         UserProfile.setLocalStorageEmail();
@@ -173,7 +187,7 @@ function SignUp() {
 
     }
     const func=(a)=>{
-        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
+        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -183,6 +197,7 @@ function SignUp() {
             dob: a,
             email:newUser.email,
             password:newUser.password,
+            tob:newUser.tob
         }
         if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/SignUp');
@@ -190,7 +205,7 @@ function SignUp() {
         };
     
         const func2=(b)=>{
-            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
+            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -199,7 +214,8 @@ function SignUp() {
                 pob: b,
                 dob: newUser.dob,
                 email:newUser.email,
-                password:newUser.password
+                password:newUser.password, 
+                tob:newUser.tob
             }
             if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/SignUp');
@@ -207,7 +223,7 @@ function SignUp() {
             };
 
             const func3=(c)=>{
-                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0)
+                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -216,7 +232,8 @@ function SignUp() {
                     pob: newUser.pob,
                     dob: newUser.dob,
                     email:newUser.email,
-                    password:c
+                    password:c,
+                    tob:newUser.tob
                 }
                 if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/SignUp');
@@ -224,7 +241,7 @@ function SignUp() {
                 };
 
                 const func4=(de)=>{
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0)
+                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -233,7 +250,8 @@ function SignUp() {
                         pob: newUser.pob,
                         dob: newUser.dob,
                         email:de,
-                        password:newUser.password
+                        password:newUser.password,
+                        tob:newUser.tob
                     }
                     if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/SignUp');
@@ -241,7 +259,7 @@ function SignUp() {
                     };
 
                     const func5=(e)=>{
-                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
+                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0)
             d('/User');
         else
             d('/SignUp');
@@ -250,12 +268,34 @@ function SignUp() {
                             pob: newUser.pob,
                             dob: newUser.dob,
                             email:newUser.email,
-                            password:newUser.password
+                            password:newUser.password,
+                            tob:newUser.tob
                         }
                         if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/SignUp');
                         setNewUser(user);
                         };
+
+
+
+
+                        const func6=(efg)=>{
+                            if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0)
+                d('/User');
+            else
+                d('/SignUp');
+                            const user={
+                                name:newUser.name,
+                                pob: newUser.pob,
+                                dob: newUser.dob,
+                                email:newUser.email,
+                                password:newUser.password,
+                                tob:efg
+                            }
+                            if(UserProfile.getLocalStorageisLoggedIn()===true)
+                d('/SignUp');
+                            setNewUser(user);
+                            };
 
     const classes = useStyles();
 
@@ -288,6 +328,9 @@ function SignUp() {
                     </div>
                     <div>
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
+                    </div>     
+                    <div>
+                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>               
                     <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:newUser}}> Submit</ColorButton>
