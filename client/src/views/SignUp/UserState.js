@@ -8,6 +8,7 @@ var UserProfile = (function() {
     var birthday="";
     var birthplace="";
     var loggedInWithoutGoogle="";
+    var birthtime="";
 
     var getName = function() {
       return full_name;    // Or pull this from cookie/localStorage
@@ -103,6 +104,21 @@ var UserProfile = (function() {
             }
 
 
+        var setLocalStorageBTime=()=>{
+            sessionStorage.setItem('stufferslol', birthtime);
+           }
+           
+            var getLocalStorageBTime=()=>{
+                return sessionStorage.getItem('stufferslol');
+            }
+
+            var setBirthTime=(btime)=>{
+                birthtime=btime;
+            }
+            var getBirthTime=()=>{
+                return birthtime;
+            }
+
 
       var loggingInWithGoogle=function(){
           loggedInWithGoogle=true;
@@ -178,7 +194,11 @@ var UserProfile = (function() {
       getLocalStorageisLoggedInWithoutGoogle:getLocalStorageisLoggedInWithoutGoogle,
       setLocalStorageisLoggedInWithoutGoogle:setLocalStorageisLoggedInWithoutGoogle,
       getLocalStorageEmail: getLocalStorageEmail,
-      setLocalStorageEmail:setLocalStorageEmail
+      setLocalStorageEmail:setLocalStorageEmail,
+      getBirthTime:getBirthTime,
+      setBirthTime: setBirthTime,
+      getLocalStorageBTime:getLocalStorageBTime,
+      setLocalStorageBTime:setLocalStorageBTime
     }
   
   })();
