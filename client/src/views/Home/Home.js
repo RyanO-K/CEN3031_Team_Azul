@@ -51,8 +51,6 @@ function Home() {
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/SignUp'> Sign Up </ColorButton>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/LogIn'> Log In</ColorButton>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Admin'> Admin</ColorButton>
-
-                    <LoginWithGoogle></LoginWithGoogle>
                 </div>
             </header>
         </div>
