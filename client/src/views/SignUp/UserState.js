@@ -107,16 +107,19 @@ var UserProfile = (function() {
       var loggingInWithGoogle=function(){
           loggedInWithGoogle=true;
           loggedIn=true;
+          loggedInWithoutGoogle=false;
       }
       var loggingInWithoutGoogle=function(){
           loggedIn=true;
           loggedInWithGoogle=false;
+          loggedInWithoutGoogle=true;
       }
       var loggingOut=function(){
           full_email="";
           full_name="";
           loggedIn=false;
           loggedInWithGoogle=false;
+          loggedInWithoutGoogle=false;
           birthday="";
           birthplace="";
       }
