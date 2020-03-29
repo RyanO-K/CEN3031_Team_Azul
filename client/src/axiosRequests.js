@@ -20,18 +20,19 @@ async makeDeleteRequest(url) {
   
 },
 
-async makeUpdateRequest(url) {
+
+async makeUpdateRequest(url, bodyInfo) {
   
-  let res = await axios.put('http://localhost:5000/api/' + url).then(function (response){
+  let res = await axios.put('http://localhost:5000/api/' + url,bodyInfo).then(function (response){
     console.log(response.data);
     return response.data;
   });
   
 },
-
-async makeCreateRequest(url) {
+//unstable
+async makeCreateRequest(url, bodyInfo) {
   
-  let res = await axios.post('http://localhost:5000/api/' + url).then(function (response){
+  let res = await axios.post('http://localhost:5000/api/' + url,bodyInfo).then(function (response){
     console.log(response.data);
     return response.data;
   });

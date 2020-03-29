@@ -1,11 +1,11 @@
-//horoscopeCombo is the object we will create when making a new entry
+//horoscopeModel is the object we will create when making a new entry
 var horoscopeModel = require('../models/horoscopeSchema.js');
+var cors = require('cors');
 
 //create a horoscope combo
 const create = async (req, res) => {
     const horoscope = new horoscopeModel(req.body);
-
-
+    
     horoscope.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(horoscope);
@@ -15,11 +15,12 @@ const create = async (req, res) => {
             res.status(409).send({
                 message: err.message || "Duplication error"
             });
+        }else{
+            res.header('Access-Control-Allow-Origin', '*');
+            res.status(500).send({
+                message: err.message || "Error on create"
+            });
         }
-        res.header('Access-Control-Allow-Origin', '*');
-        res.status(500).send({
-            message: err.message || "Error on create"
-        });
     });
 
 };
@@ -27,7 +28,7 @@ const create = async (req, res) => {
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
-    v.findOne({ '_id': req.params.horoscopeID}).then(data =>{
+    horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data =>{
         if(data!=null){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(200).json(data);
@@ -49,21 +50,25 @@ const read = async (req, res) => {
 //update a horoscope listing
 const update = async (req, res) => {
   const horoscope = new horoscopeModel(req.body);
-  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,{
-                                            _id:horoscope._id,
-                                            house:horoscope.house,
-                                            sign: horoscope.sign,
-                                            moonphase:horoscope.moonphase,
-                                            description:horoscope.description
 
-                                            }).then(data =>{
+  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
+                {
+                    house:req.body.house || house,
+                    sign: req.body.sign || sign,
+                    moonphase:req.body.moonphase || moonphase,
+                    description:req.body.description || ""
+
+                }
+                                            
+                ).then(data =>{
         
-    horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data=>{
+            horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data=>{
             
             if(data!=null){
                 res.header('Access-Control-Allow-Origin', '*');
                 res.status(200).json(data);
             }else{
+                console.log('Doc is lost');
                 res.header('Access-Control-Allow-Origin', '*');
                 res.status(404).send({error: 'Doc updated, but lost ' + req.params.horoscopeID});
             }
@@ -108,7 +113,6 @@ const list = async (req, res) => {
     //TODO
     console.log('listing')
     horoscopeModel.find().sort().then(data =>{
-        console.log('returning');
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json(data);
     }).catch(err => {
@@ -121,11 +125,24 @@ const list = async (req, res) => {
     });
 };
 
+const options = async (req, res) => {
+    console.log('options')
+    var corsOptions = {
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 204
+      }
+    res.header('Access-Control-Allow-Origin', '*');
+
+}
+
 module.exports = {
     list,
     remove,
     update,
     read,
     create,
+    options
 };
 

@@ -3,9 +3,9 @@
     var morgan = require('morgan');
     var express = require('express');
     var mongoose = require('mongoose');
-    var userRouter = require('../routes/userRoutes.js');
-    var personRouter = require('../routes/personalInformationRouter.js');
+    var horoscopeRouter = require('../routes/horoscopeRoutes.js');
     var uri = require('./config.js');
+    var cors = require('cors');
 
 module.exports.init = () => {
         /* 
@@ -18,7 +18,12 @@ module.exports.init = () => {
 
         // initialize app
         const app = express();
+        const corsOptions = {
+            origin: true,
+            credentials: true
+          }
 
+          app.options('*', cors(corsOptions));
         // enable request logging for development debugging
         app.use(morgan('dev'));
 
@@ -26,7 +31,7 @@ module.exports.init = () => {
         app.use(bodyParser.json());
 
         // add a router
-        app.use('/api', userRouter);
+        app.use('/api/', horoscopeRouter);
 
         // add CORS Headers
         app.use(function(req, res, next) {
