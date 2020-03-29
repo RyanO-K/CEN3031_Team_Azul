@@ -29,6 +29,16 @@ const App = () => {
     </div>
   );
 }
-axiosPath.makeGetRequest('horoscopeInfo/');
+
+//example to get and have it run async
+const log = async () => {
+  console.log('calling');
+  const result = await axiosPath.makeGetRequest('horoscopeInfo/');
+  console.log(result);
+};
+
+log.apply();
+
+
 
 export default App;

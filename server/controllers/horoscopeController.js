@@ -27,19 +27,18 @@ const create = async (req, res) => {
 
 //show a horoscope listing
 const read = async (req, res) => {
-    //TODO
-    horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data =>{
+    horoscopeModel.findOne({ 'house': req.query.house, 'moonphase':req.query.moonphase,'sign':req.query.sign}).then(data =>{
         if(data!=null){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(200).json(data);
         }else{
             res.header('Access-Control-Allow-Origin', '*');
-            res.status(404).send({error: 'Doc not found: ' + req.params.horoscopeID});
+            res.status(404).send({error: 'Doc not found: ' + req.body.house + " " + req.body.moonphase});
         }
     }).catch(err => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
-            message: err.message || "Read failed: " + req.params.horoscopeID
+            message: err.message || "Read failed: " + req.body.house + " " + req.body.moonphase
         })
     });
 
