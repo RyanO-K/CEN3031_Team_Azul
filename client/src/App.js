@@ -31,30 +31,24 @@ const App = () => {
 }
 
 //Axios Testing Area
-
+/*axiosPath.makeGetRequest('horoscopeInfo/');
 
 async function makeGetRequest() {
-
-/*
-axiosPath.makeCreateRequest('horoscopeInfo/', {
+await axiosPath.makeCreateRequest('horoscopeInfo/', {
+  _id: "5e5842db3979b444104c1bba",
   house: "Ryan",
   sign: "idk",
   moonphase: "full"
 });
-*/
-
-/*
 await axiosPath.makeUpdateRequest('horoscopeInfo/5e5842db3979b444104c1bba',{
   house: "Mike",
   sign: "changed it",
   moonphase: "again.",
   description:"Hype!"
 });
-*/
+await axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
 
-//await axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
-//axiosPath.makeGetRequest('horoscopeInfo/');
 }
-//makeGetRequest();
-
+makeGetRequest();
+*/
 export default App;
