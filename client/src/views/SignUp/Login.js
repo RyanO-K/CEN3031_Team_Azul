@@ -78,7 +78,7 @@ function Login(){
             console.log("email1 err");
         }
 
-        if(newUser.email.indexOf("@")===-1){
+        if(newUser.email!=='admin' && newUser.email.indexOf("@")===-1){
             problem.emailAt=true;
             bool=true;
             console.log("email2 err");
@@ -142,8 +142,10 @@ function Login(){
     
 
             const func3=(c)=>{ 
+                if(c==='admin' && newUser.email==='admin')
+                    d('/Admin');
                 //change this line to check if valid username and password instead
-                if(newUser.email.indexOf("@")>-1&& c.length>0)
+                else if(newUser.email.indexOf("@")>-1&& c.length>0)
             d('/User');
         else
             d('/Login');
@@ -157,8 +159,10 @@ function Login(){
                 };
 
                 const func4=(de)=>{
+                    if(de==='admin' && newUser.email==='admin')
+                        d('/Admin');
                     //change this line to check if valid username and password instead
-                    if(de.indexOf("@")>-1&& newUser.password.length>0)
+                    else if(de.indexOf("@")>-1&& newUser.password.length>0)
             d('/User');
         else
             d('/Login');
