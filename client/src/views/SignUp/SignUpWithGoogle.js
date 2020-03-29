@@ -17,12 +17,7 @@ class LoginWithGoogle extends Component {
     if(UserProfile.getLocalStorageisLoggedIn())
         alert("you are already logged in with email " +UserProfile.getEmail()+".  Please log out if you would like to login with another account.");
     else{
-    UserProfile.setName(response.profileObj.name);
-    UserProfile.setEmail(response.profileObj.email);
-    UserProfile.loggingInWithGoogle();
-    UserProfile.setLocalStorageEmail();
-    UserProfile.setLocalStorageisLoggedInWithGoogle();
-    UserProfile.setLocalStorageName();
+
     this.setState({name:response.profileObj.name, email:response.profileObj.email, pob:'', dob:'', loggedIn:true})
     
     console.log(this.state.name);
@@ -32,7 +27,7 @@ class LoginWithGoogle extends Component {
 
     render() {
         if (this.state.loggedIn) {
-            return( <Redirect to={{pathname:'/SignUp2', 
+            return( <Redirect to={{pathname:'/SignUp2', state:{name:this.state.name, email:this.state.email}
             }}/>
             );
           }
