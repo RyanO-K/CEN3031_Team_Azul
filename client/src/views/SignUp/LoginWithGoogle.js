@@ -4,7 +4,6 @@ import config from './config.json';
 import UserProfile from './UserState.js';
 import {Redirect} from 'react-router-dom';
 
-const writeJsonFile = require('write-json-file');
 class LoginWithGoogle extends Component {
     //be able to also store the birthday and birthplace as states, but this relies on the axios
 
