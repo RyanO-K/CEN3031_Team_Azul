@@ -37,6 +37,7 @@ function User(){
         pob: UserProfile.getLocalStorageBPlace(),
         dob: UserProfile.getLocalStorageBDay(),
         email: UserProfile.getLocalStorageEmail(),
+        tob: UserProfile.getLocalStorageBTime(),
         b:false
     });
     //if(newUser.name!==null && newUser.name.length===0)
@@ -52,16 +53,19 @@ function User(){
         UserProfile.loggingOut();
         UserProfile.setBirthday('');
         UserProfile.setBirthplace('');
+        UserProfile.setBirthTime('');
         let a={
             name: '',
             pob: '',
             dob: '',
             email: '',
+            tob:'',
             b:true
             };
             setNewUser(a);
             newStat(3);
             setTimeout(3000);
+        UserProfile.setLocalStorageBTime();
         UserProfile.setLocalStorageBDay();
         UserProfile.setLocalStorageBPlace();
         UserProfile.setLocalStorageEmail();
@@ -76,6 +80,7 @@ function User(){
             pob: '',
             dob: '',
             email: '',
+            tob:'',
             b:true
             };
             setNewUser(r);
@@ -97,6 +102,7 @@ function User(){
         {newUser.email}<br></br>
         {newUser.dob}<br></br>
         {newUser.pob}<br></br>
+        {newUser.tob}<br></br>
         <br></br>
         <div>
 
@@ -118,6 +124,7 @@ function User(){
                         {newUser.email}<br></br>
                         {newUser.dob}<br></br>
                         {newUser.pob}<br></br>
+                        {newUser.tob}<br></br>
                         <br></br>
                         <div>
                         <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
