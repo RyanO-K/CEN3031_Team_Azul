@@ -118,7 +118,7 @@ return(
                     <GoogleLogin
                         theme="dark"
 
-                        isSignedIn={this.li}
+                       // isSignedIn={this.li}
                         clientId={config.GOOGLE_CLIENT_ID}
                         buttonText="Login"
                         onSuccess={this.googleResponse}
@@ -126,7 +126,7 @@ return(
                         disabled={this.state.loggedIn}
                        
                        // cookiePolicy={document.cookie = 'same-site-cookie=http://localhost:3000; SameSite=Lax'}
-                       cookiePolicy={"http://localhost:3000"}
+                     //  cookiePolicy={"http://localhost:3000"}
                     />
                     
                   
