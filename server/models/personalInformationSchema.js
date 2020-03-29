@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 
 
@@ -14,4 +15,4 @@ const personalInformationData = new mongoose.Schema({
 
 
 var personalInformationSchema = mongoose.model('Person', personalInformationData);
-module.exports = personalInformationData;
+module.exports = personalInformationSchema;

@@ -1,63 +1,55 @@
-    var path = require('path');
-    var bodyParser = require('body-parser');
-    var morgan = require('morgan');
-    var express = require('express');
-    var mongoose = require('mongoose');
-    var horoscopeRouter = require('../routes/horoscopeRoutes.js');
-    var horoscopeSchema = require('../models/horoscopeSchema.js');
-    var personalSchema = require('../models/personalInformationSchema.js');
-    var uri = require('./config.js');
-    var cors = require('cors');
+var path = require('path');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var express = require('express');
+var mongoose = require('mongoose');
+var horoscopeRouter = require('../routes/horoscopeRoutes.js');
+var uri = require('./config.js');
+var cors = require('cors');
 
 module.exports.init = () => {
-        /* 
-            connect to database
-            - reference README for db uri
-        */
-        const horoscopeConnection = mongoose.createConnection(String(uri.db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
-        const horoscopeModel = horoscopeConnection.model('Horoscope');
+    /* 
+        connect to database
+        - reference README for db uri
+    */
+    mongoose.connect(String(uri.test_db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
+    mongoose.set('useCreateIndex', true);
+    mongoose.set('useFindAndModify', false);
 
-        const personalConnection = mongoose.createConnection(String(uri.test_db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
-        const personalModel = horoscopeConnection.model('Person');
+    // initialize app
+    const app = express();
+    const corsOptions = {
+        origin: true,
+        credentials: true
+      }
 
-        mongoose.set('useCreateIndex', true);
-        mongoose.set('useFindAndModify', false);
+      app.options('*', cors(corsOptions));
+    // enable request logging for development debugging
+    app.use(morgan('dev'));
 
-        // initialize app
-        const app = express();
-        const corsOptions = {
-            origin: true,
-            credentials: true
-          }
+    // body parsing middleware
+    app.use(bodyParser.json());
 
-          app.options('*', cors(corsOptions));
-        // enable request logging for development debugging
-        app.use(morgan('dev'));
+    // add a router
+    app.use('/api/', horoscopeRouter);
 
-        // body parsing middleware
-        app.use(bodyParser.json());
+    // add CORS Headers
+    app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
 
-        // add a router
-        app.use('/api/', horoscopeRouter);
 
-        // add CORS Headers
-        app.use(function(req, res, next) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        next();
-      });
-  
- 
-        if (process.env.NODE_ENV === 'production') {
-            // Serve any static files
-            app.use(express.static(path.join(__dirname, '../../client/build')));
+    if (process.env.NODE_ENV === 'production') {
+        // Serve any static files
+        app.use(express.static(path.join(__dirname, '../../client/build')));
 
-            // Handle React routing, return all requests to React app
-            app.get('*', function(req, res) {
-                res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
-            });
-            }
+        // Handle React routing, return all requests to React app
+        app.get('*', function(req, res) {
+            res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+        });
+        }
 
-        return app
-    }
-
+    return app
+}

@@ -12,4 +12,4 @@ const horoscopeData = new mongoose.Schema({
 
 
 const horoscopeModel = mongoose.model('Horoscope', horoscopeData);
-module.exports = horoscopeData;
+module.exports = horoscopeModel;

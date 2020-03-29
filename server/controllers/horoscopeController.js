@@ -5,7 +5,7 @@ var cors = require('cors');
 //create a horoscope combo
 const create = async (req, res) => {
     const horoscope = new horoscopeModel(req.body);
-    console.log('attempting to create');
+    
     horoscope.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(horoscope);
@@ -15,11 +15,12 @@ const create = async (req, res) => {
             res.status(409).send({
                 message: err.message || "Duplication error"
             });
+        }else{
+            res.header('Access-Control-Allow-Origin', '*');
+            res.status(500).send({
+                message: err.message || "Error on create"
+            });
         }
-        res.header('Access-Control-Allow-Origin', '*');
-        res.status(500).send({
-            message: err.message || "Error on create"
-        });
     });
 
 };
@@ -53,7 +54,6 @@ const update = async (req, res) => {
 
   horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
                 {
-                    _id:req.params.horoscopeID || _id,
                     house:req.body.house || house,
                     sign: req.body.sign || sign,
                     moonphase:req.body.moonphase || moonphase,
@@ -146,4 +146,3 @@ module.exports = {
     create,
     options
 };
-
