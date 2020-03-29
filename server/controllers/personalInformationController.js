@@ -91,11 +91,14 @@ const remove = async (req, res) => {
     //TODO
     personalInformationCombo.findOneAndDelete({ '_id': req.params.Email}).then(data =>{
         if(data != null){
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(200).send(data);
         }else{
+            res.header('Access-Control-Allow-Origin', '*');
              res.status(404).send({error: 'Doc not found: '+req.params.Email});
         }
     }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
             message: err.message|| "Remove failed: " + req.params.Email
 
@@ -108,9 +111,12 @@ const list = async (req, res) => {
     //TODO
 
     personalInformationCombo.find().sort().then(data =>{
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json(data);
     }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
+            
             message: err.message||"List failed"
         });
     });
