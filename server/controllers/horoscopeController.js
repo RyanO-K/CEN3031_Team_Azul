@@ -54,10 +54,10 @@ const update = async (req, res) => {
 
   horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
                 {
-                    house:req.body.house || house,
+                    house:req.body.house || house || "",
                     sign: req.body.sign || sign,
                     moonphase:req.body.moonphase || moonphase,
-                    description:req.body.description || ""
+                    description:req.body.description || description || ""
 
                 }
                                             

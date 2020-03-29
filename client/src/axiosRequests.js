@@ -1,4 +1,12 @@
 import axios from 'axios'
+/*
+Give bodyInfo in the format of schema if creating or updating, otherwise just pass in the ID of the entry you want to delete.
+personal/:Email for User info or horoscopeInfo/:ID for horoscope info
+dont include an email or ID if you want to get all or are creating a entry
+*/
+
+
+
 
 let axoisRequests = {
 
@@ -21,32 +29,15 @@ async makeDeleteRequest(url) {
 },
 
 //neds to accept a horoscopeSchema as its Body
-async makeUpdateRequest(url) {
+async makeUpdateRequest(url, bodyInfo) {
   
-  let res = await axios.put('http://localhost:5000/api/' + url,
-  {
-    house: "Mike",
-    sign: "changed it",
-    moonphase: "again"
-  }).then(function (response){
-    console.log(response.data);
-    return response.data;
-  });
+  let res = await axios.put('http://localhost:5000/api/' + url,bodyInfo);
   
 },
 //unstable
-async makeCreateRequest(url) {
+async makeCreateRequest(url, bodyInfo) {
   
-  let res = await axios.post('http://localhost:5000/api/' + url,
-  {
-    _id: "5e5842db3979b444104c1bba",
-    house: "Ryan",
-    sign: "idk",
-    moonphase: "full"
-  }).then(function (response){
-    console.log(response.data);
-    return response.data;
-  });
+  let res = await axios.post('http://localhost:5000/api/' + url,bodyInfo);
   
 }
 

@@ -24,7 +24,7 @@ const create = async (req, res) => {
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
-    personalInformationCombo.findOne({ '_id': req.params.Email}).then(data =>{
+    personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data =>{
         if(data!=null){
             res.status(200).json(data);
         }else{
@@ -42,16 +42,15 @@ const read = async (req, res) => {
 
 //update a horoscope listing
 const update = async (req, res) => {
-    //TODO
+    //TODO: Birthday is currently uneditable
 
     const person = new personalInformationCombo(req.body);
-    personalInformationCombo.findByIdAndUpdate(req.params.Email,{
-                                            Name:req.params.Name,
-                                            Birthday:req.params.Birthday,
-                                            Sign:req.params.Sign,
-                                            LocationOfBirth:req.params.LocationOfBirth,
-                                            Email:req.params.Email,
-                                            Password:req.params.Password
+    personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
+                                            Name:req.body.Name || Name,
+                                            Sign:req.body.Sign || Sign,
+                                            LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
+                                            Email:req.body.Email || Email,
+                                            Password:req.body.Password || Password
 
                                             }).then(data =>{
         

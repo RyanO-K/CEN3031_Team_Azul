@@ -11,7 +11,9 @@ const personalInformationData = new mongoose.Schema({
   LocationOfBirth:{type: String,required:true},
   Email:{type:String,required:true,unique:true},
   Password:{type:String,required:true}
-});
+  },{
+    collection: 'Users'
+  });
 
 
 var personalInformationSchema = mongoose.model('Person', personalInformationData);
