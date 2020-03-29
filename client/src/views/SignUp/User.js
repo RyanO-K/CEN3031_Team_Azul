@@ -7,22 +7,71 @@ import Button from '@material-ui/core/Button'
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import SignUp2 from "./SignUp2";
+import UserProfile from './UserState';
 
-function User(props){
-    console.log(props);
+
+
+const ColorButton = withStyles(theme => ({
+    root: {
+        padding: '6px 12px',
+        border: '1px solid',
+        backgroundColor: '#E28222',
+      '&:hover': {
+        backgroundColor: '#C6721D',
+      },
+    },
+}))(Button);
+
+const useStyles = makeStyles(theme => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+}));
+function User(){
+    console.log(UserProfile.getLocalStorageName());
     const [newUser, setNewUser] = useState({
-        name: props.location.user.na.name,
-        pob: props.location.user.na.pob,
-        dob: props.location.user.na.dob,
-        email: props.location.user.na.email
+        name: UserProfile.getLocalStorageName(),
+        pob: UserProfile.getLocalStorageBPlace(),
+        dob: UserProfile.getLocalStorageBDay(),
+        email: UserProfile.getLocalStorageEmail()
     });
+    
+    const classes = useStyles();
+
+
+    function handle(){
+        UserProfile.setEmail('');
+        UserProfile.setName('');
+        UserProfile.loggingOut();
+        UserProfile.setBirthday('');
+        UserProfile.setBirthplace('');
+        UserProfile.setLocalStorageBDay();
+        UserProfile.setLocalStorageBPlace();
+        UserProfile.setLocalStorageEmail();
+        UserProfile.setLocalStorageName();
+        UserProfile.setLocalStorageisLoggedIn();
+        UserProfile.setLocalStorageisLoggedInWithGoogle();
+        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+
+        let a={
+        name: '',
+        pob: '',
+        dob: '',
+        email: ''
+        };
+        setNewUser(a);
+
+    }
     return(
   <p>
         {newUser.name}<br></br>
         {newUser.email}<br></br>
         {newUser.dob}<br></br>
         {newUser.pob}<br></br>
-
+        <br></br>
+        <div>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+                        </div>
    </p>
     );
 }
