@@ -29,26 +29,9 @@ const App = () => {
     </div>
   );
 }
+axiosPath.makeGetRequest('horoscopeInfo/');
+//axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
+//axiosPath.makeCreateRequest('horoscopeInfo/5e5842db3979b444104c1bba');
+axiosPath.makeUpdateRequest('horoscopeInfo/5e5842db3979b444104c1bba');
 
-//Axios Testing Area
-/*axiosPath.makeGetRequest('horoscopeInfo/');
-
-async function makeGetRequest() {
-await axiosPath.makeCreateRequest('horoscopeInfo/', {
-  _id: "5e5842db3979b444104c1bba",
-  house: "Ryan",
-  sign: "idk",
-  moonphase: "full"
-});
-await axiosPath.makeUpdateRequest('horoscopeInfo/5e5842db3979b444104c1bba',{
-  house: "Mike",
-  sign: "changed it",
-  moonphase: "again.",
-  description:"Hype!"
-});
-await axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
-
-}
-makeGetRequest();
-*/
 export default App;

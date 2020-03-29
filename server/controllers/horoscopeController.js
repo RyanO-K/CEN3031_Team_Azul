@@ -6,8 +6,6 @@ var cors = require('cors');
 const create = async (req, res) => {
     const horoscope = new horoscopeModel(req.body);
     console.log('attempting to create');
-
-    
     horoscope.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(horoscope);
@@ -55,6 +53,7 @@ const update = async (req, res) => {
 
   horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
                 {
+                    _id:req.params.horoscopeID || _id,
                     house:req.body.house || house,
                     sign: req.body.sign || sign,
                     moonphase:req.body.moonphase || moonphase,
