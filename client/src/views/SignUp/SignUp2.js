@@ -8,6 +8,7 @@ import './SignUp2.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import '../Home/Home.css';
+import UserProfile from './UserState';
 
 
 const ColorButton = withStyles(theme => ({
@@ -28,17 +29,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SignUp2(props) {
-    console.log(props.location.state);
+    console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
         name: props.location.state.name,
         pob: '',
         dob: '',
+        tob:'',
         email: props.location.state.email
+
     });
     const [problem, setProblem] = useState({
         pobP: false,
-        dobP: false
+        dobP: false,
+        tobP: false
     });
     const [destination,d]=useState("/SignUp2");
 
@@ -51,7 +55,8 @@ function SignUp2(props) {
             name:newUser.name,
             pob: data.pob,
             dob: data.dob,
-            email:newUser.email
+            email:newUser.email,
+            tob:newUser.tob
         }
         console.log("User"+data);
         // {...newUser,
@@ -64,7 +69,7 @@ function SignUp2(props) {
         setNewUser(user);
         e.target.reset();
         console.log(user);
-        
+
         //send it here?
     };
 
@@ -79,7 +84,7 @@ function SignUp2(props) {
            bool=true;
            console.log("dob err");
         }
-        
+
 
         if(newUser.pob.length===0){
             problem.pobP=true;
@@ -87,30 +92,57 @@ function SignUp2(props) {
             console.log("pob err");
         }
 
+        if(newUser.tob.length===0){
+            problem.tobP=true;
+            bool=true;
+            console.log("tob err");
+        }
+
 
 
         let err="";
 
-        if(bool){       
+        if(bool){
             if(problem.pobP){
                 err+="No place of birth given\n";
                 problem.pobP=false;
+
             }
 
             if(problem.dobP){
                 err+="No date of birth given\n";
                 problem.dobP=false;
+
             }
 
+            if(problem.tobP){
+                err+="No time of birth given\n";
+                problem.tobP=false;
+
+            }
+
+
             alert(err);
-            
+
+                    }
+                    else{
+                        UserProfile.setName(props.location.state.name);
+                        UserProfile.setEmail(props.location.state.email);
+                        UserProfile.loggingInWithGoogle();
+                        UserProfile.setBirthTime(newUser.tob);
+                        UserProfile.setLocalStorageBTime();
+                        UserProfile.setLocalStorageEmail();
+                        UserProfile.setLocalStorageisLoggedInWithGoogle();
+                        UserProfile.setLocalStorageName();
+                        UserProfile.setLocalStorageBPlace(newUser.pob);
+                        UserProfile.setLocalStorageBDay(newUser.dob);
                     }
 
     }
 
 
    const func=(a)=>{
-    if(a.length==10 && newUser.pob.length>0)
+    if(a.length==10 && newUser.pob.length>0 && newUser.tob.length>0)
     d('/User');
 else
     d('/SignUp2');
@@ -118,14 +150,16 @@ else
         name:newUser.name,
         pob: newUser.pob,
         dob: a,
-        email:newUser.email
+        email:newUser.email,
+        tob: newUser.tob
     }
+    UserProfile.setBirthday(a);
     setNewUser(user);
     };
 
     const func2=(b)=>{
-
-        if(newUser.dob.length==10 && b.length>0)
+console.log(newUser);
+        if(newUser.dob.length==10 && b.length>0 && newUser.tob.length>0)
         d('/User');
     else
         d('/SignUp2');
@@ -133,11 +167,30 @@ else
             name:newUser.name,
             pob: b,
             dob: newUser.dob,
-            email:newUser.email
+            email:newUser.email,
+            tob:newUser.tob
         }
+        UserProfile.setBirthplace(b);
         setNewUser(user);
         };
 
+        const func6=(efg)=>{
+            if(newUser.dob.length==10 && newUser.pob.length>0 && efg.length>0)
+d('/User');
+else
+d('/SignUp2');
+            const user={
+                name:newUser.name,
+                pob: newUser.pob,
+                dob: newUser.dob,
+                email:newUser.email,
+                password:newUser.password,
+                tob:efg
+            }
+            if(UserProfile.getLocalStorageisLoggedIn()===true)
+d('/SignUp2');
+            setNewUser(user);
+            };
     const classes = useStyles();
 
     return (
@@ -155,20 +208,25 @@ else
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                
+
                 <div>
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
-                    </div>               
-                    <div>
-                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination,state:newUser}}> Submit</ColorButton>
-                        
-                        
                     </div>
-          
-               
+
+                    <div>
+                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
+                    </div>
+
+                    <div>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{name:newUser.name, email:newUser.email}}}> Submit</ColorButton>
+
+
+                    </div>
+
+
             </header>
         </div>
     );
