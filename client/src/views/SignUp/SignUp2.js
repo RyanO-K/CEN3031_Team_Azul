@@ -28,14 +28,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function SignUp2() {
+function SignUp2(props) {
     console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
-        name: UserProfile.getName(),
+        name: props.location.state.name,
         pob: '',
         dob: '',
-        email: UserProfile.getEmail()
+        email: props.location.state.name
     });
     const [problem, setProblem] = useState({
         pobP: false,
@@ -107,6 +107,12 @@ function SignUp2() {
             
                     }
                     else{
+                        UserProfile.setName(props.location.state.name);
+                        UserProfile.setEmail(props.location.state.email);
+                        UserProfile.loggingInWithGoogle();
+                        UserProfile.setLocalStorageEmail();
+                        UserProfile.setLocalStorageisLoggedInWithGoogle();
+                        UserProfile.setLocalStorageName();
                         UserProfile.setLocalStorageBPlace(newUser.pob);
                         UserProfile.setLocalStorageBDay(newUser.dob);
                     }
