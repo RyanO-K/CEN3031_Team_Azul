@@ -296,6 +296,15 @@ function SignUp() {
                 <div>
                 <SignUpWithGoogle></SignUpWithGoogle>
                 </div>
+
+                <p>
+                    <br></br><br></br>
+                    Already a User?
+                </p>
+                <div>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Login',state:newUser}}> Go Login Now</ColorButton>
+                        </div>
+                
             </header>
         </div>
     );
