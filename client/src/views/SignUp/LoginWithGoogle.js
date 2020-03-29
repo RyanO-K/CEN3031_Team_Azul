@@ -105,12 +105,9 @@ li=()=>{
   };
     render() {
        //send to user page here; choose user based upon value of this.state.email
-        if (UserProfile.getLocalStorageisLoggedInWithGoogle()) {//rather than loggedIn, in the future, change this to if credentials are valid
-            return( <Redirect to={{pathname:'/User',
-            }}/>
-            );
-          }
- 
+       console.log(UserProfile.getLocalStorageisLoggedIn());
+        
+ if(!UserProfile.getLocalStorageisLoggedInWithGoogle()){
 return(
     <div className="LoginWithGoogle">
                 <div>
@@ -138,6 +135,15 @@ return(
 
 
     }
+else {//rather than loggedIn, in the future, change this to if credentials are valid
+   if(GoogleLogin.BasicProfile!==null)
+    return( <Redirect to={{pathname:'/User'
+    }}/>
+    );
+    else
+    return null;
+  }
+}
 }
 
 export default LoginWithGoogle;
