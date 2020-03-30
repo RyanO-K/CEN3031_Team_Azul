@@ -33,18 +33,23 @@ const Admin = () =>{
       };
 
     const createInterpretation = async (moonphase, house, sign, description) => {
-        
-       let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
-        "house": house,
-        "sign": sign,
-        "moonphase": moonphase,
-        "description": description
-    });
-       return result
+        try{
+            let result = await axiosPath.makeUpdateRequest('horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign,{
+                "house": house,
+                "sign": sign,
+                "moonphase": moonphase,
+                "description": description
+                });
+        }catch(err){
+            let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
+            "house": house,
+            "sign": sign,
+            "moonphase": moonphase,
+            "description": description
+            });
+        }
+
     };
-
-
-
 
     if(UserProfile.getLocalStorageEmail()!=='admin')
     return(<Redirect to="/Home"/>);
@@ -55,7 +60,6 @@ const Admin = () =>{
         try{
             let result = await getInterpretation(data.moon,data.house,newSign,data.interpretation);
             setData({...data, sun: newSign, interpretation: result.description})
-            console.log(result)
         }catch(err){
             setData({...data, sun: newSign, interpretation: ""})
         }
@@ -66,7 +70,7 @@ const Admin = () =>{
         try{
             let result = await getInterpretation(newMoon,data.house,data.sun,data.interpretation);
             setData({...data, moon: newMoon, interpretation: result.description})
-            console.log(result)
+
         }catch(err){
             setData({...data, moon: newMoon, interpretation: ""})
         }
@@ -78,7 +82,7 @@ const Admin = () =>{
         try{
             let result = await getInterpretation(data.moon,newHouse,data.sun,data.interpretation);
             setData({...data, house: newHouse, interpretation: result.description})
-            console.log(result)
+
         }catch(err){
             setData({...data, house: newHouse, interpretation: ""})
         }
