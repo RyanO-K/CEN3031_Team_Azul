@@ -50,7 +50,7 @@ const read = async (req, res) => {
 const update = async (req, res) => {
   const horoscope = new horoscopeModel(req.body);
 
-  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
+  horoscopeModel.findOneAndUpdate({ 'house': req.query.house, 'moonphase':req.query.moonphase,'sign':req.query.sign},
                 {
                     house:req.body.house || house || "",
                     sign: req.body.sign || sign,

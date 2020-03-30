@@ -40,7 +40,7 @@ const log = async () => {
   console.log(result);
 };
 
-log.apply();
+//log.apply();
 
 
 

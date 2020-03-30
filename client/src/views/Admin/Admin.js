@@ -4,6 +4,7 @@ import { Route, Switch, Redirect  } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UserProfile from '../SignUp/UserState';
+import axiosPath from '../../axiosRequests'
 
 const Admin = () =>{
 
@@ -24,9 +25,38 @@ const Admin = () =>{
         event.preventDefault();
         setData({...data, interpretation: info})
     }
-    
+
+    const getInterpretation = async (moonphase, house, sign) => {
+        let result = await axiosPath.makeGetRequest('horoscopeInfo/search/?moonphase='+moonphase+'&house='+house+'&sign='+sign);
+        return result
+      };
+
+    const updateInterpretation = async (moonphase, house, sign, description) => {
+        
+       let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
+        "house": house,
+        "sign": sign,
+        "moonphase": moonphase,
+        "description": description
+    });
+       return result
+    };
+
+    const createInterpretation = async (moonphase, house, sign, description) => {
+        
+    let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
+         "house": house,
+         "sign": sign,
+         "moonphase": moonphase,
+         "description": description
+     });
+        return result
+     };
+
+
     if(UserProfile.getLocalStorageEmail()!=='admin')
     return(<Redirect to="/Home"/>);
+
     const dispSunSign = (clicked) =>
     {
         console.log(clicked.target.id)
