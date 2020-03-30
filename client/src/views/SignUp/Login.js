@@ -137,8 +137,10 @@ console.log("no");
 
        
             console.log(UserProfile.getLocalStorageisLoggedIn());
+            if(newUser.email!=='admin'|| newUser.password!=='admin'){
                 err="Invalid Username or Password";
             alert(err);
+            }
             
                     }
                 }
@@ -149,81 +151,90 @@ console.log("no");
 
 
     
-    const log2 = async () => {
-        
-        return (await axiosPath.makeGetRequest('personal/'+ newUser.email));
-  
-           };
-
+ 
 
 
            const func3=async(c)=>{
-
+               if(newUser.boo)
+                newUser.boo=false;
             const user={
-               
                 email:newUser.email,
                 password:c,
-                
-                boo:newUser.boo,
-                correctPassword:newUser.correctPassword
+                boo:newUser.boo
             }
             setNewUser(user);
+            newUser.password=c;
+            setNewUser({
+                email:newUser.email,
+                password:newUser.password,
+                boo:newUser.boo
+            });
+            console.log("DE: "+newUser.email);
 
-            const obj=await log2.apply();
-            let bo=(obj.Email!==undefined && obj.Password===c);
+            let ob=await log2.apply();
+            let obj='';
+            if(ob.length>=0){
+                obj=await log.apply();
+            }
+            let bo=(obj.Email===newUser.email && obj.Password===newUser.password);
+           
+console.log(newUser.password);
+console.log(newUser.email);
 console.log(obj);
-console.log(bo);
-console.log(obj.email===undefined);
-console.log(newUser.password);        
-console.log(obj.Password);   
-
-            if(newUser.password===obj.Password && obj.Email===newUser.email)
+            if(obj.Email!==undefined&&newUser.email===obj.Email&& newUser.password===obj.Password){
     d('/User');
-    
-else
+    bo=true;
+            }
+else{
     d('/Login');
+bo=false;
+}
             const user2={
- 
                 email:newUser.email,
                 password:c,
-
-                boo:bo,
-                correctPassword:obj.password
+                boo:bo
             }
-            if(UserProfile.getLocalStorageisLoggedIn()===true)
-    d('/Login');
             setNewUser(user2);
-            };
+             };
 
                 const func4=async(de)=>{
-
+                        if(newUser.boo)
+                        newUser.boo=false;
                     const user={
-                       
                         email:de,
                         password:newUser.password,
-                        
-                        boo:newUser.boo,
-                        correctPassword:newUser.correctPassword
+                        boo:newUser.boo
                     }
                     setNewUser(user);
+                    newUser.email=de;
+                    setNewUser({
+                        email:newUser.email,
+                        password:newUser.password,
+                        boo:newUser.boo
+                    });
+                    console.log("DE: "+newUser.email);
 
-                    const obj=await log2.apply();
-                    let bo=(obj.Email!==undefined && obj.Password===newUser.password);
-
+                    let ob=await log2.apply();
+                    let obj='';
+                    if(ob.length>=0){
+                        obj=await log.apply();
+                    }
+                    console.log(obj);
+                    let bo=(obj.Email===newUser.email && obj.Password===newUser.password);
                    
 
-                    if(newUser.password===obj.Password && obj.Email===newUser.email)
+                    if(obj.Email!==undefined&&de===obj.Email&& newUser.password===obj.Password&&!newUser.boo){
             d('/User');
-            
-        else
+            bo=true;
+                    }
+        else{
             d('/Login');
+bo=false;
+    }
                     const user2={
-         
                         email:de,
                         password:newUser.password,
-        
-                        boo:bo,
-                        correctPassword:obj.password
+                        boo:bo
                     }
                     if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/Login');
@@ -233,6 +244,16 @@ else
 
 
    
+                    const log = async () => {
+                        return await axiosPath.makeGetRequest('personal/'+ newUser.email);   
+                     };
+                 
+                     const log2 = async () => {
+                         console.log("H: "+newUser.email);
+                         let ob;
+                        (await axiosPath.makeGetRequest('personal/'+ newUser.email).then(ob='hi').catch(ob=''));
+                     return ob;    
+                     };
 
     return (
 
