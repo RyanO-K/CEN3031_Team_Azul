@@ -24,6 +24,7 @@ const Admin = () =>{
     const handleSubmit = (event) => {
         event.preventDefault();
         setData({...data, interpretation: info})
+        createInterpretation(data.moon,data.house,data.sun,info);
     }
 
     const getInterpretation = async (moonphase, house, sign) => {
@@ -31,7 +32,7 @@ const Admin = () =>{
         return result
       };
 
-    const updateInterpretation = async (moonphase, house, sign, description) => {
+    const createInterpretation = async (moonphase, house, sign, description) => {
         
        let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
         "house": house,
@@ -42,35 +43,48 @@ const Admin = () =>{
        return result
     };
 
-    const createInterpretation = async (moonphase, house, sign, description) => {
-        
-    let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
-         "house": house,
-         "sign": sign,
-         "moonphase": moonphase,
-         "description": description
-     });
-        return result
-     };
+
 
 
     if(UserProfile.getLocalStorageEmail()!=='admin')
     return(<Redirect to="/Home"/>);
 
-    const dispSunSign = (clicked) =>
+    const dispSunSign = async (clicked) =>
     {
-        console.log(clicked.target.id)
-        setData({...data, sun: clicked.target.id})
+        const newSign = clicked.target.id;
+        try{
+            let result = await getInterpretation(data.moon,data.house,newSign,data.interpretation);
+            setData({...data, sun: newSign, interpretation: result.description})
+            console.log(result)
+        }catch(err){
+            setData({...data, sun: newSign, interpretation: ""})
+        }
     }
-    const dispMoonPhase = (clicked) =>
+    const dispMoonPhase = async (clicked) =>
     {
-        console.log(clicked.target.id)
-        setData({...data, moon: clicked.target.id})
+        const newMoon = clicked.target.id;
+        try{
+            let result = await getInterpretation(newMoon,data.house,data.sun,data.interpretation);
+            setData({...data, moon: newMoon, interpretation: result.description})
+            console.log(result)
+        }catch(err){
+            setData({...data, moon: newMoon, interpretation: ""})
+        }
     }
-    const dispHouses = (clicked) =>
+    const dispHouses = async (clicked) =>
     {
-        console.log(clicked.target.id)
-        setData({...data, house: clicked.target.id})
+        const newHouse = clicked.target.id;
+        
+        try{
+            let result = await getInterpretation(data.moon,newHouse,data.sun,data.interpretation);
+            setData({...data, house: newHouse, interpretation: result.description})
+            console.log(result)
+        }catch(err){
+            setData({...data, house: newHouse, interpretation: ""})
+        }
+
+        
+        
     }
     return(
 <div>
@@ -116,28 +130,28 @@ const Admin = () =>{
 
     <DropdownButton id="dropdown-basic-button" title="Lunar Phase">
         <div>
-            <Dropdown.Item as="button" id="New Moon" onClick={(e)=>dispMoonPhase(e)}>New Moon</Dropdown.Item>
+            <Dropdown.Item as="button" id="NewMoon" onClick={(e)=>dispMoonPhase(e)}>New Moon</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="Waxing Crescent" onClick={(e)=>dispMoonPhase(e)}>Waxing Crescent</Dropdown.Item>
+            <Dropdown.Item as="button" id="WaxingCrescent" onClick={(e)=>dispMoonPhase(e)}>Waxing Crescent</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="First Quarter" onClick={(e)=>dispMoonPhase(e)}>First Quarter</Dropdown.Item>
+            <Dropdown.Item as="button" id="FirstQuarter" onClick={(e)=>dispMoonPhase(e)}>First Quarter</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="Waxing Gibbous" onClick={(e)=>dispMoonPhase(e)}>Waxing Gibbous</Dropdown.Item>
+            <Dropdown.Item as="button" id="WaxingGibbous" onClick={(e)=>dispMoonPhase(e)}>Waxing Gibbous</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="Full Moon" onClick={(e)=>dispMoonPhase(e)}>Full Moon</Dropdown.Item>
+            <Dropdown.Item as="button" id="FullMoon" onClick={(e)=>dispMoonPhase(e)}>Full Moon</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="Waning Gibbous" onClick={(e)=>dispMoonPhase(e)}>Waning Gibbous</Dropdown.Item>
+            <Dropdown.Item as="button" id="WaningGibbous" onClick={(e)=>dispMoonPhase(e)}>Waning Gibbous</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="Last Quarter" onClick={(e)=>dispMoonPhase(e)}>Last Quarter</Dropdown.Item>
+            <Dropdown.Item as="button" id="LastQuarter" onClick={(e)=>dispMoonPhase(e)}>Last Quarter</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="Waning Crescent" onClick={(e)=>dispMoonPhase(e)}>Waning Crescent</Dropdown.Item>
+            <Dropdown.Item as="button" id="WaningCrescent" onClick={(e)=>dispMoonPhase(e)}>Waning Crescent</Dropdown.Item>
         </div>
     </DropdownButton>
     <DropdownButton id="dropdown-basic-button" title="Houses">

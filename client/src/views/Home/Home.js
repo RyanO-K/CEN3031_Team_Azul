@@ -26,16 +26,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 sessionStorage.setItem('J', true);
-console.log(sessionStorage.getItem('hi'));
+//console.log(sessionStorage.getItem('hi'));
 //UserProfile.abc=localStorage.getItem('hi');
 if(sessionStorage.getItem('hi')===null)
 sessionStorage.setItem('hi', 'Log In');
 function Home() {
-    console.log(UserProfile.abc);
+    //console.log(UserProfile.abc);
     const[home, setHome]=useState(sessionStorage.getItem('hi'));
 
     let arr=['Log In', 'User'];
-    console.log(UserProfile.loggedIn);
+    //console.log(UserProfile.loggedIn);
 
     useEffect(()=>{
     if(UserProfile.abc!==undefined && UserProfile.loggedIn){
@@ -48,7 +48,7 @@ function Home() {
     UserProfile.loggedIn=false;
     }
     else if(UserProfile.abc===undefined){
-        console.log(home);
+        //console.log(home);
         if(home==='Log In')
             UserProfile.loggedIn=false;
         else

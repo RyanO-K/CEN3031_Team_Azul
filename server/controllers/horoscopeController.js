@@ -18,7 +18,7 @@ const create = async (req, res) => {
         }else{
             res.header('Access-Control-Allow-Origin', '*');
             res.status(500).send({
-                message: err.message || "Error on create"
+                message: err.message || "Error on create: " + req.body.sign + "." + req.body.house + "." + req.body.moonphase
             });
         }
     });
