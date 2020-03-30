@@ -25,7 +25,7 @@ async makeDeleteRequest(url) {
   return res;
 },
 
-//neds to accept a horoscopeSchema as its Body
+//needs to accept a horoscopeSchema as its Body
 async makeUpdateRequest(url, bodyInfo) {
   
   let res = await axios.put('http://localhost:5000/api/' + url,bodyInfo);

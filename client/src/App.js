@@ -34,7 +34,9 @@ const App = () => {
 //example to get and have it run async
 const log = async () => {
   console.log('calling');
-  const result = await axiosPath.makeGetRequest('personal/');
+  let result = await axiosPath.makeGetRequest('personal/');
+  console.log(result);
+  result = await axiosPath.makeGetRequest('horoscopeInfo/');
   console.log(result);
 };
 
