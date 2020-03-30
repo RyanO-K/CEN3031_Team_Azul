@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -25,21 +25,47 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
 }));
-
+localStorage.setItem('J', true);
+console.log(localStorage.getItem('hi'));
+//UserProfile.abc=localStorage.getItem('hi');
+if(localStorage.getItem('hi')==='')
+localStorage.setItem('hi', 'Log In');
 function Home() {
-    let arr=['Log In', 'User'];
-    let p=arr[0];
-    console.log(UserProfile.loggedIn);
-    
-    
-    if(!UserProfile.loggedIn)
-        p=arr[0];
-    else
-        p=arr[1];
+    console.log(UserProfile.abc);
+    const[home, setHome]=useState(localStorage.getItem('hi'));
 
+    let arr=['Log In', 'User'];
+    console.log(UserProfile.loggedIn);
+
+    useEffect(()=>{
+    if(UserProfile.abc!==undefined && UserProfile.loggedIn){
+    setHome('User');
+    localStorage.setItem('hi','User');
+    }
+    else if(UserProfile.abc!==undefined && !UserProfile.loggedIn){
+        setHome('Log In');
+    localStorage.setItem('hi','Log In');
+    UserProfile.loggedIn=false;
+    }
+    else if(UserProfile.abc===undefined){
+        console.log(home);
+        if(home==='Log In')
+            UserProfile.loggedIn=false;
+        else
+            UserProfile.loggedIn=true;
+            UserProfile.abc="hi";
+    }
+    });
     
+    localStorage.setItem('J', false);
+    
+    window.beforeunload = (e) => {console.log(home);
+        localStorage.setItem('hi', home);
+      };
   
-    
+    window.afterunload = (e) => {console.log(home);
+        home=localStorage.getItem('hi');
+      };
     const classes = useStyles();
 
     return (
@@ -62,7 +88,7 @@ function Home() {
                 </a> */}
                 <div>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/SignUp'> Sign Up </ColorButton>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Login'> {p}</ColorButton>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Login'> {home}</ColorButton>
                 </div>
             </header>
         </div>
