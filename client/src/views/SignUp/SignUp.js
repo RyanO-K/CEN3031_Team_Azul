@@ -129,7 +129,7 @@ function SignUp() {
     console.log(bool);
 
 */
-if(!newUser.ha){
+if(newUser.ha){
 bool=true;
 problem.emailMatchesP=true;
 }
@@ -164,7 +164,7 @@ problem.emailMatchesP=true;
                 problem.emailMatchesP=false;
             }
 
-            if(!newUser.ha){
+            if(newUser.ha){
                 err+="Already a user with this email\n";
                 problem.emailMatchesP=false;
             }
@@ -233,7 +233,7 @@ problem.emailMatchesP=true;
 
 
          useEffect(()=>{
-             if(!newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
+             if(newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
             d("/SignUp");
              }
             else{
