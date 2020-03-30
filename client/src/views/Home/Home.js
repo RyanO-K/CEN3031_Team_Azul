@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import { green, purple } from '@material-ui/core/colors';
 import './Home.css';
 import LoginWithGoogle from '../SignUp/LoginWithGoogle';
+import UserProfile from '../SignUp/UserState';
 
 const ColorButton = withStyles(theme => ({
     root: {
@@ -26,7 +27,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Home() {
+    let arr=['Log In', 'User'];
+    let p=arr[0];
+    console.log(UserProfile.loggedIn);
+    
+    
+    if(!UserProfile.loggedIn)
+        p=arr[0];
+    else
+        p=arr[1];
 
+    
+  
+    
     const classes = useStyles();
 
     return (
@@ -49,8 +62,7 @@ function Home() {
                 </a> */}
                 <div>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/SignUp'> Sign Up </ColorButton>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/LogIn'> Log In</ColorButton>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Admin'> Admin</ColorButton>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Login'> {p}</ColorButton>
                 </div>
             </header>
         </div>
