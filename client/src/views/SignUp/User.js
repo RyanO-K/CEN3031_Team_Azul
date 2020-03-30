@@ -146,7 +146,7 @@ UserProfile.loggedIn=true;
 
 
   function handle2(){
-   
+    UserProfile.loggedIn=false;
       const auth2 = window.gapi.auth2.getAuthInstance();
       if (auth2 !== null) {
       
@@ -157,7 +157,7 @@ UserProfile.loggedIn=true;
       }
       console.log(auth2);
         
-        
+      UserProfile.loggedIn=false;
 
   
       UserProfile.setEmail('');
@@ -197,6 +197,8 @@ UserProfile.loggedIn=true;
           b:true
           };
           setNewUser(r);
+          UserProfile.loggedIn=false;
+        
     }
 
   function handle(){
@@ -243,6 +245,8 @@ UserProfile.loggedIn=true;
     }
     console.log(newUser.b);console.log(GoogleLogin.BasicProfile);
     if(newUser.b && GoogleLogin.BasicProfile===undefined){
+      UserProfile.loggedIn=false;
+      UserProfile.abc='hi';
     return( <Redirect to={{pathname:'/Home', 
 }}/>
 );
