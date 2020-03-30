@@ -10,6 +10,7 @@ import SignUpWithGoogle from "./SignUpWithGoogle";
 import UserProfile from './UserState';
 import LoginWithGoogle from './LoginWithGoogle';
 import SignUp from './SignUp';
+import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
@@ -30,10 +31,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login(){
+    console.log("email is: "+UserProfile.getLocalStorageEmail());
+
     const [destination,d]=useState("/Login");
     const [newUser, setNewUser] = useState({
         email: '',
-        password: ''
+        password: '',
+        name:'',
+        dob:'',
+        tob:'',
+        pob:'',
+        boo:false,
+        correctPassword:''
     });
 
     const [problem, setProblem] = useState({
@@ -46,7 +55,25 @@ function Login(){
         console.log(newUser)
     }, [newUser], [destination]);
 
+    useEffect(()=>{
+        console.log(newUser.boo);
+        if(newUser.boo)
+            d('/User');
+            else if(newUser.email==='admin' && newUser.password==='admin'){
+            d('/Admin');
+            UserProfile.setEmail('admin');
+            UserProfile.setLocalStorageEmail();
+            }
+            else
+            d('/Login');
+        
 
+    }
+    );
+    const classes = useStyles();
+    if(UserProfile.getLocalStorageisLoggedIn()){
+        return <Redirect to="/User"/>
+    }
     const onSubmit = (data,e) => {
         const user = {
             email: data.email,
@@ -66,67 +93,22 @@ function Login(){
 
 
     async function handle(){
+        console.log("ya");
         let bool=false;
         let l="";
-
-        console.log(newUser.dob);
-
-        //check if correct, not if 0
-        if(newUser.email.length===0){
-            problem.emailP=true;
-            bool=true;
-            console.log("email1 err");
-        }
-
-        if(newUser.email!=='admin' && newUser.email.indexOf("@")===-1){
-            problem.emailAt=true;
-            bool=true;
-            console.log("email2 err");
-        }
-
-        if(newUser.password.length===0){
-            problem.passwordP=true;
-            bool=true;
-            console.log("pword err");
-        }
-        let err="";
-
-        if(bool){
-           
-            if(problem.emailAt){
-                err+="Invalid email given\n";
-                problem.emailAt=false;
-            }
-            if(problem.emailP){
-                err+="No email given\n";
-                problem.emailP=false;
-            }
-         
-
-            if(problem.passwordP){
-                err+="No password given\n";
-                problem.passwordP=false;
-            }
-            console.log(UserProfile.getLocalStorageisLoggedIn());
-            if(err==="" && UserProfile.getLocalStorageisLoggedIn())
-                err+="You are already logged in with email "+UserProfile.getEmail();
-            else if(err!=="")
-                err="Invalid Username or Password";
-            alert(err);
-            
-                    }
-
-
-
-                    else{
-                        console.log("move n");
+        
+       
+        if(newUser.boo){ const obj=await log2.apply();
+            console.log("move n");
                         UserProfile.loggingInWithoutGoogle();
-                        UserProfile.setName(newUser.name);
+                        UserProfile.setName(obj.Name);
                         UserProfile.setEmail(newUser.email);
 
                         //get dob and pob from backend
-                        UserProfile.setBirthday("10");
-                        UserProfile.setBirthplace("America");
+                        UserProfile.setBirthday(obj.Birthday);
+                        UserProfile.setBirthplace(obj.LocationOfBirth);
+                        UserProfile.setBirthTime(obj.TimeOfBirth);
+
 
 
                         UserProfile.setLocalStorageBDay();
@@ -136,46 +118,121 @@ function Login(){
                         UserProfile.setLocalStorageisLoggedIn();
                         UserProfile.setLocalStorageisLoggedInWithoutGoogle();
                         console.log(destination);
+
+                        const user={
+                            email:newUser.email,
+                            password:newUser.password,
+                            boo:newUser.boo,
+                            pob:obj.LocationOfBirth,
+                            tob:obj.TimeOfBirth,
+                            dob:obj.Birthday,
+                            correctPassword:newUser.correctPassword
+                        }
+                        setNewUser(user);
+
+            }
+        else{
+console.log("no");
+        let err="";
+
+       
+            console.log(UserProfile.getLocalStorageisLoggedIn());
+                err="Invalid Username or Password";
+            alert(err);
+            
                     }
-
-    }
-    
-
-            const func3=(c)=>{ 
-                if(c==='admin' && newUser.email==='admin')
-                    d('/Admin');
-                //change this line to check if valid username and password instead
-                else if(newUser.email.indexOf("@")>-1&& c.length>0)
-            d('/User');
-        else
-            d('/Login');
-                const user={
-                    email:newUser.email,
-                    password:c
                 }
-                if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/Login');
-                setNewUser(user);
-                };
 
-                const func4=(de)=>{
-                    if(de==='admin' && newUser.email==='admin')
-                        d('/Admin');
-                    //change this line to check if valid username and password instead
-                    else if(de.indexOf("@")>-1&& newUser.password.length>0)
+
+   
+
+
+
+    
+    const log2 = async () => {
+        
+        return (await axiosPath.makeGetRequest('personal/'+ newUser.email));
+  
+           };
+
+
+
+           const func3=async(c)=>{
+
+            const user={
+               
+                email:newUser.email,
+                password:c,
+                
+                boo:newUser.boo,
+                correctPassword:newUser.correctPassword
+            }
+            setNewUser(user);
+
+            const obj=await log2.apply();
+            let bo=(obj.Email!==undefined && obj.Password===c);
+console.log(obj);
+console.log(bo);
+console.log(obj.email===undefined);
+console.log(newUser.password);        
+console.log(obj.Password);   
+
+            if(newUser.password===obj.Password && obj.Email===newUser.email)
+    d('/User');
+    
+else
+    d('/Login');
+            const user2={
+ 
+                email:newUser.email,
+                password:c,
+
+                boo:bo,
+                correctPassword:obj.password
+            }
+            if(UserProfile.getLocalStorageisLoggedIn()===true)
+    d('/Login');
+            setNewUser(user2);
+            };
+
+                const func4=async(de)=>{
+
+                    const user={
+                       
+                        email:de,
+                        password:newUser.password,
+                        
+                        boo:newUser.boo,
+                        correctPassword:newUser.correctPassword
+                    }
+                    setNewUser(user);
+
+                    const obj=await log2.apply();
+                    let bo=(obj.Email!==undefined && obj.Password===newUser.password);
+
+                   
+
+                    if(newUser.password===obj.Password && obj.Email===newUser.email)
             d('/User');
+            
         else
             d('/Login');
-                    const user={
+                    const user2={
+         
                         email:de,
-                        password:newUser.password
+                        password:newUser.password,
+        
+                        boo:bo,
+                        correctPassword:obj.password
                     }
                     if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/Login');
-                    setNewUser(user);
+                    setNewUser(user2);
                     };
 
-    const classes = useStyles();
+
+
+   
 
     return (
 
@@ -199,7 +256,7 @@ function Login(){
                         <input type="text" placeholder="Password" name="password" ref={register} onChange={(e)=>func3(e.target.value)}/>
                     </div>
                     <div>
-                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:newUser}}> Login</ColorButton>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:{user: {name:newUser.name, email:newUser.email, dob:newUser.dob, pob:newUser.pob, tob:newUser.tob}, g:false}}}> Login</ColorButton>
                         </div>
                 <div>
                     <br></br>

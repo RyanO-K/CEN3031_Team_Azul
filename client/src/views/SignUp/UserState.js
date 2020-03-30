@@ -1,4 +1,4 @@
-
+import React, {useState, useEffect, Component} from 'react';
 
 var UserProfile = (function() {
     var full_name = "";
@@ -9,6 +9,7 @@ var UserProfile = (function() {
     var birthplace="";
     var loggedInWithoutGoogle="";
     var birthtime="";
+    var abc="";
 
     var getName = function() {
       return full_name;    // Or pull this from cookie/localStorage
@@ -198,7 +199,8 @@ var UserProfile = (function() {
       getBirthTime:getBirthTime,
       setBirthTime: setBirthTime,
       getLocalStorageBTime:getLocalStorageBTime,
-      setLocalStorageBTime:setLocalStorageBTime
+      setLocalStorageBTime:setLocalStorageBTime,
+      loggedIn:loggedIn
     }
   
   })();

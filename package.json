@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "mocha server/tests",
     "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
@@ -23,6 +22,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mocha": "^6.2.1",
     "mongoose": "^5.7.1",
@@ -32,6 +32,9 @@
     "react-hook-form": "^4.9.8",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
+  },
+  "engines": {
+    "node": "13"
   },
   "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme"
 }

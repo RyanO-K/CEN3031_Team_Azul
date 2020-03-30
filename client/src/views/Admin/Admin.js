@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {textareaAutosize, FilledInput, FormControl, FormHelperText, Input, InputAdornment, InputBase, InputLabel, OutlinedInput, TextField} from '@material-ui/core'
+import { Route, Switch, Redirect  } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import UserProfile from '../SignUp/UserState';
 
 const Admin = () =>{
 
@@ -23,6 +25,8 @@ const Admin = () =>{
         setData({...data, interpretation: info})
     }
     
+    if(UserProfile.getLocalStorageEmail()!=='admin')
+    return(<Redirect to="/Home"/>);
     const dispSunSign = (clicked) =>
     {
         console.log(clicked.target.id)

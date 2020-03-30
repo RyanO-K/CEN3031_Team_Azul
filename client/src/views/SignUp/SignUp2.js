@@ -37,7 +37,7 @@ function SignUp2(props) {
         dob: '',
         tob:'',
         email: props.location.state.email
-        
+
     });
     const [problem, setProblem] = useState({
         pobP: false,
@@ -69,7 +69,7 @@ function SignUp2(props) {
         setNewUser(user);
         e.target.reset();
         console.log(user);
-        
+
         //send it here?
     };
 
@@ -84,7 +84,7 @@ function SignUp2(props) {
            bool=true;
            console.log("dob err");
         }
-        
+
 
         if(newUser.pob.length===0){
             problem.pobP=true;
@@ -102,7 +102,7 @@ function SignUp2(props) {
 
         let err="";
 
-        if(bool){       
+        if(bool){
             if(problem.pobP){
                 err+="No place of birth given\n";
                 problem.pobP=false;
@@ -120,12 +120,13 @@ function SignUp2(props) {
                 problem.tobP=false;
 
             }
-            
+
 
             alert(err);
-            
+
                     }
                     else{
+                        UserProfile.loggedIn=true;
                         UserProfile.setName(props.location.state.name);
                         UserProfile.setEmail(props.location.state.email);
                         UserProfile.loggingInWithGoogle();
@@ -208,25 +209,25 @@ d('/SignUp2');
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                
+
                 <div>
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
-                    </div>               
+                    </div>
 
                     <div>
                         <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
-                    </div>      
+                    </div>
 
                     <div>
-                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{name:newUser.name, email:newUser.email}}}> Submit</ColorButton>
-                        
-                        
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
+
+
                     </div>
-          
-               
+
+
             </header>
         </div>
     );

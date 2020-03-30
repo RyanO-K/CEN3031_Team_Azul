@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+var mongoose = require('mongoose');
 
 
 
@@ -8,8 +8,11 @@ const horoscopeData = new mongoose.Schema({
   sign: {type: String, required:true},
   moonphase: {type: String,required:true},
   description: String
-});
+  },{
+    collection : 'Heavan'
+  }
+  );
 
 
-var horoscopeSchema = mongoose.model('Horoscope', horoscopeData);
-export default horoscopeSchema;
+const horoscopeModel = mongoose.model('Horoscope', horoscopeData);
+module.exports = horoscopeModel;

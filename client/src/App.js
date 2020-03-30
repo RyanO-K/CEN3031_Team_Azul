@@ -7,8 +7,8 @@ import SignUp from "./views/SignUp/SignUp";
 import SignUp2 from "./views/SignUp/SignUp2";
 import Admin from "./views/Admin/Admin"
 import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
-import requestGet from '../src/requestDB';
 import User from "./views/SignUp/User";
+import axiosPath from './axiosRequests';
 import Login from "./views/SignUp/Login";
 
 const App = () => {
@@ -30,5 +30,18 @@ const App = () => {
     </div>
   );
 }
-//requestGet('5e5842db3979b444104c1bba');
+
+//example to get and have it run async
+const log = async () => {
+  console.log('calling');
+  let result = await axiosPath.makeGetRequest('personal/');
+  console.log(result);
+  result = await axiosPath.makeGetRequest('horoscopeInfo/');
+  console.log(result);
+};
+
+log.apply();
+
+
+
 export default App;
