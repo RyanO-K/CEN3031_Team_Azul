@@ -129,7 +129,7 @@ function SignUp() {
     console.log(bool);
 
 */
-if(!newUser.ha){
+if(newUser.ha){
 bool=true;
 problem.emailMatchesP=true;
 }
@@ -164,7 +164,7 @@ problem.emailMatchesP=true;
                 problem.emailMatchesP=false;
             }
 
-            if(!newUser.ha){
+            if(newUser.ha){
                 err+="Already a user with this email\n";
                 problem.emailMatchesP=false;
             }
@@ -193,6 +193,7 @@ problem.emailMatchesP=true;
             if(err==="" && UserProfile.getLocalStorageisLoggedIn())
                 err+="You are already logged in with email "+UserProfile.getEmail();
             alert(err);
+            window.location.reload();
            
 
                     }
@@ -209,6 +210,7 @@ problem.emailMatchesP=true;
                         UserProfile.setBirthplace(newUser.pob);
                         UserProfile.setBirthTime(newUser.tob);
                         setNewUser(newUser);
+                        UserProfile.loggedIn=true;
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageBDay();
                         UserProfile.setLocalStorageBPlace();
@@ -224,16 +226,24 @@ problem.emailMatchesP=true;
                     console.log(destination);
 
     }
+
+
+    const log = async () => {
+       return await axiosPath.makeGetRequest('personal/'+ newUser.email);   
+    };
+
     const log2 = async () => {
-        
-      return (await axiosPath.makeGetRequest('personal/'+ newUser.email));
+        console.log("H: "+newUser.email);
+        let ob;
+       (await axiosPath.makeGetRequest('personal/'+ newUser.email).then(ob='hi').catch(ob=''));
+    return ob;    
+    };
 
-         };
-
-
+//if change email last, it wont work.  Fix using de
+//also use session not local storage
 
          useEffect(()=>{
-             if(!newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
+             if(newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
             d("/SignUp");
              }
             else{
@@ -319,13 +329,27 @@ problem.emailMatchesP=true;
                         ha:newUser.ha
                     }
                     setNewUser(user);
+                    newUser.email=de;
+                    setNewUser({
+                        name:newUser.name,
+                        pob: newUser.pob,
+                        dob: newUser.dob,
+                        email:newUser.email,
+                        password:newUser.password,
+                        tob:newUser.tob,
+                        ha:newUser.ha
+                    });
+                    console.log("DE: "+newUser.email);
 
-                    const obj=await log2.apply();
+                    let ob=await log2.apply();
+                    let obj={Email:undefined};
+                    if(ob.length>0){
+                        obj=await log.apply();
+                    }
                     let bo=(obj.Email===undefined);
-
                    
 
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email.length>0)
+                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined)
             d('/User');
             
         else
