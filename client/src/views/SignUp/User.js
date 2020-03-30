@@ -10,6 +10,7 @@ import SignUp2 from "./SignUp2";
 import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
+import axiosPath from "../../axiosRequests"
 
 
 
@@ -115,6 +116,36 @@ function User(props){
     }
 
   });
+  const url = 'personal/'
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(p1 !== null){
+        const result = await axiosPath.makeGetRequest("personal/" + p1);
+        setData(result);
+      };
+    }
+      fetchData();
+}, [])
+
+const renderTable = () => {
+  if(data){
+      console.log("data:" + data);
+      return(
+      <h1>{data.Email}</h1>
+      )
+  // return data.map(user => {
+  // return (
+  //     <tr key = {user._id}>
+  //         <td>{user.Name}</td>
+  //         <td>{user.Email}</td>
+  //     </tr>
+  // )
+  // })
+      }
+}
 
 
   if(p1===null)
@@ -310,6 +341,7 @@ UserProfile.loggedIn=true;
                         {newUser.pob}<br></br>
                         {newUser.tob}<br></br>
                         <br></br>
+                        <h1>{renderTable()}</h1>
                         <div>
                         <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
                       </div>

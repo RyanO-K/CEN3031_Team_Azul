@@ -220,6 +220,16 @@ problem.emailMatchesP=true;
                         UserProfile.setLocalStorageisLoggedInWithoutGoogle();
                         console.log(destination);
                         setNewUser(newUser);
+                        const axiosUser = {
+                            Name: newUser.name,
+                            Sign: "Scorpio",
+                            Birthday: newUser.dob,
+                            TimeOfBirth: newUser.tob,
+                            LocationOfBirth: newUser.pob,
+                            Email: newUser.email,
+                            Password: newUser.password
+                        }
+                        axiosPath.makeCreateRequest('personal/', axiosUser)
                         
                     }
                   
