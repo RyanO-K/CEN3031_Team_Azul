@@ -25,14 +25,14 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
 }));
-localStorage.setItem('J', true);
-console.log(localStorage.getItem('hi'));
+sessionStorage.setItem('J', true);
+console.log(sessionStorage.getItem('hi'));
 //UserProfile.abc=localStorage.getItem('hi');
-if(localStorage.getItem('hi')==='')
-localStorage.setItem('hi', 'Log In');
+if(sessionStorage.getItem('hi')===null)
+sessionStorage.setItem('hi', 'Log In');
 function Home() {
     console.log(UserProfile.abc);
-    const[home, setHome]=useState(localStorage.getItem('hi'));
+    const[home, setHome]=useState(sessionStorage.getItem('hi'));
 
     let arr=['Log In', 'User'];
     console.log(UserProfile.loggedIn);
@@ -40,11 +40,11 @@ function Home() {
     useEffect(()=>{
     if(UserProfile.abc!==undefined && UserProfile.loggedIn){
     setHome('User');
-    localStorage.setItem('hi','User');
+    sessionStorage.setItem('hi','User');
     }
     else if(UserProfile.abc!==undefined && !UserProfile.loggedIn){
         setHome('Log In');
-    localStorage.setItem('hi','Log In');
+    sessionStorage.setItem('hi','Log In');
     UserProfile.loggedIn=false;
     }
     else if(UserProfile.abc===undefined){
@@ -57,17 +57,17 @@ function Home() {
     }
     });
     
-    localStorage.setItem('J', false);
-    
+    sessionStorage.setItem('J', false);
+    /*
     window.beforeunload = (e) => {console.log(home);
-        localStorage.setItem('hi', home);
+        sessionStorage.setItem('hi', home);
       };
   
     window.afterunload = (e) => {console.log(home);
-        home=localStorage.getItem('hi');
+        home=sessionStorage.getItem('hi');
       };
-    const classes = useStyles();
-
+    
+*/const classes = useStyles();
     return (
 
         <div className="App">
