@@ -1,9 +1,12 @@
 import React from 'react';
-
+import { Route, Switch, Redirect  } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import UserProfile from '../SignUp/UserState';
 
 const Admin = () =>{
+    if(UserProfile.getLocalStorageEmail()!=='admin')
+    return(<Redirect to="/Home"/>);
     const dispSunSign = (clicked) =>
     {
         console.log(clicked.target.id)
