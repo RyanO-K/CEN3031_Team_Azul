@@ -198,7 +198,8 @@ var UserProfile = (function() {
       getBirthTime:getBirthTime,
       setBirthTime: setBirthTime,
       getLocalStorageBTime:getLocalStorageBTime,
-      setLocalStorageBTime:setLocalStorageBTime
+      setLocalStorageBTime:setLocalStorageBTime,
+      loggedIn:loggedIn
     }
   
   })();
