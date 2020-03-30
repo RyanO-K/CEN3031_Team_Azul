@@ -31,31 +31,15 @@ const App = () => {
   );
 }
 
-//Axios Testing Area
+//example to get and have it run async
+const log = async () => {
+  console.log('calling');
+  const result = await axiosPath.makeGetRequest('personal/');
+  console.log(result);
+};
+
+log.apply();
 
 
-async function makeGetRequest() {
-
-/*
-axiosPath.makeCreateRequest('horoscopeInfo/', {
-  house: "Ryan",
-  sign: "idk",
-  moonphase: "full"
-});
-*/
-
-/*
-await axiosPath.makeUpdateRequest('horoscopeInfo/5e5842db3979b444104c1bba',{
-  house: "Mike",
-  sign: "changed it",
-  moonphase: "again.",
-  description:"Hype!"
-});
-*/
-
-//await axiosPath.makeDeleteRequest('horoscopeInfo/5e5842db3979b444104c1bba');
-//axiosPath.makeGetRequest('horoscopeInfo/');
-}
-//makeGetRequest();
 
 export default App;

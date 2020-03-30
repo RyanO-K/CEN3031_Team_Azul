@@ -7,13 +7,16 @@ const create = async (req, res) => {
 
     
     person.save().then(data => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(person);
     }).catch(err => {
         if(err.code == 11000){
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(409).send({
                 message: err.message || "Duplication error"
             });
         }
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
             message: err.message || "Error on create"
         });
@@ -24,13 +27,17 @@ const create = async (req, res) => {
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
-    personalInformationCombo.findOne({ '_id': req.params.Email}).then(data =>{
+    
+    personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data =>{
         if(data!=null){
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(200).json(data);
         }else{
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(404).send({error: 'Doc not found: ' + req.params.Email});
         }
     }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
             message: err.message || "Read failed: " + req.params.Email
         })
@@ -42,34 +49,37 @@ const read = async (req, res) => {
 
 //update a horoscope listing
 const update = async (req, res) => {
-    //TODO
+    //TODO: Birthday is currently uneditable
 
     const person = new personalInformationCombo(req.body);
-    personalInformationCombo.findByIdAndUpdate(req.params.Email,{
-                                            Name:req.params.Name,
-                                            Birthday:req.params.Birthday,
-                                            Sign:req.params.Sign,
-                                            LocationOfBirth:req.params.LocationOfBirth,
-                                            Email:req.params.Email,
-                                            Password:req.params.Password
+    personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
+                                            Name:req.body.Name || Name,
+                                            Sign:req.body.Sign || Sign,
+                                            LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
+                                            Email:req.body.Email || Email,
+                                            Password:req.body.Password || Password
 
                                             }).then(data =>{
         
             personalInformationCombo.findOne({ '_id': req.params.Email}).then(data=>{
             
             if(data!=null){
+                res.header('Access-Control-Allow-Origin', '*');
                 res.status(200).json(data);
             }else{
+                res.header('Access-Control-Allow-Origin', '*');
                 res.status(404).send({error: 'Person updated, but lost ' + req.params.Email});
             }
 
         }).catch(err => {
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(500).send({
                 message: err.message || "Saved Person not found: " + req.params.Email
             })
         });
 
     }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(404).send({
             message: err.message || "Doc update failed: " + req.params.Email
         })
@@ -81,11 +91,14 @@ const remove = async (req, res) => {
     //TODO
     personalInformationCombo.findOneAndDelete({ '_id': req.params.Email}).then(data =>{
         if(data != null){
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(200).send(data);
         }else{
+            res.header('Access-Control-Allow-Origin', '*');
              res.status(404).send({error: 'Doc not found: '+req.params.Email});
         }
     }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
             message: err.message|| "Remove failed: " + req.params.Email
 
@@ -98,9 +111,12 @@ const list = async (req, res) => {
     //TODO
 
     personalInformationCombo.find().sort().then(data =>{
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json(data);
     }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
         res.status(500).send({
+            
             message: err.message||"List failed"
         });
     });

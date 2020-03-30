@@ -8,7 +8,10 @@ const horoscopeData = new mongoose.Schema({
   sign: {type: String, required:true},
   moonphase: {type: String,required:true},
   description: String
-});
+  },{
+    collection : 'Heavan'
+  }
+  );
 
 
 const horoscopeModel = mongoose.model('Horoscope', horoscopeData);
