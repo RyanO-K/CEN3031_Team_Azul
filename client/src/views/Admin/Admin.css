@@ -10,11 +10,10 @@ body {
 .Header{
         background-color: #282c34;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: calc(10px + 2vmin);
+       
+        
+        
+        
         color: white;
         background-size: cover;
         background-repeat: no-repeat;
@@ -33,14 +32,16 @@ body {
 	padding: 10px;
 }
 .column2 {
-	float: right;
-	width: 50%;
-	padding: 20px;
+	float: left;
+	width: 30%;
+    padding: 20px;
+    color: black;
+    background-color: lightgray;
 	
 }
 
 
 .flot1 {
     float: left;
+    width: 100;
 }
-
