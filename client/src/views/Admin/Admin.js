@@ -1,24 +1,46 @@
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
+import {textareaAutosize, FilledInput, FormControl, FormHelperText, Input, InputAdornment, InputBase, InputLabel, OutlinedInput, TextField} from '@material-ui/core'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Admin = () =>{
+
+    const [data, setData] = useState({
+        sun: '',
+        moon: '',
+        house: '',
+        interpretation: 'No Info',
+    });
+
+    const [info, setInfo] = useState('');
+
+    const handleChange = (event) => {
+        setInfo(event.target.value)
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setData({...data, interpretation: info})
+    }
+    
     const dispSunSign = (clicked) =>
     {
         console.log(clicked.target.id)
+        setData({...data, sun: clicked.target.id})
     }
     const dispMoonPhase = (clicked) =>
     {
         console.log(clicked.target.id)
+        setData({...data, moon: clicked.target.id})
     }
     const dispHouses = (clicked) =>
     {
         console.log(clicked.target.id)
+        setData({...data, house: clicked.target.id})
     }
     return(
 <div>
-    <DropdownButton id="dropdown-basic-button" title="Sun Signs">
+    <DropdownButton  id="dropdown-basic-button" title="Sun Signs">
         <div>
             <Dropdown.Item as="button" id="Aquarius" onClick={(e)=>dispSunSign(e)}>Aquarius</Dropdown.Item>
         </div>
@@ -113,7 +135,7 @@ const Admin = () =>{
             <Dropdown.Item as="button" id="9th" onClick={(e)=>dispHouses(e)}>9th</Dropdown.Item>
         </div>
         <div>
-            <Dropdown.Item as="button" id="10th" onClick={(e)=>dispHouses(e)}>10yj</Dropdown.Item>
+            <Dropdown.Item as="button" id="10th" onClick={(e)=>dispHouses(e)}>10th</Dropdown.Item>
         </div>
         <div>
             <Dropdown.Item as="button" id="11th" onClick={(e)=>dispHouses(e)}>11th</Dropdown.Item>
@@ -122,6 +144,24 @@ const Admin = () =>{
             <Dropdown.Item as="button" id="12th" onClick={(e)=>dispHouses(e)}>12th</Dropdown.Item>
         </div>
     </DropdownButton>
+    <div>
+        <div>sun: {data.sun}</div>
+        <div>moon: {data.moon}</div>
+        <div>house: {data.house}</div>
+        <div>interpretation: {data.interpretation}</div>
+        <form onSubmit={handleSubmit}> 
+            <div>
+                <TextField
+                    id="standard-multiline-static"
+                    onChange={handleChange}
+                    label="Interpretation"
+                    multiline
+                    rows="4"
+                />
+            </div>
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
     </div>   
 );
 
