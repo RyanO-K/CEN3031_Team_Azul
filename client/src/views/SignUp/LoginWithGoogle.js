@@ -152,6 +152,7 @@ return(
                         clientId={config.GOOGLE_CLIENT_ID}
                         buttonText="Login"
                         onSuccess={this.googleResponse}
+                        //cookiePolicy={'none'}
                        // onFailure={this.onFailure}
                       //  disabled={this.state.loggedIn}
                        
