@@ -126,6 +126,7 @@ function SignUp2(props) {
 
                     }
                     else{
+                        UserProfile.loggedIn=true;
                         UserProfile.setName(props.location.state.name);
                         UserProfile.setEmail(props.location.state.email);
                         UserProfile.loggingInWithGoogle();
