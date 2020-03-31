@@ -1,5 +1,5 @@
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect, Component, useImperativeHandle} from 'react';
 import config from './config.json';
 import UserProfile from './UserState.js';
 import {Redirect} from 'react-router-dom';
@@ -8,12 +8,10 @@ import axiosPath from '../../axiosRequests';
 
 class LoginWithGoogle extends Component {
     //be able to also store the birthday and birthplace as states, but this relies on the axios
-       
-    
-   
+  
     constructor() {
-        
-        super();
+         
+        super();let bool=false;
         UserProfile.name='';
         UserProfile.email='';
         UserProfile.isLoggedIn=false;
@@ -76,10 +74,12 @@ li=()=>{
     googleResponse = async(response) => {
         this.setState({name:this.state.name, email:response.profileObj.email, loggedIn:this.state.loggedIn, loggedInWithGoogle:true, nextPage:this.state.nextPage});
         //check if the login credentials were valid.  If they were, continue.  Else, throw an error message of sorts.  
-        const obj=this.log2();
- if(obj.Email===response.profileObj.email && obj.Password.length===0){
+        const obj=await this.log2();
+        console.log(obj);
+ if(obj!==undefined && obj.Email===response.profileObj.email && obj.Password===undefined){
 
-
+this.bool=true;
+console.log(this.bool);
 
 
         //response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
@@ -104,18 +104,28 @@ li=()=>{
     //console.log(this.state.name);
    // console.log(this.state.email);
    UserProfile.loggedIn=true;
+   this.state.loggedIn=true;
+   this.nextPage='/User';
+
    console.log(UserProfile.getLocalStorageName());
+   
  }
 
 
  else{
 this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:false, loggedInWithGoogle:true, nextPage:'/Home'});
 UserProfile.loggedIn=false; 
+this.state.loggedIn=false;
 }
           
     //  }
   };
 
+
+handle=async()=>{
+    this.setState(null);
+
+}
 
   /*
   getLocalStorageisLoggedIn2=()=>{
@@ -171,15 +181,28 @@ return(
     }
 
 else {//rather than loggedIn, in the future, change this to if credentials are valid
-    if(!this.state.loggedIn){
-        UserProfile.loggedIn=false;
-    alert("Not a registered email");
-    return( <Redirect to={{pathname:this.state.nextPage
+    console.log("USer pf "+this.state.loggedInWithGoogle);
+    console.log("USer pf "+this.state.loggedIn);
+    console.log(UserProfile.isLoggedInWithGoogle());
+this.handle();
+    if(!this.bool){
+        console.log(this.bool);
+        UserProfile.loggedIn=true;
+        this.state.loggedIn=false;
+        if(UserProfile.abc===undefined){UserProfile.abc='abc';
+        console.log(this.state.loggedIn);
+        
+        }
+    }
+    else{
+    UserProfile.loggedIn=true;
+    console.log(UserProfile.loggedIn);
+    }
+    return( <Redirect to={{pathname:this.state.nextPage, state:{user:this.state, g:true}
     }}/>
     );
 
   }
-}
 }
 }
 
