@@ -9,7 +9,7 @@ let axiosRequests = {
 
  async makeGetRequest(url) {
   
-  let res = await axios.get('/api/' + url).then(function (response){ 
+  let res = await axios.get('https://powerful-beach-94788.herokuapp.com/api/' + url).then(function (response){ 
   return response.data;
   });
   return res;
@@ -18,7 +18,7 @@ let axiosRequests = {
 
 async makeDeleteRequest(url) {
   
-  let res = await axios.delete('/api/' + url).then(function (response){
+  let res = await axios.delete('https://powerful-beach-94788.herokuapp.com/api/' + url).then(function (response){
     
     return response.data;
   });
@@ -27,13 +27,13 @@ async makeDeleteRequest(url) {
 
 //needs to accept a horoscopeSchema as its Body
 async makeUpdateRequest(url, bodyInfo) {
-  let res = await axios.put('/api/' + url,bodyInfo);
+  let res = await axios.put('https://powerful-beach-94788.herokuapp.com/api/' + url,bodyInfo);
   return res;
 },
 
 async makeCreateRequest(url, bodyInfo) {
   
-  let res = await axios.post('/api/' + url,bodyInfo);
+  let res = await axios.post('https://powerful-beach-94788.herokuapp.com/api/' + url,bodyInfo);
   return res;
 }
 
