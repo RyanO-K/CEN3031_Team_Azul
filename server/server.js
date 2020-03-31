@@ -1,5 +1,5 @@
 //needs to be var
-//var express = require('./config/express.js');
+var express = require('./config/express.js');
 
 // Use env port or default
 const port = process.env.PORT || 5000;
