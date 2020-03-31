@@ -8,13 +8,16 @@ import './SignUp.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import UserProfile from './UserState';
+import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
 
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -425,7 +428,7 @@ problem.emailMatchesP=true;
     return (
 
         <div className="SignIn">
-            <header className="SignIn-header">
+            <header className="SignIn-header" style={{backgroundImage: `url(${background})` }}>
                 <h1 className="signin-title">
                     User Information
                 </h1>
@@ -437,17 +440,14 @@ problem.emailMatchesP=true;
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                <div>
+                <div className="Signin-card">
+                    <p></p>
                     <input type="text" placeholder="Name" name="name" ref={register} onChange={(e)=>func5(e.target.value)}/>
-                    </div>
                     <div>
                         <input type="email" placeholder="Email Address" name="email" ref={register} onChange={(e)=>func4(e.target.value)}/>
                     </div>
                     <div>
                         <input type="text" placeholder="Password" name="password" ref={register} onChange={(e)=>func3(e.target.value)}/>
-                    </div>
-                    <div>
-                    <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
@@ -456,14 +456,17 @@ problem.emailMatchesP=true;
                         <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>
                     <div>
+                    <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
+                    </div>
+                    <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:{user:newUser, g:false}}}> Submit</ColorButton>
                         </div>
 
-                <div>
+                <p style={{marginTop: 5, marginBottom: 10, fontSize:25}}>or</p>
                 <SignUpWithGoogle></SignUpWithGoogle>
                 </div>
 
-                <p>
+                <p style={{marginBottom:5}}>
                     <br></br><br></br>
                     Already a User?
                 </p>

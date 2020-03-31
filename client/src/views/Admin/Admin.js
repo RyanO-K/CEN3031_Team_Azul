@@ -1,14 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import {TextField} from '@material-ui/core'
 import { Route, Switch, Redirect  } from 'react-router-dom';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UserProfile from '../SignUp/UserState';
 import axiosPath from '../../axiosRequests';
 import background from '../../assets/moonbackground.jpg';
 import './Admin.css';
+import { grey } from '@material-ui/core/colors';
 
 const Admin = () =>{
+
+    const ColorText = withStyles(theme => ({
+        root: {
+            backgroundColor: '#DCDCDC'
+        },
+    }))(TextField);
 
     const [data, setData] = useState({
         sun: '',
@@ -95,8 +103,10 @@ const Admin = () =>{
     return (
 
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
-        <div>
-            <p className='column1' >
+    <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
+    <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here:</p>
+        <div className="Admin-card">
+            <p style={{marginLeft:40}}className='column1' >
                 <div>
                     <div className="flot1">
                         <DropdownButton id="dropdown-basic-button" title="Sun Signs">
@@ -212,13 +222,29 @@ const Admin = () =>{
 
             <p className="column2">
 
-                <div>sun: {data.sun}</div>
-                <div>moon: {data.moon}</div>
-                <div>house: {data.house}</div>
-                <div>interpretation: {data.interpretation}</div>
+                <div style={{marginBottom:5}}>Sun: 
+                    <div style={{fontSize:17}}>
+                        {data.sun}
+                    </div>
+                </div>
+                <div style={{marginBottom:5}}>Moon: 
+                    <div style={{fontSize:17}}>
+                        {data.moon}
+                    </div>
+                </div>
+                <div style={{marginBottom:5}}>House: 
+                    <div style={{fontSize:17}}>
+                        {data.house}
+                    </div>
+                </div>
+                <div style={{marginBottom:5}}>Interpretation: 
+                    <div style={{fontSize:17}}>
+                        {data.interpretation}
+                    </div>
+                </div>
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <TextField
+                    <div style={{marginTop:20}}>
+                        <ColorText
                             id="standard-multiline-static"
                             onChange={handleChange}
                             label="Interpretation"

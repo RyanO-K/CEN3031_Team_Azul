@@ -1,3 +1,8 @@
+@font-face{
+    src: url('../../fonts/Montserrat/Montserrat-Regular.ttf');
+    font-family: montreg;
+}
+
 body {
     margin: 0;
     text-align: center;
@@ -5,6 +10,16 @@ body {
 
 .Admin{
     text-align: center;
+}
+
+.Admin-card{
+    font-family: montreg;
+    color: black;
+    height: 500px;
+    width: 700px;
+    background-color: #0AC98F;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;
 }
 
 .Header{
@@ -19,7 +34,7 @@ body {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: top center;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: montreg;
 }
 .Words{
     text-align: center;

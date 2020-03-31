@@ -12,7 +12,8 @@ import Moon from '../../components/Moon/Moon'
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
