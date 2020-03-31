@@ -4,21 +4,18 @@ import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button'
-import './Login.css';
+import './SignUp.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import UserProfile from './UserState';
 import LoginWithGoogle from './LoginWithGoogle';
 import SignUp from './SignUp';
-import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        borderRadius: 20,
-        fontSize: 12,
-        padding: '3px 10px',
+        padding: '6px 12px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -74,8 +71,11 @@ function Login(){
     }
     );
     const classes = useStyles();
-    if(UserProfile.getLocalStorageisLoggedIn()){
+    if(UserProfile.getLocalStorageisLoggedIn() && UserProfile.getEmail()!=='admin'){
         return <Redirect to="/User"/>
+    }
+    if(UserProfile.getEmail()==='admin'&& UserProfile.getLocalStorageisLoggedIn()){
+        return <Redirect to="/Admin"/>
     }
     const onSubmit = (data,e) => {
         const user = {
@@ -140,9 +140,11 @@ console.log("no");
 
        
             console.log(UserProfile.getLocalStorageisLoggedIn());
+            if(newUser.email!=='admin'|| newUser.password!=='admin'){
                 err="Invalid Username or Password";
-            if(newUser.password!=='admin' || newUser.email!=='admin')
+            if(newUser.email!=='admin' || newUser.password!=='admin')
             alert(err);
+            }
             
                     }
                 }
@@ -153,81 +155,90 @@ console.log("no");
 
 
     
-    const log2 = async () => {
-        
-        return (await axiosPath.makeGetRequest('personal/'+ newUser.email));
-  
-           };
-
+ 
 
 
            const func3=async(c)=>{
-
+               if(newUser.boo)
+                newUser.boo=false;
             const user={
-               
                 email:newUser.email,
                 password:c,
-                
-                boo:newUser.boo,
-                correctPassword:newUser.correctPassword
+                boo:newUser.boo
             }
             setNewUser(user);
+            newUser.password=c;
+            setNewUser({
+                email:newUser.email,
+                password:newUser.password,
+                boo:newUser.boo
+            });
+            console.log("DE: "+newUser.email);
 
-            const obj=await log2.apply();
-            let bo=(obj.Email!==undefined && obj.Password===c);
+            let ob=await log2.apply();
+            let obj='';
+            if(ob.length>=0){
+                obj=await log.apply();
+            }
+            let bo=(obj.Email===newUser.email && obj.Password===newUser.password);
+           
+console.log(newUser.password);
+console.log(newUser.email);
 console.log(obj);
-console.log(bo);
-console.log(obj.email===undefined);
-console.log(newUser.password);        
-console.log(obj.Password);   
-
-            if(newUser.password===obj.Password && obj.Email===newUser.email)
+            if(obj.Email!==undefined&&newUser.email===obj.Email&& newUser.password===obj.Password){
     d('/User');
-    
-else
+    bo=true;
+            }
+else{
     d('/Login');
+bo=false;
+}
             const user2={
- 
                 email:newUser.email,
                 password:c,
-
-                boo:bo,
-                correctPassword:obj.password
+                boo:bo
             }
-            if(UserProfile.getLocalStorageisLoggedIn()===true)
-    d('/Login');
             setNewUser(user2);
-            };
+             };
 
                 const func4=async(de)=>{
-
+                        if(newUser.boo)
+                        newUser.boo=false;
                     const user={
-                       
                         email:de,
                         password:newUser.password,
-                        
-                        boo:newUser.boo,
-                        correctPassword:newUser.correctPassword
+                        boo:newUser.boo
                     }
                     setNewUser(user);
+                    newUser.email=de;
+                    setNewUser({
+                        email:newUser.email,
+                        password:newUser.password,
+                        boo:newUser.boo
+                    });
+                    console.log("DE: "+newUser.email);
 
-                    const obj=await log2.apply();
-                    let bo=(obj.Email!==undefined && obj.Password===newUser.password);
-
+                    let ob=await log2.apply();
+                    let obj='';
+                    if(ob.length>=0){
+                        obj=await log.apply();
+                    }
+                    console.log(obj);
+                    let bo=(obj.Email===newUser.email && obj.Password===newUser.password);
                    
 
-                    if(newUser.password===obj.Password && obj.Email===newUser.email)
+                    if(obj.Email!==undefined&&de===obj.Email&& newUser.password===obj.Password&&!newUser.boo){
             d('/User');
-            
-        else
+            bo=true;
+                    }
+        else{
             d('/Login');
+bo=false;
+    }
                     const user2={
-         
                         email:de,
                         password:newUser.password,
-        
-                        boo:bo,
-                        correctPassword:obj.password
+                        boo:bo
                     }
                     if(UserProfile.getLocalStorageisLoggedIn()===true)
             d('/Login');
@@ -237,13 +248,23 @@ else
 
 
    
+                    const log = async () => {
+                        return await axiosPath.makeGetRequest('personal/'+ newUser.email);   
+                     };
+                 
+                     const log2 = async () => {
+                         console.log("H: "+newUser.email);
+                         let ob;
+                        (await axiosPath.makeGetRequest('personal/'+ newUser.email).then(ob='hi').catch(ob=''));
+                     return ob;    
+                     };
 
     return (
 
         <div className="Login">
-            <header className="Login-header" style={{backgroundImage: `url(${background})` }}>
+            <header className="Login-header">
                 <h1 className="login-title">
-                    Welcome to MoonFlow
+                    User Login
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 {/* <a
@@ -253,24 +274,22 @@ else
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                <div className="Login-card">
-                    <p style={{marginBottom:5}}>Login</p>
-                    <div>
-                        {/* <p style={{marginLeft:5, font:5, marginBottom:5}}>Email</p> */}
+                <div>
                         <input type="email" placeholder="Email Address" name="email" ref={register} onChange={(e)=>func4(e.target.value)}/>
                     </div>
-                    <div style={{marginBottom:7,marginTop:1}}>
+                    <div>
                         <input type="text" placeholder="Password" name="password" ref={register} onChange={(e)=>func3(e.target.value)}/>
                     </div>
                     <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:{user: {name:newUser.name, email:newUser.email, dob:newUser.dob, pob:newUser.pob, tob:newUser.tob}, g:false}}}> Login</ColorButton>
                         </div>
-                    <p style={{marginTop: 10, marginBottom: 15, fontSize:25}}>or</p>
+                <div>
+                    <br></br>
                 <LoginWithGoogle></LoginWithGoogle>
                 </div>
                 <div>
                     <br></br><br></br>
-                    <p style={{marginBottom:5}}>
+                    <p>
                         Don't have an account?
                     </p>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/SignUp'}}>Sign Up Here</ColorButton>
