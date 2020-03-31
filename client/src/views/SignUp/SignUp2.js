@@ -9,12 +9,15 @@ import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import '../Home/Home.css';
 import UserProfile from './UserState';
+import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -208,9 +211,9 @@ d('/SignUp2');
 
     return (
 
-        <div className="SignIn">
-            <header className="SignIn-header">
-                <h1 className="signin-title">
+        <div className="SignIn2">
+            <header className="SignIn2-header" style={{backgroundImage: `url(${background})` }}>
+                <h1 className="signin2-title">
                     User Information
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
@@ -222,6 +225,7 @@ d('/SignUp2');
                 >
                 </a> */}
 
+            <div className="Signin2-card">
                 <div>
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
@@ -237,7 +241,8 @@ d('/SignUp2');
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
-                    </div>
+                </div>
+            </div>
 
 
             </header>

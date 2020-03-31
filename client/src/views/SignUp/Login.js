@@ -4,18 +4,21 @@ import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button'
-import './SignUp.css';
+import './Login.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import UserProfile from './UserState';
 import LoginWithGoogle from './LoginWithGoogle';
 import SignUp from './SignUp';
+import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -259,9 +262,9 @@ bo=false;
     return (
 
         <div className="Login">
-            <header className="Login-header">
+            <header className="Login-header" style={{backgroundImage: `url(${background})` }}>
                 <h1 className="login-title">
-                    User Login
+                    Welcome to MoonFlow
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 {/* <a
@@ -271,22 +274,24 @@ bo=false;
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                <div>
+                <div className="Login-card">
+                    <p style={{marginBottom:5}}>Login</p>
+                    <div>
+                        {/* <p style={{marginLeft:5, font:5, marginBottom:5}}>Email</p> */}
                         <input type="email" placeholder="Email Address" name="email" ref={register} onChange={(e)=>func4(e.target.value)}/>
                     </div>
-                    <div>
+                    <div style={{marginBottom:7,marginTop:1}}>
                         <input type="text" placeholder="Password" name="password" ref={register} onChange={(e)=>func3(e.target.value)}/>
                     </div>
                     <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:{user: {name:newUser.name, email:newUser.email, dob:newUser.dob, pob:newUser.pob, tob:newUser.tob}, g:false}}}> Login</ColorButton>
                         </div>
-                <div>
-                    <br></br>
+                    <p style={{marginTop: 10, marginBottom: 15, fontSize:25}}>or</p>
                 <LoginWithGoogle></LoginWithGoogle>
                 </div>
                 <div>
                     <br></br><br></br>
-                    <p>
+                    <p style={{marginBottom:5}}>
                         Don't have an account?
                     </p>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/SignUp'}}>Sign Up Here</ColorButton>
