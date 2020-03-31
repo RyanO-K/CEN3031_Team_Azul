@@ -138,7 +138,7 @@ console.log("no");
        
             console.log(UserProfile.getLocalStorageisLoggedIn());
                 err="Invalid Username or Password";
-            if(newUser.name!=='admin' || newUser.email!=='admin')
+            if(newUser.password!=='admin' || newUser.email!=='admin')
             alert(err);
             
                     }
