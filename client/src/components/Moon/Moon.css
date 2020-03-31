@@ -46,9 +46,9 @@ body {
   
   .card3 {
     opacity: 0.9;
-    width: 10vw;
+    width: 20vw;
     height: 10vw;
-    background-image: url(https://image.flaticon.com/icons/svg/414/414927.svg);
+    background-image: url('./cloud2.png');
   }
   
   .card4 {
