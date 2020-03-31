@@ -63,7 +63,7 @@ const Admin = () =>{
         setData({...data, interpretation: info})
         createInterpretation(data.moon,data.house,data.sun,info);
     }
-
+const classes = useStyles();
     const getInterpretation = async (moonphase, house, sign) => {
         let result = await axiosPath.makeGetRequest('horoscopeInfo/search/?moonphase='+moonphase+'&house='+house+'&sign='+sign);
         return result
