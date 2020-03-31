@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import '../Home/Home.css';
 import UserProfile from './UserState';
-import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
@@ -138,17 +137,6 @@ function SignUp2(props) {
                         UserProfile.setLocalStorageName();
                         UserProfile.setLocalStorageBPlace(newUser.pob);
                         UserProfile.setLocalStorageBDay(newUser.dob);
-
-                        const axiosUser = {
-                            Name: newUser.name,
-                            Sign: "Scorpio",
-                            Birthday: newUser.dob,
-                            TimeOfBirth: newUser.tob,
-                            LocationOfBirth: newUser.pob,
-                            Email: newUser.email,
-                            Password: newUser.password
-                        }
-                        axiosPath.makeCreateRequest('personal/', axiosUser)
                     }
 
     }

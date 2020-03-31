@@ -10,7 +10,7 @@ import SignUp2 from "./SignUp2";
 import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
-import axiosPath from "../../axiosRequests";
+import axiosPath from "../../axiosRequests"
 
 
 
@@ -53,7 +53,7 @@ function User(props){
   let p7='';
   let p8='';
   console.log(props);
-  if(props===undefined || props.location.state===undefined || props.location.state.user.email===undefined){
+  if(props===undefined || props.location.state===undefined || props.location.state.pob===undefined){
     p1=UserProfile.getLocalStorageEmail();
     p2=UserProfile.getLocalStorageName();
     p3=UserProfile.getLocalStorageBDay();
@@ -64,7 +64,6 @@ function User(props){
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
     UserProfile.loggedIn=true;
 
-
   }
   else{
     p1=props.location.state.user.email;
@@ -74,26 +73,9 @@ function User(props){
     p5=props.location.state.user.pob;
     p6=true;
     UserProfile.loggedIn=true;
-    if(p7===false)
-    UserProfile.loggingInWithoutGoogle();
-  else
-    UserProfile.loggingInWithGoogle();
-UserProfile.loggedIn=true;
-  UserProfile.setEmail(p1);
-  UserProfile.setName(p2);
-  UserProfile.setBirthplace(p5);
-  UserProfile.setBirthTime(p4);
-  UserProfile.setBirthday(p3);
-  UserProfile.setLocalStorageBDay();
-  UserProfile.setLocalStorageBPlace();
-  UserProfile.setLocalStorageEmail();
-  UserProfile.setLocalStorageisLoggedIn();
-  UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-  UserProfile.setLocalStorageBTime();
-  UserProfile.setLocalStorageName();
+
     p7=props.location.state.g;
     p8=!p7;
-    console.log(newUser.email);
   }
 
 
@@ -134,8 +116,6 @@ UserProfile.loggedIn=true;
     }
 
   });
-
-
   const url = 'personal/'
 
   const [data, setData] = useState([])
@@ -153,23 +133,8 @@ UserProfile.loggedIn=true;
 const renderTable = () => {
   if(data){
       console.log("data:" + data);
-      let str="Email: "+data.Email+"\n";
-      if(data.Name!==undefined)
-      str+="Name: "+data.Name+"\n";
-      if(data.Sign!==undefined)
-      str+="Sign: "+data.Sign+"\n";
-      if(data.House!==undefined)
-      str+="House: "+data.House+"\n";
-      if(data.TimeOfBirth!==undefined)
-      str+="Time of Birth: "+data.TimeOfBirth+"\n";
-      if(data.Birthday!==undefined)
-      str+="Birthday: "+data.Birthday+"\n";
-      if(data.LocationOfBirth!==undefined)
-      str+="Location of Birth: "+data.LocationOfBirth+"\n";
-
       return(
-      <h1>{str}</h1>
-      
+      <h1>{data.Email}</h1>
       )
   // return data.map(user => {
   // return (
@@ -183,7 +148,7 @@ const renderTable = () => {
 }
 
 
-  if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
+  if(p1===null)
     return(<Redirect to="/Home"/>);
     console.log(UserProfile.getLocalStorageName());
 
@@ -366,7 +331,7 @@ UserProfile.loggedIn=true;
       UserProfile.setLocalStorageisLoggedIn();
       UserProfile.setLocalStorageisLoggedInWithGoogle();
       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-      //return(<Redirect to="/Home"/>);
+      return(<Redirect to="/Home"/>);
       }
                        return(
                         <p>
@@ -377,7 +342,6 @@ UserProfile.loggedIn=true;
                         {newUser.tob}<br></br>
                         <br></br>
                         <h1>{renderTable()}</h1>
-
                         <div>
                         <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
                       </div>
