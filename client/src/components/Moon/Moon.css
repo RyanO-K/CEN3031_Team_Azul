@@ -1,0 +1,66 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu,
+      roboto, noto, segoe ui, arial, sans-serif;
+    background: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+  }
+  
+  #root {
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+  
+  .card1,
+  .card2,
+  .card3,
+  .card4 {
+    position: absolute;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    will-change: transform;
+  }
+  
+  .card1 {
+    min-width: 5vw;
+    min-height: 5vw;
+    width: 10vw;
+    height: 10vw;
+    max-width: 50vw;
+    max-height: 50vw;
+    background-image: url('./moon.png');
+  }
+  
+  .card2 {
+    width: 25ch;
+    height: 25ch;
+    background-image: url(https://image.flaticon.com/icons/svg/789/789395.svg);
+  }
+  
+  .card3 {
+    opacity: 0.9;
+    width: 10vw;
+    height: 10vw;
+    background-image: url(https://image.flaticon.com/icons/svg/414/414927.svg);
+  }
+  
+  .card4 {
+    width: 25ch;
+    height: 25ch;
+    background-image: url(https://image.flaticon.com/icons/svg/789/789392.svg);
+  }
+  
+  .container {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
