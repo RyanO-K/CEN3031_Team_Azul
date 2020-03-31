@@ -5,13 +5,40 @@ import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UserProfile from '../SignUp/UserState';
+import Button from '@material-ui/core/Button'
 import axiosPath from '../../axiosRequests';
 import background from '../../assets/moonbackground.jpg';
 import './Admin.css';
+import { Link } from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
+
+
+const ColorButton = withStyles(theme => ({
+    root: {
+        padding: '6px 12px',
+        border: '1px solid',
+        backgroundColor: '#E28222',
+      '&:hover': {
+        backgroundColor: '#C6721D',
+      },
+    },
+}))(Button);
+
+const useStyles = makeStyles(theme => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+}));
+
 
 const Admin = () =>{
 
+  if(UserProfile.getLocalStorageEmail()==='admin'){
+    UserProfile.loggingInWithoutGoogle();
+    UserProfile.setLocalStorageisLoggedIn();
+    UserProfile.setEmail('admin');
+    UserProfile.setLocalStorageEmail();
+    }
     const ColorText = withStyles(theme => ({
         root: {
             backgroundColor: '#DCDCDC'
@@ -61,6 +88,14 @@ const Admin = () =>{
 
     };
 
+    function signOff(){
+        UserProfile.loggingOut();
+        UserProfile.setLocalStorageisLoggedIn();
+        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+        UserProfile.loggedIn=false;
+        UserProfile.setEmail('');
+        UserProfile.setLocalStorageEmail();
+        }
     if(UserProfile.getLocalStorageEmail()!=='admin')
     return(<Redirect to="/Home"/>);
 
@@ -217,6 +252,9 @@ const Admin = () =>{
                             </div>
                         </DropdownButton>
                     </div>
+                </div>
+                 <div>
+                <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
                 </div>
             </p>
 
