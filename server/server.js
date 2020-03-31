@@ -1,7 +1,6 @@
-//var express = require('./config/express.js');
-import express from ('./config/express.js')
-
-
+//needs to be var if running local or import if heroku
+var express = require('./config/express.js');
+//import express from './config/express.js'
 // Use env port or default
 const port = process.env.PORT || 5000;
 //const port = 5000;
