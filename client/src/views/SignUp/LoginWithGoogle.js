@@ -61,7 +61,7 @@ signOut2=()=>{
         console.log(this.state.nextPage);
         this.state.loggedInWithGoogle=true;
     }).catch(res2=>{
-        alert('Invalid Username or Password');
+        alert('Not a registered email');
         UserProfile.loggingOut();
         UserProfile.setLocalStorageisLoggedIn();
         UserProfile.setLocalStorageisLoggedInWithoutGoogle();
