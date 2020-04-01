@@ -59,7 +59,7 @@ function User(props){
       useEffect(()=>{
     if(newUser.b){
 
-      UserProfile.setEmail('');
+      UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
@@ -364,23 +364,26 @@ UserProfile.loggedIn=true;
     if(p7){//google login
         console.log("Google");
     return(
-  <p>
-        {newUser.name}<br></br>
-        {newUser.email}<br></br>
-        {newUser.dob}<br></br>
-        {newUser.pob}<br></br>
-        {newUser.tob}<br></br>
-        <br></br>
-        <div>
 
+      <div className="User">
+      <header className="User-header" style={{backgroundImage: `url(${background})` }}>
+      <div>{renderName()}</div>
+      <div className="User-card">
+        <div>{renderTable()}</div>
+      </div>
 
-        <GoogleLogout 
+      <div style={{marginTop: 30}}>
+        <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+      </div>
+      </header>
+        <GoogleLogout
         onLogoutSuccess={handle2}
                    clientId={config.GOOGLE_CLIENT_ID}
                    theme="dark"
                  
-         />                        </div>
-   </p>
+         />                
+         </div>    
+
     );
    
                    } 
