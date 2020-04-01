@@ -130,7 +130,6 @@ function SignUp() {
         bool=true;
     }
     console.log(bool);
-
 */
 if(newUser.ha){
 bool=true;

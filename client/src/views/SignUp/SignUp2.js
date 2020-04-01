@@ -33,14 +33,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SignUp2(props) {
+    const classes = useStyles();
     console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
-        name: props.location.state.name,
+        name: null,
         pob: '',
         dob: '',
         tob:'',
-        email: props.location.state.email
+        email: null
 
     });
     const [problem, setProblem] = useState({
@@ -53,6 +54,11 @@ function SignUp2(props) {
     useEffect(() => {
         console.log(newUser)
     }, [newUser]);
+    
+    if(props.location.state===undefined)
+    return <Redirect to='/Home'/>;
+    newUser.name=props.location.state.name;
+    newUser.email=props.location.state.email;
 
     const onSubmit = (data,e) => {
         const user = {
@@ -207,14 +213,14 @@ d('/SignUp2');
 d('/SignUp2');
             setNewUser(user);
             };
-    const classes = useStyles();
+    
 
     return (
 
         <div className="SignIn2">
             <header className="SignIn2-header" style={{backgroundImage: `url(${background})` }}>
                 <h1 className="signin2-title">
-                    User Information
+                    Additional User Information
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 {/* <a
@@ -226,7 +232,7 @@ d('/SignUp2');
                 </a> */}
 
             <div className="Signin2-card">
-                <div>
+                <div style={{marginTop:'20px'}}>
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>

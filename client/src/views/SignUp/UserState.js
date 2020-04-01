@@ -2,7 +2,7 @@ import React, {useState, useEffect, Component} from 'react';
 
 var UserProfile = (function() {
     var full_name = "";
-    var full_email="";
+    var full_email=null;
     var  loggedInWithGoogle=false;
     var loggedIn=false;
     var birthday="";
@@ -39,6 +39,13 @@ var UserProfile = (function() {
  }
 
 
+ var getPage=()=>{
+     return sessionStorage.getItem('ste');
+ }
+
+ var setPage=(st)=>{
+     return sessionStorage.setItem('ste', st);
+ }
 
  var setLocalStorageEmail=()=>{
     sessionStorage.setItem('stuffs', full_email);
@@ -132,7 +139,7 @@ var UserProfile = (function() {
           loggedInWithoutGoogle=true;
       }
       var loggingOut=function(){
-          full_email="";
+          full_email=null;
           full_name="";
           loggedIn=false;
           loggedInWithGoogle=false;
@@ -200,7 +207,9 @@ var UserProfile = (function() {
       setBirthTime: setBirthTime,
       getLocalStorageBTime:getLocalStorageBTime,
       setLocalStorageBTime:setLocalStorageBTime,
-      loggedIn:loggedIn
+      loggedIn:loggedIn,
+      getPage:getPage,
+      setPage:setPage
     }
   
   })();

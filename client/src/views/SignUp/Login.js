@@ -38,7 +38,7 @@ function Login(){
 
     const [destination,d]=useState("/Login");
     const [newUser, setNewUser] = useState({
-        email: '',
+        email: null,
         password: '',
         name:'',
         dob:'',
