@@ -214,7 +214,7 @@ d('/SignUp2');
         <div className="SignIn2">
             <header className="SignIn2-header" style={{backgroundImage: `url(${background})` }}>
                 <h1 className="signin2-title">
-                    User Information
+                    Additional User Information
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 {/* <a
@@ -226,7 +226,7 @@ d('/SignUp2');
                 </a> */}
 
             <div className="Signin2-card">
-                <div>
+                <div style={{marginTop:'20px'}}>
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>

@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button'
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import SignUp2 from "./SignUp2";
+import './User.css';
+import background from '../../assets/moonbackground.jpg';
 import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
@@ -16,11 +18,12 @@ import axiosPath from "../../axiosRequests";
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
-        border: '1px solid',
-        backgroundColor: '#E28222',
-      '&:hover': {
-        backgroundColor: '#C6721D',
+      borderRadius: 20,
+      padding: '3px 10px',
+      border: '1px solid',
+      backgroundColor: '#E28222',
+    '&:hover': {
+      backgroundColor: '#C6721D',
       },
     },
 }))(Button);
@@ -153,22 +156,51 @@ UserProfile.loggedIn=true;
 const renderTable = () => {
   if(data){
       console.log("data:" + data);
-      let str="Email: "+data.Email+"\n";
+      var email=data.Email;
       if(data.Name!==undefined)
-      str+="Name: "+data.Name+"\n";
+      var name=data.Name;
       if(data.Sign!==undefined)
-      str+="Sign: "+data.Sign+"\n";
+      var sign=data.Sign;
       if(data.House!==undefined)
-      str+="House: "+data.House+"\n";
+      var house=data.House;
       if(data.TimeOfBirth!==undefined)
-      str+="Time of Birth: "+data.TimeOfBirth+"\n";
+      var time=data.TimeOfBirth;
       if(data.Birthday!==undefined)
-      str+="Birthday: "+data.Birthday+"\n";
+      var bday = data.Birthday;
       if(data.LocationOfBirth!==undefined)
-      str+="Location of Birth: "+data.LocationOfBirth+"\n";
+      var location = data.LocationOfBirth;
 
       return(
-      <h1>{str}</h1>
+      //<h1>{str}</h1>
+      <div>
+          <p style={{marginTop:20}}>Email: {email}</p>
+          <p>Birthday: {bday}</p>
+          <p>Birth Location: {location}</p>
+          <p>Birth Time: {time}</p>
+          <p>Sign: {sign}</p>
+      </div>
+      
+      )
+  // return data.map(user => {
+  // return (
+  //     <tr key = {user._id}>
+  //         <td>{user.Name}</td>
+  //         <td>{user.Email}</td>
+  //     </tr>
+  // )
+  // })
+      }
+}
+const renderName = () => {
+  if(data){
+      if(data.Name!==undefined)
+      var name=data.Name;
+
+      return(
+      //<h1>{str}</h1>
+      <div>
+        <p style={{fontSize:'45px'}}>Hi, Welcome {name}</p>
+      </div>
       
       )
   // return data.map(user => {
@@ -369,19 +401,18 @@ UserProfile.loggedIn=true;
       //return(<Redirect to="/Home"/>);
       }
                        return(
-                        <p>
-                        {newUser.name}<br></br>
-                        {newUser.email}<br></br>
-                        {newUser.dob}<br></br>
-                        {newUser.pob}<br></br>
-                        {newUser.tob}<br></br>
-                        <br></br>
-                        <h1>{renderTable()}</h1>
+                        <div className="User">
+                          <header className="User-header" style={{backgroundImage: `url(${background})` }}>
+                          <div>{renderName()}</div>
+                          <div className="User-card">
+                            <div>{renderTable()}</div>
+                          </div>
 
-                        <div>
-                        <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
-                      </div>
-                       </p>
+                          <div style={{marginTop: 30}}>
+                            <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+                          </div>
+                          </header>
+                          </div>
                         ); }
                         else{
                             return <p>{newUser.name}</p>;
