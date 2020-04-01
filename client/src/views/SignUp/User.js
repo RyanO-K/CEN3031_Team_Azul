@@ -43,11 +43,11 @@ function User(props){
     name: '',
     pob: '',
     dob: '',
-    email: '',
+    email: null,
     tob: '',
     b:false
 });
-  let p1='';
+  let p1=null;
   let p2='';
   let p3='';
   let p4='';
@@ -55,6 +55,49 @@ function User(props){
   let p6='';
   let p7='';
   let p8='';
+    
+      useEffect(()=>{
+    if(newUser.b){
+
+      UserProfile.setEmail('');
+      UserProfile.setName('');
+      UserProfile.loggingOut();
+      UserProfile.setBirthday('');
+      UserProfile.setBirthplace('');
+      UserProfile.setBirthTime('');
+      UserProfile.setLocalStorageBTime();
+      UserProfile.setLocalStorageBDay();
+      UserProfile.setLocalStorageBPlace();
+      UserProfile.setLocalStorageEmail();
+      UserProfile.setLocalStorageName();
+      UserProfile.setLocalStorageisLoggedIn();
+      UserProfile.setLocalStorageisLoggedInWithGoogle();
+      UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+
+      
+
+
+
+    }
+
+  });
+
+    
+  const url = 'personal/'
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(p1 !== null){
+        const result = await axiosPath.makeGetRequest("personal/" + p1);
+        setData(result);
+      };
+    }
+      fetchData();
+}, [])
+const [st, newStat]=useState(0);
+    
   console.log(props);
   if(props===undefined || props.location.state===undefined || props.location.state.user.email===undefined){
     p1=UserProfile.getLocalStorageEmail();
@@ -65,7 +108,13 @@ function User(props){
     p6=UserProfile.getLocalStorageisLoggedIn();
     p7=UserProfile.getLocalStorageisLoggedInWithGoogle();
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
+    console.log(UserProfile.getLocalStorageEmail());
+    if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
+    console.log("Make it true");
+    }
+    else
+    return <Redirect to='/Home'/>
 
 
   }
@@ -109,49 +158,11 @@ UserProfile.loggedIn=true;
   newUser.tob=p4;
   newUser.pob=p5;
   console.log(p5);
-  const [st, newStat]=useState(0);
-
-
-  useEffect(()=>{
-    if(newUser.b){
-
-      UserProfile.setEmail('');
-      UserProfile.setName('');
-      UserProfile.loggingOut();
-      UserProfile.setBirthday('');
-      UserProfile.setBirthplace('');
-      UserProfile.setBirthTime('');
-      UserProfile.setLocalStorageBTime();
-      UserProfile.setLocalStorageBDay();
-      UserProfile.setLocalStorageBPlace();
-      UserProfile.setLocalStorageEmail();
-      UserProfile.setLocalStorageName();
-      UserProfile.setLocalStorageisLoggedIn();
-      UserProfile.setLocalStorageisLoggedInWithGoogle();
-      UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-
-      
+ 
 
 
 
-    }
 
-  });
-
-
-  const url = 'personal/'
-
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if(p1 !== null){
-        const result = await axiosPath.makeGetRequest("personal/" + p1);
-        setData(result);
-      };
-    }
-      fetchData();
-}, [])
 
 const renderTable = () => {
   if(data){
@@ -258,7 +269,7 @@ UserProfile.loggedIn=true;
       UserProfile.loggedIn=false;
 
   
-      UserProfile.setEmail('');
+      UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
@@ -268,7 +279,7 @@ UserProfile.loggedIn=true;
           name: '',
           pob: '',
           dob: '',
-          email: '',
+          email: null,
           tob:'',
           b:true
           };
@@ -290,7 +301,7 @@ UserProfile.loggedIn=true;
           name: '',
           pob: '',
           dob: '',
-          email: '',
+          email: null,
           tob:'',
           b:true
           };
@@ -301,7 +312,7 @@ UserProfile.loggedIn=true;
 
   function handle(){
         console.log("Hi");
-        UserProfile.setEmail('');
+        UserProfile.setEmail(null);
         UserProfile.setName('');
         UserProfile.loggingOut();
         UserProfile.setBirthday('');
@@ -311,7 +322,7 @@ UserProfile.loggedIn=true;
             name: '',
             pob: '',
             dob: '',
-            email: '',
+            email: null,
             tob:'',
             b:true
             };
@@ -333,7 +344,7 @@ UserProfile.loggedIn=true;
             name: '',
             pob: '',
             dob: '',
-            email: '',
+            email: null,
             tob:'',
             b:true
             };
@@ -375,7 +386,7 @@ UserProfile.loggedIn=true;
                    } 
                    else if(!p7) {//regular login
                   if(newUser.name===""&& newUser.email===""){
-      UserProfile.setEmail('');
+      UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
