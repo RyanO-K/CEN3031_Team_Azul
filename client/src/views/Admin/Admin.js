@@ -23,6 +23,11 @@ const ColorButton = withStyles(theme => ({
       },
     },
 }))(Button);
+const ColorText = withStyles(theme => ({
+    root: {
+        backgroundColor: '#DCDCDC'
+    },
+}))(TextField);
 
 const useStyles = makeStyles(theme => ({
     margin: {
@@ -282,7 +287,7 @@ const classes = useStyles();
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div style={{marginTop:20}}>
-                        <ColorText
+                        <TextField
                             id="standard-multiline-static"
                             onChange={handleChange}
                             label="Interpretation"
