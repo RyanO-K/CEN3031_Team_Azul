@@ -10,7 +10,6 @@ import SignUpWithGoogle from "./SignUpWithGoogle";
 import UserProfile from './UserState';
 import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
-import SelectInput from '@material-ui/core/Select/SelectInput';
 
 
 
@@ -131,7 +130,6 @@ function SignUp() {
         bool=true;
     }
     console.log(bool);
-
 */
 if(newUser.ha){
 bool=true;
@@ -152,10 +150,8 @@ problem.emailMatchesP=true;
 
 
 
-        if(bool||UserProfile.getLocalStorageEmail()!==null || UserProfile.getLocalStorageEmail()!=='' ||UserProfile.getLocalStorageEmail()!==null){
-            if(UserProfile.getLocalStorageEmail()!==null || UserProfile.getLocalStorageEmail()!=='')
-            err+="You are already logged in with email "+UserProfile.getLocalStorageEmail();
-else{
+        if(bool){
+            
             if(!problem.emailMatchesP && problem.nameP){
                 err+="No name given\n";
                 problem.nameP=false;
@@ -195,12 +191,12 @@ else{
                 err+="No time of birth given\n";
 
             }
-        }
-            console.log(UserProfile.getLocalStorageEmail());
-                      alert(err);
-
+            console.log(UserProfile.getLocalStorageisLoggedIn());
+            if(err==="" && UserProfile.getLocalStorageisLoggedIn())
+                err+="You are already logged in with email "+UserProfile.getEmail();
+            alert(err);
             window.location.reload();
-
+           
 
                     }
 
@@ -259,10 +255,8 @@ else{
 //also use session not local storage
 
          useEffect(()=>{
-             if(newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'){
+             if(newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
             d("/SignUp");
-            newUser.ha=true;
-            console.log(UserProfile.getLocalStorageEmail());
              }
             else{
                 console.log("newimfiu3,");
@@ -273,7 +267,7 @@ else{
 
 
     const func=async (a)=>{
-        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha && !(newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
             d('/User');
         else
             d('/SignUp');
@@ -295,7 +289,7 @@ else{
            
               
               
-            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha&& !(newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
             d('/User');
         else
             d('/SignUp');
@@ -317,7 +311,7 @@ else{
                 
 
                            
-                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0&&newUser.ha&& !(newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0&&newUser.ha)
             d('/User');
         else
             d('/SignUp');
@@ -367,7 +361,7 @@ else{
                     let bo=(obj.Email===undefined);
                    
 
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined&& !(newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined)
             d('/User');
             
         else
@@ -387,7 +381,7 @@ else{
                     };
 
                     const func5=async(e)=>{
-                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha&& !(newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
             d('/User');
         else
             d('/SignUp');
@@ -410,7 +404,7 @@ else{
 
                         const func6=async (efg)=>{
     
-                            if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0&&newUser.ha&& !(newUser.dob.length!=10||UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+                            if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0&&newUser.ha)
                 d('/User');
             else
                 d('/SignUp');
