@@ -2,7 +2,7 @@ import React, {useState, useEffect, Component} from 'react';
 
 var UserProfile = (function() {
     var full_name = "";
-    var full_email="";
+    var full_email=null;
     var  loggedInWithGoogle=false;
     var loggedIn=false;
     var birthday="";
@@ -139,7 +139,7 @@ var UserProfile = (function() {
           loggedInWithoutGoogle=true;
       }
       var loggingOut=function(){
-          full_email="";
+          full_email=null;
           full_name="";
           loggedIn=false;
           loggedInWithGoogle=false;
