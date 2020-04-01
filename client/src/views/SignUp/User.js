@@ -373,15 +373,10 @@ UserProfile.loggedIn=true;
       </div>
 
       <div style={{marginTop: 30}}>
-        <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+        <ColorButton onClick={handle2} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
       </div>
       </header>
-        <GoogleLogout
-        onLogoutSuccess={handle2}
-                   clientId={config.GOOGLE_CLIENT_ID}
-                   theme="dark"
-                 
-         />                
+        
          </div>    
 
     );
@@ -429,6 +424,7 @@ UserProfile.loggedIn=true;
                           </div>
                         ); }
                         else{
+                          console.log('hi');
                             return <p>{newUser.name}</p>;
                         }
 }
