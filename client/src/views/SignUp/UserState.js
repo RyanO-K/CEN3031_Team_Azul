@@ -39,6 +39,13 @@ var UserProfile = (function() {
  }
 
 
+ var getPage=()=>{
+     return sessionStorage.getItem('ste');
+ }
+
+ var setPage=(st)=>{
+     return sessionStorage.setItem('ste', st);
+ }
 
  var setLocalStorageEmail=()=>{
     sessionStorage.setItem('stuffs', full_email);
@@ -200,7 +207,9 @@ var UserProfile = (function() {
       setBirthTime: setBirthTime,
       getLocalStorageBTime:getLocalStorageBTime,
       setLocalStorageBTime:setLocalStorageBTime,
-      loggedIn:loggedIn
+      loggedIn:loggedIn,
+      getPage:getPage,
+      setPage:setPage
     }
   
   })();
