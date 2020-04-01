@@ -33,14 +33,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SignUp2(props) {
+    const classes = useStyles();
     console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
-        name: props.location.state.name,
+        name: null,
         pob: '',
         dob: '',
         tob:'',
-        email: props.location.state.email
+        email: null
 
     });
     const [problem, setProblem] = useState({
@@ -53,6 +54,11 @@ function SignUp2(props) {
     useEffect(() => {
         console.log(newUser)
     }, [newUser]);
+    
+    if(props.location.state===undefined)
+    return <Redirect to='/Home'/>;
+    newUser.name=props.location.state.name;
+    newUser.email=props.location.state.email;
 
     const onSubmit = (data,e) => {
         const user = {
@@ -207,7 +213,7 @@ d('/SignUp2');
 d('/SignUp2');
             setNewUser(user);
             };
-    const classes = useStyles();
+    
 
     return (
 
