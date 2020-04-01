@@ -13,9 +13,9 @@ class LoginWithGoogle extends Component {
          
         super();let bool=false;
         UserProfile.name='';
-        UserProfile.email='';
+        UserProfile.email=null;
         UserProfile.isLoggedIn=false;
-        this.state = {name:'', email:'', loggedIn:false, loggedInWithGoogle:false, nextPage:''};
+        this.state = {name:'', email:null, loggedIn:false, loggedInWithGoogle:false, nextPage:''};
    // console.log(UserProfile.getLocalStorageisLoggedIn());
      //  console.log(GoogleLogin.BasicProfile);
        //this.fun();
