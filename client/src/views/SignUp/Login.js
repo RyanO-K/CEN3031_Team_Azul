@@ -213,6 +213,8 @@ else
                         correctPassword:newUser.correctPassword
                     }
                     setNewUser(user);
+                    newUser.email=de;
+                    console.log(newUser.email);
 
                     const obj=await log2.apply();
                     let bo=(obj.Email!==undefined && obj.Password===newUser.password);
