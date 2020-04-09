@@ -10,6 +10,7 @@ import SignUpWithGoogle from "./SignUpWithGoogle";
 import UserProfile from './UserState';
 import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
+import SelectInput from '@material-ui/core/Select/SelectInput';
 
 
 
@@ -148,10 +149,12 @@ problem.emailMatchesP=true;
         }
         let err="";
 
+console.log("bool"+bool);
 
-
-        if(bool){
-            
+        if(bool||(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null')){
+            if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!==''&&UserProfile.getLocalStorageEmail()!=='null')
+            err+="You are already logged in with email "+UserProfile.getLocalStorageEmail();
+else{
             if(!problem.emailMatchesP && problem.nameP){
                 err+="No name given\n";
                 problem.nameP=false;
@@ -191,12 +194,12 @@ problem.emailMatchesP=true;
                 err+="No time of birth given\n";
 
             }
-            console.log(UserProfile.getLocalStorageisLoggedIn());
-            if(err==="" && UserProfile.getLocalStorageisLoggedIn())
-                err+="You are already logged in with email "+UserProfile.getEmail();
-            alert(err);
+        }
+            console.log(UserProfile.getLocalStorageEmail());
+                      alert(err);
+
             window.location.reload();
-           
+
 
                     }
 
@@ -255,8 +258,10 @@ problem.emailMatchesP=true;
 //also use session not local storage
 
          useEffect(()=>{
-             if(newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
+             if(newUser.ha || newUser.password.length===0 || newUser.name.length===0 ||newUser.email.indexOf("@")===-1 ||newUser.pob.length===0 ||newUser.tob.length===0||newUser.dob.length!==10||(UserProfile.getLocalStorageEmail()!==''&&UserProfile.getLocalStorageEmail()!==null&&UserProfile.getLocalStorageEmail()!=='null')){
             d("/SignUp");
+            //newUser.ha=true;
+            console.log(UserProfile.getLocalStorageEmail());
              }
             else{
                 console.log("newimfiu3,");
@@ -267,7 +272,7 @@ problem.emailMatchesP=true;
 
 
     const func=async (a)=>{
-        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
+        if(a.length===10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha && newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -289,7 +294,7 @@ problem.emailMatchesP=true;
            
               
               
-            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
+            if(newUser.dob.length===10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha&&newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -311,7 +316,7 @@ problem.emailMatchesP=true;
                 
 
                            
-                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0&&newUser.ha)
+                if(newUser.dob.length===10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0&&newUser.ha&& newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -361,7 +366,7 @@ problem.emailMatchesP=true;
                     let bo=(obj.Email===undefined);
                    
 
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined)
+                    if(newUser.dob.length===10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined&& newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
             
         else
@@ -381,7 +386,7 @@ problem.emailMatchesP=true;
                     };
 
                     const func5=async(e)=>{
-                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
+                        if(newUser.dob.length===10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha&&newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -404,7 +409,7 @@ problem.emailMatchesP=true;
 
                         const func6=async (efg)=>{
     
-                            if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0&&newUser.ha)
+                            if(newUser.dob.length===10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0&&newUser.ha&& newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
                 d('/User');
             else
                 d('/SignUp');
