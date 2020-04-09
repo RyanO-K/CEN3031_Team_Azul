@@ -82,6 +82,7 @@ function User(props){
 
   });
 
+  let ret=false;
     
   const url = 'personal/'
 
@@ -114,9 +115,7 @@ const [st, newStat]=useState(0);
     console.log("Make it true");
     }
     else
-    return <Redirect to='/Home'/>
-
-
+    ret=true;
   }
   else{
     p1=props.location.state.user.email;
@@ -158,9 +157,20 @@ UserProfile.loggedIn=true;
   newUser.tob=p4;
   newUser.pob=p5;
   console.log(p5);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(p1 !== null){
+        const result = await axiosPath.makeGetRequest("personal/" + p1);
+        setData(result);
+      };
+    }
+      fetchData();
+}, [])
  
 
-
+if(ret)
+return <Redirect to='/Home'/>
 
 
 
@@ -373,10 +383,14 @@ UserProfile.loggedIn=true;
       </div>
 
       <div style={{marginTop: 30}}>
-        <ColorButton onClick={handle2} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
-      </div>
+      <GoogleLogout
+        onLogoutSuccess={handle2}
+                   clientId={config.GOOGLE_CLIENT_ID}
+                   theme="dark"
+                 
+         />              </div>
       </header>
-        
+              
          </div>    
 
     );
