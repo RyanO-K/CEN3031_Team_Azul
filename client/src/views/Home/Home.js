@@ -40,11 +40,18 @@ function Home() {
     //console.log(UserProfile.loggedIn);
 
     useEffect(()=>{
-    if(UserProfile.abc!==undefined && UserProfile.loggedIn){
-    setHome('User');
+    if(UserProfile.abc!==undefined && UserProfile.getLocalStorageEmail()!=='null' && UserProfile.getLocalStorageEmail()!==null &&UserProfile.getLocalStorageEmail()!==''){
+    if(UserProfile.getLocalStorageEmail()==='admin'){
+        setHome('Admin');
+    sessionStorage.setItem('hi','Admin');
+    }
+    else{
+        setHome('User');
     sessionStorage.setItem('hi','User');
     }
-    else if(UserProfile.abc!==undefined && !UserProfile.loggedIn){
+    
+    }
+    else if(UserProfile.abc!==undefined &&  (UserProfile.getLocalStorageEmail()==='null' || UserProfile.getLocalStorageEmail()===null ||UserProfile.getLocalStorageEmail()==='')){
         setHome('Log In');
     sessionStorage.setItem('hi','Log In');
     UserProfile.loggedIn=false;
