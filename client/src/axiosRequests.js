@@ -35,6 +35,17 @@ async makeCreateRequest(url, bodyInfo) {
   
   let res = await axios.post('/api/' + url,bodyInfo);
   return res;
+},
+/*auth:{
+username:'',
+password:''
+
+}
+*/
+async makeAuthRequest(url, authInfo) {
+  
+  let res = await axios.get('/api/' + url,authInfo);
+  return res;
 }
 
 }
