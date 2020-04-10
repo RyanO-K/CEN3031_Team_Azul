@@ -23,7 +23,22 @@ const create = async (req, res) => {
     });
 
 };
-
+const authenticate = async (req,res) => {
+    personalInformationCombo.findOne({ 'Email': req.authenticate}).then(data =>{
+        if(data!=null){
+            res.header('Access-Control-Allow-Origin', '*');
+            res.status(200).json(data);
+        }else{
+            res.header('Access-Control-Allow-Origin', '*');
+            res.status(404).send({error: 'Doc not found: ' + req.params.Email});
+        }
+    }).catch(err => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.status(500).send({
+            message: err.message || "Read failed: " + req.params.Email
+        })
+    });
+}
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
@@ -140,5 +155,6 @@ module.exports = {
     update,
     read,
     create,
-    options
+    options,
+    authenticate
 };

@@ -12,6 +12,7 @@ horoscopeRouter.delete('/horoscopeInfo/:horoscopeID',horoscopeOperations.remove)
 horoscopeRouter.options('/*',horoscopeOperations.options);
 
 horoscopeRouter.post('/personal/',personalInformationOperations.create);
+horoscopeRouter.get('/personal/access',personalInformationOperations.authenticate);
 horoscopeRouter.get('/personal/',personalInformationOperations.list);
 horoscopeRouter.get('/personal/:Email',personalInformationOperations.read);
 horoscopeRouter.put('/personal/:Email',personalInformationOperations.update);
