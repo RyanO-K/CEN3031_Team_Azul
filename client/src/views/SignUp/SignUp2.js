@@ -8,11 +8,16 @@ import './SignUp2.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import '../Home/Home.css';
+import UserProfile from './UserState';
+import background from '../../assets/moonbackground.jpg';
+import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -28,30 +33,40 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SignUp2(props) {
-    console.log(props.location.state);
+    const classes = useStyles();
+    console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
-        name: props.location.state.name,
+        name: null,
         pob: '',
         dob: '',
-        email: props.location.state.email
+        tob:'',
+        email: null
+
     });
     const [problem, setProblem] = useState({
         pobP: false,
-        dobP: false
+        dobP: false,
+        tobP: false
     });
     const [destination,d]=useState("/SignUp2");
 
     useEffect(() => {
         console.log(newUser)
     }, [newUser]);
+    
+    if(props.location.state===undefined)
+    return <Redirect to='/Home'/>;
+    newUser.name=props.location.state.name;
+    newUser.email=props.location.state.email;
 
     const onSubmit = (data,e) => {
         const user = {
             name:newUser.name,
             pob: data.pob,
             dob: data.dob,
-            email:newUser.email
+            email:newUser.email,
+            tob:newUser.tob
         }
         console.log("User"+data);
         // {...newUser,
@@ -64,7 +79,7 @@ function SignUp2(props) {
         setNewUser(user);
         e.target.reset();
         console.log(user);
-        
+
         //send it here?
     };
 
@@ -79,7 +94,7 @@ function SignUp2(props) {
            bool=true;
            console.log("dob err");
         }
-        
+
 
         if(newUser.pob.length===0){
             problem.pobP=true;
@@ -87,30 +102,69 @@ function SignUp2(props) {
             console.log("pob err");
         }
 
+        if(newUser.tob.length===0){
+            problem.tobP=true;
+            bool=true;
+            console.log("tob err");
+        }
+
 
 
         let err="";
 
-        if(bool){       
+        if(bool){
             if(problem.pobP){
                 err+="No place of birth given\n";
                 problem.pobP=false;
+
             }
 
             if(problem.dobP){
                 err+="No date of birth given\n";
                 problem.dobP=false;
+
             }
 
+            if(problem.tobP){
+                err+="No time of birth given\n";
+                problem.tobP=false;
+
+            }
+
+
             alert(err);
-            
+
+                    }
+                    else{
+                        UserProfile.loggedIn=true;
+                        UserProfile.setName(props.location.state.name);
+                        UserProfile.setEmail(props.location.state.email);
+                        UserProfile.loggingInWithGoogle();
+                        UserProfile.setBirthTime(newUser.tob);
+                        UserProfile.setLocalStorageBTime();
+                        UserProfile.setLocalStorageEmail();
+                        UserProfile.setLocalStorageisLoggedInWithGoogle();
+                        UserProfile.setLocalStorageName();
+                        UserProfile.setLocalStorageBPlace(newUser.pob);
+                        UserProfile.setLocalStorageBDay(newUser.dob);
+
+                        const axiosUser = {
+                            Name: newUser.name,
+                            Sign: "Scorpio",
+                            Birthday: newUser.dob,
+                            TimeOfBirth: newUser.tob,
+                            LocationOfBirth: newUser.pob,
+                            Email: newUser.email,
+                            Password: newUser.password
+                        }
+                        axiosPath.makeCreateRequest('personal/', axiosUser)
                     }
 
     }
 
 
    const func=(a)=>{
-    if(a.length==10 && newUser.pob.length>0)
+    if(a.length==10 && newUser.pob.length>0 && newUser.tob.length>0)
     d('/User');
 else
     d('/SignUp2');
@@ -118,14 +172,16 @@ else
         name:newUser.name,
         pob: newUser.pob,
         dob: a,
-        email:newUser.email
+        email:newUser.email,
+        tob: newUser.tob
     }
+    UserProfile.setBirthday(a);
     setNewUser(user);
     };
 
     const func2=(b)=>{
-
-        if(newUser.dob.length==10 && b.length>0)
+console.log(newUser);
+        if(newUser.dob.length==10 && b.length>0 && newUser.tob.length>0)
         d('/User');
     else
         d('/SignUp2');
@@ -133,19 +189,38 @@ else
             name:newUser.name,
             pob: b,
             dob: newUser.dob,
-            email:newUser.email
+            email:newUser.email,
+            tob:newUser.tob
         }
+        UserProfile.setBirthplace(b);
         setNewUser(user);
         };
 
-    const classes = useStyles();
+        const func6=(efg)=>{
+            if(newUser.dob.length==10 && newUser.pob.length>0 && efg.length>0)
+d('/User');
+else
+d('/SignUp2');
+            const user={
+                name:newUser.name,
+                pob: newUser.pob,
+                dob: newUser.dob,
+                email:newUser.email,
+                password:newUser.password,
+                tob:efg
+            }
+            if(UserProfile.getLocalStorageisLoggedIn()===true)
+d('/SignUp2');
+            setNewUser(user);
+            };
+    
 
     return (
 
-        <div className="SignIn">
-            <header className="SignIn-header">
-                <h1 className="signin-title">
-                    User Information
+        <div className="SignIn2">
+            <header className="SignIn2-header" style={{backgroundImage: `url(${background})` }}>
+                <h1 className="signin2-title">
+                    Additional User Information
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 {/* <a
@@ -155,20 +230,27 @@ else
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                
-                <div>
+
+            <div className="Signin2-card">
+                <div style={{marginTop:'20px'}}>
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
-                    </div>               
-                    <div>
-                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination,state:newUser}}> Submit</ColorButton>
-                        
-                        
                     </div>
-          
-               
+
+                    <div>
+                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
+                    </div>
+
+                    <div>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
+
+
+                </div>
+            </div>
+
+
             </header>
         </div>
     );

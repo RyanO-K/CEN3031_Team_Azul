@@ -1,13 +1,30 @@
-.SignIn {
+@font-face{
+    src: url('../../fonts/Montserrat/Montserrat-Regular.ttf');
+    font-family: montreg;
+}
+
+.SignIn2 {
     text-align: center;
     background: #282c34;
 }
 
-.signin-title{
-    color: blueviolet;
+.signin2-title{
+    font-family: montreg;
+    color: white;
 }
 
-.SignIn-header {
+.Signin2-card{
+    margin-top: 3px;
+    font-family: montreg;
+    color: black;
+    height: 150px;
+    width: 225px;
+    background-color: #0AC98F;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;
+}
+
+.SignIn2-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -19,5 +36,5 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: montreg;
 }

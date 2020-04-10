@@ -7,11 +7,18 @@ import Button from '@material-ui/core/Button'
 import './SignUp.css';
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
+import UserProfile from './UserState';
+import background from '../../assets/moonbackground.jpg';
+import axiosPath from '../../axiosRequests';
+import SelectInput from '@material-ui/core/Select/SelectInput';
+
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -35,7 +42,10 @@ function SignUp() {
         dob: '',
         email: '',
         password: '',
+        tob: '',
+        ha:false
     });
+    console.log(UserProfile.getLocalStorageisLoggedIn());
 
     const [problem, setProblem] = useState({
         nameP:false,
@@ -43,7 +53,9 @@ function SignUp() {
         dobP: false,
         emailP: false,
         emailAt: false,
-        password: false
+        password: false,
+        tobP: false,
+        emailMatchesP:false
     });
 
     useEffect(() => {
@@ -72,7 +84,7 @@ function SignUp() {
     };
 
 
-    async function handle(){
+    const handle=async()=>{
         let bool=false;
         let l="";
 
@@ -82,13 +94,15 @@ function SignUp() {
            bool=true;
            console.log("dob err");
         }
-        
+
 
         if(newUser.pob.length===0){
             problem.pobP=true;
             bool=true;
             console.log("pob err");
         }
+        else
+        problem.pobP=false;
 
         if(newUser.name.length===0){
             problem.nameP=true;
@@ -107,50 +121,158 @@ function SignUp() {
             bool=true;
             console.log("email2 err");
         }
+        
+
+/*
+     const obj=  await log2.apply();
+     console.log(obj);
+    if(obj.Email===newUser.email){
+        problem.emailMatchesP=true;
+        bool=true;
+    }
+    console.log(bool);
+*/
+if(newUser.ha){
+bool=true;
+problem.emailMatchesP=true;
+}
+        
 
         if(newUser.password.length===0){
             problem.passwordP=true;
             bool=true;
             console.log("pword err");
         }
+        if(newUser.tob.length===0){
+            problem.tobP=true;
+            bool=true;
+        }
         let err="";
 
-        if(bool){
-            if(problem.nameP){
+console.log("bool"+bool);
+
+        if(bool||(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null')){
+            if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!==''&&UserProfile.getLocalStorageEmail()!=='null')
+            err+="You are already logged in with email "+UserProfile.getLocalStorageEmail();
+else{
+            if(!problem.emailMatchesP && problem.nameP){
                 err+="No name given\n";
                 problem.nameP=false;
-            }   
-            if(problem.emailAt && !problem.emailP){
+            }
+            if(!problem.emailMatchesP && problem.emailAt){
                 err+="Invalid email given\n";
                 problem.emailAt=false;
+
             }
-            if(problem.emailP){
+            if(!problem.emailMatchesP && problem.emailP){
                 err+="No email given\n";
-                problem.emailP=false;
+                problem.emailMatchesP=false;
             }
-         
+
+            if(newUser.ha){
+                err+="Already a user with this email\n";
+                problem.emailMatchesP=false;
+            }
+
 
             if(problem.pobP){
                 err+="No place of birth given\n";
                 problem.pobP=false;
             }
 
-            if(problem.dobP){
+            if(!problem.emailMatchesP && problem.dobP){
                 err+="No date of birth given\n";
                 problem.dobP=false;
+
             }
 
-            if(problem.passwordP){
+            if(!problem.emailMatchesP && problem.passwordP){
                 err+="No password given\n";
                 problem.passwordP=false;
             }
-            alert(err);
-            
+            if(!problem.emailMatchesP && problem.tobP){
+                err+="No time of birth given\n";
+
+            }
+        }
+            console.log(UserProfile.getLocalStorageEmail());
+                      alert(err);
+
+            window.location.reload();
+
+
                     }
 
+
+
+                    else{
+                        
+                        console.log("move n");
+                        UserProfile.loggingInWithoutGoogle();
+                        UserProfile.setName(newUser.name);
+                        UserProfile.setEmail(newUser.email);
+                        UserProfile.setBirthday(newUser.dob);
+                        UserProfile.setBirthplace(newUser.pob);
+                        UserProfile.setBirthTime(newUser.tob);
+                        setNewUser(newUser);
+                        UserProfile.loggedIn=true;
+                        UserProfile.setLocalStorageBTime();
+                        UserProfile.setLocalStorageBDay();
+                        UserProfile.setLocalStorageBPlace();
+                        UserProfile.setLocalStorageEmail();
+                        UserProfile.setLocalStorageName();
+                        UserProfile.setLocalStorageisLoggedIn();
+                        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+                        console.log(destination);
+                        setNewUser(newUser);
+                        const axiosUser = {
+                            Name: newUser.name,
+                            Sign: "Scorpio",
+                            Birthday: newUser.dob,
+                            TimeOfBirth: newUser.tob,
+                            LocationOfBirth: newUser.pob,
+                            Email: newUser.email,
+                            Password: newUser.password
+                        }
+                        axiosPath.makeCreateRequest('personal/', axiosUser)
+                        
+                    }
+                  
+                    console.log(destination);
+
     }
-    const func=(a)=>{
-        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
+
+
+    const log = async () => {
+       return await axiosPath.makeGetRequest('personal/'+ newUser.email);   
+    };
+
+    const log2 = async () => {
+        console.log("H: "+newUser.email);
+        let ob;
+       (await axiosPath.makeGetRequest('personal/'+ newUser.email).then(ob='hi').catch(ob=''));
+    return ob;    
+    };
+
+//if change email last, it wont work.  Fix using de
+//also use session not local storage
+
+         useEffect(()=>{
+             if(newUser.ha || newUser.password.length===0 || newUser.name.length===0 ||newUser.email.indexOf("@")===-1 ||newUser.pob.length===0 ||newUser.tob.length===0||newUser.dob.length!==10||(UserProfile.getLocalStorageEmail()!==''&&UserProfile.getLocalStorageEmail()!==null&&UserProfile.getLocalStorageEmail()!=='null')){
+            d("/SignUp");
+            //newUser.ha=true;
+            console.log(UserProfile.getLocalStorageEmail());
+             }
+            else{
+                console.log("newimfiu3,");
+            d("/User");
+            }
+        });
+
+
+
+    const func=async (a)=>{
+        if(a.length===10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha && newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -160,12 +282,19 @@ function SignUp() {
             dob: a,
             email:newUser.email,
             password:newUser.password,
+            tob:newUser.tob,
+            ha:newUser.ha
         }
+        if(UserProfile.getLocalStorageisLoggedIn()===true)
+            d('/SignUp');
         setNewUser(user);
         };
-    
-        const func2=(b)=>{
-            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
+
+        const func2=async (b)=>{
+           
+              
+              
+            if(newUser.dob.length===10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha&&newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -174,13 +303,20 @@ function SignUp() {
                 pob: b,
                 dob: newUser.dob,
                 email:newUser.email,
-                password:newUser.password
+                password:newUser.password,
+                tob:newUser.tob,
+                ha:newUser.ha
             }
+            if(UserProfile.getLocalStorageisLoggedIn()===true)
+            d('/SignUp');
             setNewUser(user);
             };
 
-            const func3=(c)=>{
-                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0)
+            const func3=async (c)=>{
+                
+
+                           
+                if(newUser.dob.length===10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0&&newUser.ha&& newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -189,28 +325,68 @@ function SignUp() {
                     pob: newUser.pob,
                     dob: newUser.dob,
                     email:newUser.email,
-                    password:c
+                    password:c,
+                    tob:newUser.tob,
+                    ha:newUser.ha
                 }
+                if(UserProfile.getLocalStorageisLoggedIn()===true)
+            d('/SignUp');
                 setNewUser(user);
                 };
 
-                const func4=(de)=>{
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0)
-            d('/User');
-        else
-            d('/SignUp');
+                const func4=async(de)=>{
+
                     const user={
                         name:newUser.name,
                         pob: newUser.pob,
                         dob: newUser.dob,
                         email:de,
-                        password:newUser.password
+                        password:newUser.password,
+                        tob:newUser.tob,
+                        ha:newUser.ha
                     }
                     setNewUser(user);
+                    newUser.email=de;
+                    setNewUser({
+                        name:newUser.name,
+                        pob: newUser.pob,
+                        dob: newUser.dob,
+                        email:newUser.email,
+                        password:newUser.password,
+                        tob:newUser.tob,
+                        ha:newUser.ha
+                    });
+                    console.log("DE: "+newUser.email);
+
+                    let ob=await log2.apply();
+                    let obj={Email:undefined};
+                    if(ob.length>0){
+                        obj=await log.apply();
+                    }
+                    let bo=(obj.Email===undefined);
+                   
+
+                    if(newUser.dob.length===10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined&& newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+            d('/User');
+            
+        else
+            d('/SignUp');
+                    const user2={
+                        name:newUser.name,
+                        pob: newUser.pob,
+                        dob: newUser.dob,
+                        email:de,
+                        password:newUser.password,
+                        tob:newUser.tob,
+                        ha:bo
+                    }
+                    if(UserProfile.getLocalStorageisLoggedIn()===true)
+            d('/SignUp');
+                    setNewUser(user2);
                     };
 
-                    const func5=(e)=>{
-                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0)
+                    const func5=async(e)=>{
+                        if(newUser.dob.length===10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha&&newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
             d('/User');
         else
             d('/SignUp');
@@ -219,17 +395,44 @@ function SignUp() {
                             pob: newUser.pob,
                             dob: newUser.dob,
                             email:newUser.email,
-                            password:newUser.password
+                            password:newUser.password,
+                            tob:newUser.tob,
+                            ha:newUser.ha
                         }
+                        if(UserProfile.getLocalStorageisLoggedIn()===true)
+            d('/SignUp');
                         setNewUser(user);
                         };
+
+
+
+
+                        const func6=async (efg)=>{
+    
+                            if(newUser.dob.length===10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0&&newUser.ha&& newUser.dob.length!==10&&(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null||UserProfile.getLocalStorageEmail()==='null'))
+                d('/User');
+            else
+                d('/SignUp');
+                            const user={
+                                name:newUser.name,
+                                pob: newUser.pob,
+                                dob: newUser.dob,
+                                email:newUser.email,
+                                password:newUser.password,
+                                tob:efg,
+                               ha: newUser.ha
+                            }
+                            if(UserProfile.getLocalStorageisLoggedIn()===true)
+                d('/SignUp');
+                            setNewUser(user);
+                            };
 
     const classes = useStyles();
 
     return (
 
         <div className="SignIn">
-            <header className="SignIn-header">
+            <header className="SignIn-header" style={{backgroundImage: `url(${background})` }}>
                 <h1 className="signin-title">
                     User Information
                 </h1>
@@ -241,9 +444,9 @@ function SignUp() {
                     rel="noopener noreferrer"
                 >
                 </a> */}
-                <div>
+                <div className="Signin-card">
+                    <p></p>
                     <input type="text" placeholder="Name" name="name" ref={register} onChange={(e)=>func5(e.target.value)}/>
-                    </div>
                     <div>
                         <input type="email" placeholder="Email Address" name="email" ref={register} onChange={(e)=>func4(e.target.value)}/>
                     </div>
@@ -251,18 +454,30 @@ function SignUp() {
                         <input type="text" placeholder="Password" name="password" ref={register} onChange={(e)=>func3(e.target.value)}/>
                     </div>
                     <div>
+                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
+                    </div>
+                    <div>
                     <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>
-                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
-                    </div>               
-                    <div>
-                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:newUser}}> Submit</ColorButton>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: destination,state:{user:newUser, g:false}}}> Submit</ColorButton>
                         </div>
-                
-                <div>
+
+                <p style={{marginTop: 5, marginBottom: 10, fontSize:25}}>or</p>
                 <SignUpWithGoogle></SignUpWithGoogle>
                 </div>
+
+                <p style={{marginBottom:5}}>
+                    <br></br><br></br>
+                    Already a User?
+                </p>
+                <div>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Login',state:newUser}}> Go Login Now</ColorButton>
+                        </div>
+
             </header>
         </div>
     );
