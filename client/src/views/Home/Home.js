@@ -8,10 +8,12 @@ import { green, purple } from '@material-ui/core/colors';
 import './Home.css';
 import LoginWithGoogle from '../SignUp/LoginWithGoogle';
 import UserProfile from '../SignUp/UserState';
+import Moon from '../../components/Moon/Moon'
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -26,16 +28,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 sessionStorage.setItem('J', true);
-console.log(sessionStorage.getItem('hi'));
+//console.log(sessionStorage.getItem('hi'));
 //UserProfile.abc=localStorage.getItem('hi');
 if(sessionStorage.getItem('hi')===null)
 sessionStorage.setItem('hi', 'Log In');
 function Home() {
-    console.log(UserProfile.abc);
+    //console.log(UserProfile.abc);
     const[home, setHome]=useState(sessionStorage.getItem('hi'));
 
     let arr=['Log In', 'User'];
-    console.log(UserProfile.loggedIn);
+    //console.log(UserProfile.loggedIn);
 
     useEffect(()=>{
     if(UserProfile.getLocalStorageEmail()!=='null' && UserProfile.getLocalStorageEmail()!==null &&UserProfile.getLocalStorageEmail()!==''){
@@ -71,6 +73,9 @@ function Home() {
 
         <div className="App">
             <header className="App-header" style={{backgroundImage: `url(${background})` }}>
+                <div className="Moon">
+                    <Moon></Moon>
+                </div>
                 <h1 className="MoonFlow">
                     Moon Flow
                     </h1>
