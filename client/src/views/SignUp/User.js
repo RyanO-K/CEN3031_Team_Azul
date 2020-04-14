@@ -13,6 +13,7 @@ import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
 import axiosPath from "../../axiosRequests";
+
 import firebase from 'firebase';
 
 
@@ -126,9 +127,26 @@ const [st, newStat]=useState(0);
     p5=props.location.state.user.pob;
     p6=true;
     UserProfile.loggedIn=true;
-
+    if(p7===false)
+    UserProfile.loggingInWithoutGoogle();
+  else
+    UserProfile.loggingInWithGoogle();
+UserProfile.loggedIn=true;
+  UserProfile.setEmail(p1);
+  UserProfile.setName(p2);
+  UserProfile.setBirthplace(p5);
+  UserProfile.setBirthTime(p4);
+  UserProfile.setBirthday(p3);
+  UserProfile.setLocalStorageBDay();
+  UserProfile.setLocalStorageBPlace();
+  UserProfile.setLocalStorageEmail();
+  UserProfile.setLocalStorageisLoggedIn();
+  UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+  UserProfile.setLocalStorageBTime();
+  UserProfile.setLocalStorageName();
     p7=props.location.state.g;
     p8=!p7;
+    console.log(newUser.email);
   }
 
 
@@ -406,7 +424,7 @@ UserProfile.loggedIn=true;
       UserProfile.setLocalStorageisLoggedIn();
       UserProfile.setLocalStorageisLoggedInWithGoogle();
       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-      return(<Redirect to="/Home"/>);
+      //return(<Redirect to="/Home"/>);
       }
                        return(
                         <div className="User">
