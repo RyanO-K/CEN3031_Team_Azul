@@ -42,7 +42,7 @@ const App = () => {
   //console.log(result);
 //};
 
-log.apply();
+//log.apply();
 
 
 
