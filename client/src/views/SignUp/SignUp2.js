@@ -202,17 +202,10 @@ d('/SignUp2');
 
     return (
 
-<<<<<<< Updated upstream
-        <div className="SignIn">
-            <header className="SignIn-header">
-                <h1 className="signin-title">
-                    User Information
-=======
         <div className="SignIn2">
             <header className="SignIn2-header" style={{backgroundImage: `url(${background})` }}>
                 <h1 className="signin2-title">
                     Additional User Information
->>>>>>> Stashed changes
                 </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 {/* <a
@@ -223,12 +216,8 @@ d('/SignUp2');
                 >
                 </a> */}
 
-<<<<<<< Updated upstream
-                <div>
-=======
             <div className="Signin2-card">
                 <div style={{marginTop:'20px'}}>
->>>>>>> Stashed changes
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
                     <div>

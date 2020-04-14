@@ -5,9 +5,6 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import UserProfile from '../SignUp/UserState';
 
 const Admin = () =>{
-<<<<<<< Updated upstream
-    if(UserProfile.getLocalStorageEmail()!=='admin')
-=======
 
   if(UserProfile.getLocalStorageEmail()==='admin'){
     UserProfile.loggingInWithoutGoogle();
@@ -73,7 +70,6 @@ const Admin = () =>{
         UserProfile.setLocalStorageEmail();
         }
     if(UserProfile.getLocalStorageEmail()!=='Admin@admin.com')
->>>>>>> Stashed changes
     return(<Redirect to="/Home"/>);
     const dispSunSign = (clicked) =>
     {

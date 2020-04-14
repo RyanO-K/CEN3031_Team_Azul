@@ -92,17 +92,11 @@ li=()=>{
     googleResponse = async(response) => {
         this.setState({name:this.state.name, email:response.profileObj.email, loggedIn:this.state.loggedIn, loggedInWithGoogle:false, nextPage:this.state.nextPage});
         //check if the login credentials were valid.  If they were, continue.  Else, throw an error message of sorts.  
-<<<<<<< Updated upstream
-        const obj=this.log2();
- if(obj.Email===response.profileObj.email && obj.Password.length===0){
-
-=======
         console.log(10);
         const obj=await this.log2();
         console.log(this.state.nextPage);
         console.log(obj);
  if(obj!==undefined && obj.Email===response.profileObj.email && obj.Password===undefined){
->>>>>>> Stashed changes
 
 
 
@@ -195,12 +189,6 @@ return(
     }
 
 else {//rather than loggedIn, in the future, change this to if credentials are valid
-<<<<<<< Updated upstream
-    if(!this.state.loggedIn){
-        UserProfile.loggedIn=false;
-    alert("Not a registered email");
-    return( <Redirect to={{pathname:this.state.nextPage
-=======
     console.log("USer pf "+this.state.loggedInWithGoogle);
     console.log("USer pf "+this.state.loggedIn);
     console.log(UserProfile.isLoggedInWithGoogle());
@@ -219,7 +207,6 @@ this.handle();
     console.log(UserProfile.loggedIn);
     }
     return( <Redirect to={{pathname:'/User', state:{user:this.state, g:true}
->>>>>>> Stashed changes
     }}/>
     );
 

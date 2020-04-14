@@ -12,12 +12,8 @@ import background from '../../assets/moonbackground.jpg';
 import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
-<<<<<<< Updated upstream
-
-=======
 import axiosPath from "../../axiosRequests";
 import firebase from 'firebase';
->>>>>>> Stashed changes
 
 
 const ColorButton = withStyles(theme => ({
@@ -105,11 +101,7 @@ function User(props){
 const [st, newStat]=useState(0);
     
   console.log(props);
-<<<<<<< Updated upstream
-  if(props===undefined || props.location.state===undefined || props.location.state.pob===undefined){
-=======
   if(props===undefined || props.location.state===undefined || props.location.state===null || props.location.state.user.email===undefined){
->>>>>>> Stashed changes
     p1=UserProfile.getLocalStorageEmail();
     p2=UserProfile.getLocalStorageName();
     p3=UserProfile.getLocalStorageBDay();
@@ -121,14 +113,10 @@ const [st, newStat]=useState(0);
     console.log(UserProfile.getLocalStorageEmail());
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
-<<<<<<< Updated upstream
-
-=======
     console.log("Make it true");
     }
     else
     ret=true;
->>>>>>> Stashed changes
   }
   else{
     p1=props.location.state.user.email;
@@ -153,39 +141,6 @@ const [st, newStat]=useState(0);
   newUser.tob=p4;
   newUser.pob=p5;
   console.log(p5);
-<<<<<<< Updated upstream
-  const [st, newStat]=useState(0);
-
-
-  useEffect(()=>{
-    if(newUser.b){
-
-      UserProfile.setEmail('');
-      UserProfile.setName('');
-      UserProfile.loggingOut();
-      UserProfile.setBirthday('');
-      UserProfile.setBirthplace('');
-      UserProfile.setBirthTime('');
-      UserProfile.setLocalStorageBTime();
-      UserProfile.setLocalStorageBDay();
-      UserProfile.setLocalStorageBPlace();
-      UserProfile.setLocalStorageEmail();
-      UserProfile.setLocalStorageName();
-      UserProfile.setLocalStorageisLoggedIn();
-      UserProfile.setLocalStorageisLoggedInWithGoogle();
-      UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-
-      
-
-
-
-    }
-
-  });
-
-
-  if(p1===null)
-=======
 
   useEffect(() => {
     const fetchData = async () => {
@@ -266,7 +221,6 @@ const renderName = () => {
 
 
   if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
->>>>>>> Stashed changes
     return(<Redirect to="/Home"/>);
     console.log(UserProfile.getLocalStorageName());
 
@@ -455,19 +409,6 @@ UserProfile.loggedIn=true;
       return(<Redirect to="/Home"/>);
       }
                        return(
-<<<<<<< Updated upstream
-                        <p>
-                        {newUser.name}<br></br>
-                        {newUser.email}<br></br>
-                        {newUser.dob}<br></br>
-                        {newUser.pob}<br></br>
-                        {newUser.tob}<br></br>
-                        <br></br>
-                        <div>
-                        <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
-                      </div>
-                       </p>
-=======
                         <div className="User">
                           <header className="User-header" style={{backgroundImage: `url(${background})` }}>
                           <div>{renderName()}</div>
@@ -480,7 +421,6 @@ UserProfile.loggedIn=true;
                           </div>
                           </header>
                           </div>
->>>>>>> Stashed changes
                         ); }
                         else{
                           console.log('hi');

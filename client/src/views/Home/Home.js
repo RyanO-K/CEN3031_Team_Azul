@@ -54,17 +54,6 @@ function Home() {
     sessionStorage.setItem('hi','Log In');
     UserProfile.loggedIn=false;
     }
-<<<<<<< Updated upstream
-    else if(UserProfile.abc===undefined){
-        console.log(home);
-        if(home==='Log In')
-            UserProfile.loggedIn=false;
-        else
-            UserProfile.loggedIn=true;
-            UserProfile.abc="hi";
-    }
-=======
->>>>>>> Stashed changes
     });
     
     sessionStorage.setItem('J', false);
