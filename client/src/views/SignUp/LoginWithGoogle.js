@@ -15,9 +15,9 @@ class LoginWithGoogle extends Component {
         
         super();
         UserProfile.name='';
-        UserProfile.email='';
+        UserProfile.email=null;
         UserProfile.isLoggedIn=false;
-        this.state = {name:'', email:'', loggedIn:false, loggedInWithGoogle:false, nextPage:'/Home'};
+        this.state = {name:'', email:null, loggedIn:false, loggedInWithGoogle:false, nextPage:''};
    // console.log(UserProfile.getLocalStorageisLoggedIn());
      //  console.log(GoogleLogin.BasicProfile);
        //this.fun();
@@ -52,7 +52,23 @@ signOut2=()=>{
 */
  async log2(){
         
-    return (await axiosPath.makeGetRequest('personal/'+ this.state.email));
+    return (await axiosPath.makeGetRequest('personal/'+ this.state.email).then(res=>{
+        UserProfile.setEmail(this.state.email);
+        UserProfile.loggingInWithGoogle();
+        UserProfile.setLocalStorageisLoggedInWithGoogle();
+        UserProfile.setLocalStorageisLoggedIn();
+        UserProfile.setLocalStorageEmail();
+        console.log(UserProfile.getLocalStorageEmail());
+        this.state.nextPage='/User';
+        console.log(this.state.nextPage);
+        this.state.loggedInWithGoogle=true;
+    }).catch(res2=>{
+        alert('Invalid Username or Password');
+        UserProfile.loggingOut();
+        UserProfile.setLocalStorageisLoggedIn();
+        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+    }));
+
 
        };
 
@@ -74,11 +90,19 @@ li=()=>{
 
 
     googleResponse = async(response) => {
-        this.setState({name:this.state.name, email:response.profileObj.email, loggedIn:this.state.loggedIn, loggedInWithGoogle:true, nextPage:this.state.nextPage});
+        this.setState({name:this.state.name, email:response.profileObj.email, loggedIn:this.state.loggedIn, loggedInWithGoogle:false, nextPage:this.state.nextPage});
         //check if the login credentials were valid.  If they were, continue.  Else, throw an error message of sorts.  
+<<<<<<< Updated upstream
         const obj=this.log2();
  if(obj.Email===response.profileObj.email && obj.Password.length===0){
 
+=======
+        console.log(10);
+        const obj=await this.log2();
+        console.log(this.state.nextPage);
+        console.log(obj);
+ if(obj!==undefined && obj.Email===response.profileObj.email && obj.Password===undefined){
+>>>>>>> Stashed changes
 
 
 
@@ -91,16 +115,16 @@ li=()=>{
     //console.log(UserProfile.isLoggedIn());
     UserProfile.setName(response.profileObj.name);
     
-    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:true, nextPage:'/User'});
+    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
     UserProfile.setEmail(response.profileObj.email); 
-    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:true, nextPage:'/User'});
+    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
     UserProfile.setLocalStorageName();
     UserProfile.setLocalStorageEmail();
     UserProfile.setLocalStorageisLoggedInWithGoogle();
     UserProfile.setLocalStorageisLoggedIn();
-    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:true, nextPage:'/User'});
+    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
     //console.log(response.profileObj.name);
-    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:true, nextPage:'/User'});
+    this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
     //console.log(this.state.name);
    // console.log(this.state.email);
    UserProfile.loggedIn=true;
@@ -109,7 +133,7 @@ li=()=>{
 
 
  else{
-this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:false, loggedInWithGoogle:true, nextPage:'/Home'});
+this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:false, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
 UserProfile.loggedIn=false; 
 }
           
@@ -171,10 +195,31 @@ return(
     }
 
 else {//rather than loggedIn, in the future, change this to if credentials are valid
+<<<<<<< Updated upstream
     if(!this.state.loggedIn){
         UserProfile.loggedIn=false;
     alert("Not a registered email");
     return( <Redirect to={{pathname:this.state.nextPage
+=======
+    console.log("USer pf "+this.state.loggedInWithGoogle);
+    console.log("USer pf "+this.state.loggedIn);
+    console.log(UserProfile.isLoggedInWithGoogle());
+this.handle();
+    if(!this.bool){
+        console.log(this.bool);
+        UserProfile.loggedIn=true;
+        this.state.loggedIn=false;
+        if(UserProfile.abc===undefined){UserProfile.abc='abc';
+        console.log(this.state.loggedIn);
+        
+        }
+    }
+    else{
+    UserProfile.loggedIn=true;
+    console.log(UserProfile.loggedIn);
+    }
+    return( <Redirect to={{pathname:'/User', state:{user:this.state, g:true}
+>>>>>>> Stashed changes
     }}/>
     );
 

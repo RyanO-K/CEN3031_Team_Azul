@@ -1,14 +1,11 @@
-import React, {useState, useEffect, Component} from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
-import logo from '../../assets/logo.svg';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button'
-import './SignUp.css';
-import { useForm } from 'react-hook-form'
-import SignUpWithGoogle from "./SignUpWithGoogle";
+import React, { Component } from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
+import { Flex, Box, Button, Heading, Text } from 'rebass';
+import { Label, Input } from '@rebass/forms'
+import firebase from './config2';
 import UserProfile from './UserState';
 import axiosPath from '../../axiosRequests';
+<<<<<<< Updated upstream
 
 
 
@@ -225,195 +222,84 @@ problem.emailMatchesP=true;
                   
                     console.log(destination);
 
+=======
+import SignUpWithGoogle from './SignUpWithGoogle';
+import './SignUp.css';
+class SignUp extends Component {
+    constructor() {
+        super();
+        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false};
+>>>>>>> Stashed changes
     }
 
 
-    const log = async () => {
-       return await axiosPath.makeGetRequest('personal/'+ newUser.email);   
-    };
-
-    const log2 = async () => {
-        console.log("H: "+newUser.email);
-        let ob;
-       (await axiosPath.makeGetRequest('personal/'+ newUser.email).then(ob='hi').catch(ob=''));
-    return ob;    
-    };
-
-//if change email last, it wont work.  Fix using de
-//also use session not local storage
-
-         useEffect(()=>{
-             if(newUser.ha || newUser.name.length==0 ||newUser.email.indexOf("@")==-1 ||newUser.pob.length==0 ||newUser.tob.length==0||newUser.dob.length!=10){
-            d("/SignUp");
-             }
-            else{
-                console.log("newimfiu3,");
-            d("/User");
-            }
-        });
-
-
-
-    const func=async (a)=>{
-        if(a.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
-            d('/User');
-        else
-            d('/SignUp');
-        const user={
-            name:newUser.name,
-            pob: newUser.pob,
-            dob: a,
-            email:newUser.email,
-            password:newUser.password,
-            tob:newUser.tob,
-            ha:newUser.ha
-        }
-        if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
-        setNewUser(user);
-        };
-
-        const func2=async (b)=>{
-           
-              
-              
-            if(newUser.dob.length==10 && newUser.name.length>0 && b.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
-            d('/User');
-        else
-            d('/SignUp');
-            const user={
-                name:newUser.name,
-                pob: b,
-                dob: newUser.dob,
-                email:newUser.email,
-                password:newUser.password,
-                tob:newUser.tob,
-                ha:newUser.ha
-            }
-            if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
-            setNewUser(user);
+    async log2(){
+        let a= '';
+        try{
+            a=await axiosPath.makeGetRequest('personal/'+this.state.email)}
+            catch{
+                a=undefined;
             };
-
-            const func3=async (c)=>{
-                
-
-                           
-                if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& c.length>0&&newUser.tob.length>0&&newUser.ha)
-            d('/User');
-        else
-            d('/SignUp');
-                const user={
-                    name:newUser.name,
-                    pob: newUser.pob,
-                    dob: newUser.dob,
-                    email:newUser.email,
-                    password:c,
-                    tob:newUser.tob,
-                    ha:newUser.ha
-                }
-                if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
-                setNewUser(user);
-                };
-
-                const func4=async(de)=>{
-
-                    const user={
-                        name:newUser.name,
-                        pob: newUser.pob,
-                        dob: newUser.dob,
-                        email:de,
-                        password:newUser.password,
-                        tob:newUser.tob,
-                        ha:newUser.ha
-                    }
-                    setNewUser(user);
-                    newUser.email=de;
-                    setNewUser({
-                        name:newUser.name,
-                        pob: newUser.pob,
-                        dob: newUser.dob,
-                        email:newUser.email,
-                        password:newUser.password,
-                        tob:newUser.tob,
-                        ha:newUser.ha
-                    });
-                    console.log("DE: "+newUser.email);
-
-                    let ob=await log2.apply();
-                    let obj={Email:undefined};
-                    if(ob.length>0){
-                        obj=await log.apply();
-                    }
-                    let bo=(obj.Email===undefined);
-                   
-
-                    if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && de.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&obj.Email!==undefined)
-            d('/User');
-            
-        else
-            d('/SignUp');
-                    const user2={
-                        name:newUser.name,
-                        pob: newUser.pob,
-                        dob: newUser.dob,
-                        email:de,
-                        password:newUser.password,
-                        tob:newUser.tob,
-                        ha:bo
-                    }
-                    if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
-                    setNewUser(user2);
-                    };
-
-                    const func5=async(e)=>{
-                        if(newUser.dob.length==10 && e.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&newUser.tob.length>0&&newUser.ha)
-            d('/User');
-        else
-            d('/SignUp');
-                        const user={
-                            name:e,
-                            pob: newUser.pob,
-                            dob: newUser.dob,
-                            email:newUser.email,
-                            password:newUser.password,
-                            tob:newUser.tob,
-                            ha:newUser.ha
-                        }
-                        if(UserProfile.getLocalStorageisLoggedIn()===true)
-            d('/SignUp');
-                        setNewUser(user);
-                        };
+            const b=a;
+console.log(b);
+return b;
+       };
 
 
+handleInputChange = (event) => {
+   this.setState({ [event.target.name]: event.target.value });
+ };
+handleSubmit = async (event) => {
+   event.preventDefault();
+   const obj=await this.log2();
+   if(obj!==undefined){
+   alert("Already a user with this email");
+   return (<Redirect to={{pathname: '/Login'}}></Redirect>);
+   }
+   else{
 
-
-                        const func6=async (efg)=>{
+   const { email, password } = this.state;
+firebase
+     .auth()
+     .createUserWithEmailAndPassword(email, password)
+     .then(async (user) => {
+    this.state.loggedIn=true;
     
-                            if(newUser.dob.length==10 && newUser.name.length>0 && newUser.pob.length>0 && newUser.email.indexOf("@")>-1&& newUser.password.length>0&&efg.length>0&&newUser.ha)
-                d('/User');
-            else
-                d('/SignUp');
-                            const user={
-                                name:newUser.name,
-                                pob: newUser.pob,
-                                dob: newUser.dob,
-                                email:newUser.email,
-                                password:newUser.password,
-                                tob:efg,
-                               ha: newUser.ha
-                            }
-                            if(UserProfile.getLocalStorageisLoggedIn()===true)
-                d('/SignUp');
-                            setNewUser(user);
-                            };
+       UserProfile.loggingInWithoutGoogle();
+       UserProfile.setName(this.state.name);
+       UserProfile.setEmail(this.state.email);
+       UserProfile.setBirthday(this.state.dob);
+       UserProfile.setBirthplace(this.state.pob);
+       UserProfile.setBirthTime(this.state.tob);
+       UserProfile.loggedIn=true;
+       UserProfile.setLocalStorageBTime();
+       UserProfile.setLocalStorageBDay();
+       UserProfile.setLocalStorageBPlace();
+       UserProfile.setLocalStorageEmail();
+       UserProfile.setLocalStorageName();
+       UserProfile.setLocalStorageisLoggedIn();
+       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
 
-    const classes = useStyles();
+       const axiosUser = {
+        Name: this.state.name,
+        Sign: "Scorpio",
+        Birthday: this.state.dob,
+        TimeOfBirth: this.state.tob,
+        LocationOfBirth: this.state.pob,
+        Email: this.state.email,
+        Password: this.state.password
+    }
+    await axiosPath.makeCreateRequest('personal/', axiosUser);
+    console.log("SUccess");
+    if(this.state.email==='Admin@admin.com')
+      this.props.history.push('/Admin');
+    else
+      this.props.history.push('/User');
+     //  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}/>);
 
-    return (
 
+
+<<<<<<< Updated upstream
         <div className="SignIn">
             <header className="SignIn-header">
                 <h1 className="signin-title">
@@ -460,10 +346,96 @@ problem.emailMatchesP=true;
                 <div>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Login',state:newUser}}> Go Login Now</ColorButton>
                         </div>
+=======
+     })
+     .catch((error) => {
+       this.setState({ error: error });
+     });
+    }
+ };
 
-            </header>
-        </div>
-    );
+
+ componentDidUpdate(){
+   console.log(30);
+   console.log(this.state.loggedIn);
+  if(this.state.loggedIn)
+  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}></Redirect>);
+>>>>>>> Stashed changes
+
 }
 
-export default SignUp;
+ render() {
+   const { email, password, error , name, dob, tob, pob} = this.state;
+console.log(10);
+   return (
+       <div>
+       <Flex>
+         <Box>
+           <Heading>Register</Heading>
+         </Box>
+       </Flex>
+       {error ? (
+         <Flex>
+           <Box>
+             <Text>{error.message}</Text>
+           </Box>
+         </Flex>
+       ) : null}
+       <Flex>
+         <Box>
+           <form onSubmit={this.handleSubmit}>
+             <Input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
+             <Input
+               type="password"
+               name="password"
+               placeholder="Password"
+               value={password}
+               onChange={this.handleInputChange}
+             />
+            <Input
+               type="date"
+               name="dob"
+               placeholder="date of birth"
+               value={dob}
+               onChange={this.handleInputChange}
+             />
+
+            <Input
+               type="text"
+               name="tob"
+               placeholder="time of birth"
+               value={tob}
+               onChange={this.handleInputChange}
+             />
+
+            <Input
+               type="text"
+               name="pob"
+               placeholder="place of birth"
+               value={pob}
+               onChange={this.handleInputChange}
+             />
+
+            <Input
+               type="text"
+               name="name"
+               placeholder="name"
+               value={name}
+               onChange={this.handleInputChange}
+             />
+
+             <Button children="Register" />
+           </form>
+         </Box>
+       </Flex>
+       or 
+       <SignUpWithGoogle></SignUpWithGoogle>
+
+       </div>
+   );
+   console.log(this.state.email);
+
+
+ }
+}
+export default withRouter(SignUp);

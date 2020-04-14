@@ -10,6 +10,7 @@ import LoginWithGoogle from "./views/SignUp/LoginWithGoogle";
 import User from "./views/SignUp/User";
 import axiosPath from './axiosRequests';
 import Login from "./views/SignUp/Login";
+import PasswordReset from "./views/SignUp/ResetPassword";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route exact path="/SignUp2" component={SignUp2} />
         <Route exact path="/Admin" component={Admin} />
         <Route exact path="/User" component={User} />
+        <Route exact path="/PasswordReset" component={PasswordReset} />
         <Route component={NotFound}/>
       </Switch>
     </div>
@@ -32,13 +34,13 @@ const App = () => {
 }
 
 //example to get and have it run async
-const log = async () => {
-  console.log('calling');
-  let result = await axiosPath.makeGetRequest('personal/');
-  console.log(result);
-  result = await axiosPath.makeGetRequest('horoscopeInfo/');
-  console.log(result);
-};
+//const log = async () => {
+  //console.log('calling');
+  //let result = await axiosPath.makeGetRequest('personal/');
+  //console.log(result);
+  //result = await axiosPath.makeGetRequest('horoscopeInfo/');
+  //console.log(result);
+//};
 
 log.apply();
 

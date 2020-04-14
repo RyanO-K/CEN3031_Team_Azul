@@ -2,7 +2,7 @@ import React, {useState, useEffect, Component} from 'react';
 
 var UserProfile = (function() {
     var full_name = "";
-    var full_email="";
+    var full_email=null;
     var  loggedInWithGoogle=false;
     var loggedIn=false;
     var birthday="";
@@ -31,54 +31,61 @@ var UserProfile = (function() {
 
 
       var setLocalStorageName=()=>{
- sessionStorage.setItem('stuff', full_name);
+ localStorage.setItem('stuff', full_name);
 }
 
  var getLocalStorageName=()=>{
-     return sessionStorage.getItem('stuff');
+     return localStorage.getItem('stuff');
  }
 
 
+ var getPage=()=>{
+     return localStorage.getItem('ste');
+ }
+
+ var setPage=(st)=>{
+     return localStorage.setItem('ste', st);
+ }
 
  var setLocalStorageEmail=()=>{
-    sessionStorage.setItem('stuffs', full_email);
+    localStorage.setItem('stuffs', full_email);
    }
    
     var getLocalStorageEmail=()=>{
-        return sessionStorage.getItem('stuffs');
+        return localStorage.getItem('stuffs');
     }
 
 
 
     var setLocalStorageisLoggedIn=()=>{
-        sessionStorage.setItem('stuffe', loggedIn);
+        localStorage.setItem('stuffe', loggedIn);
        }
        
         var getLocalStorageisLoggedIn=()=>{
-            return (((sessionStorage.getItem('stuffe'))==='true'));
+            return (((localStorage.getItem('stuffe'))==='true'));
         }
 
 
 
         var setLocalStorageisLoggedInWithGoogle=()=>{
-            sessionStorage.setItem('stuffer', loggedInWithGoogle);
+            localStorage.setItem('stuffer', loggedInWithGoogle);
             setLocalStorageisLoggedIn();
            }
            
             var getLocalStorageisLoggedInWithGoogle=()=>{
-                return (((sessionStorage.getItem('stuffer'))==='true'));
+                return (((localStorage.getItem('stuffer'))==='true'));
             }
 
 
 
             
         var setLocalStorageisLoggedInWithoutGoogle=()=>{
-            sessionStorage.setItem('stuffers', loggedInWithoutGoogle);
+            localStorage.setItem('stuffers', loggedInWithoutGoogle);
             setLocalStorageisLoggedIn();
         }
            
             var getLocalStorageisLoggedInWithoutGoogle=()=>{
-                return (((sessionStorage.getItem('stuffers'))==='true'));
+                return (((localStorage.getItem('stuffers'))==='true'));
             }
 
 
@@ -86,31 +93,31 @@ var UserProfile = (function() {
 
             
         var setLocalStorageBPlace=()=>{
-            sessionStorage.setItem('stuffersa', birthplace);
+            localStorage.setItem('stuffersa', birthplace);
            }
            
             var getLocalStorageBPlace=()=>{
-                return sessionStorage.getItem('stuffersa');
+                return localStorage.getItem('stuffersa');
             }
 
 
 
             
         var setLocalStorageBDay=()=>{
-            sessionStorage.setItem('stufferso', birthday);
+            localStorage.setItem('stufferso', birthday);
            }
            
             var getLocalStorageBDay=()=>{
-                return sessionStorage.getItem('stufferso');
+                return localStorage.getItem('stufferso');
             }
 
 
         var setLocalStorageBTime=()=>{
-            sessionStorage.setItem('stufferslol', birthtime);
+            localStorage.setItem('stufferslol', birthtime);
            }
            
             var getLocalStorageBTime=()=>{
-                return sessionStorage.getItem('stufferslol');
+                return localStorage.getItem('stufferslol');
             }
 
             var setBirthTime=(btime)=>{
@@ -132,7 +139,7 @@ var UserProfile = (function() {
           loggedInWithoutGoogle=true;
       }
       var loggingOut=function(){
-          full_email="";
+          full_email=null;
           full_name="";
           loggedIn=false;
           loggedInWithGoogle=false;
@@ -200,7 +207,9 @@ var UserProfile = (function() {
       setBirthTime: setBirthTime,
       getLocalStorageBTime:getLocalStorageBTime,
       setLocalStorageBTime:setLocalStorageBTime,
-      loggedIn:loggedIn
+      loggedIn:loggedIn,
+      getPage:getPage,
+      setPage:setPage
     }
   
   })();

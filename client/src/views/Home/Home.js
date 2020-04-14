@@ -38,15 +38,23 @@ function Home() {
     console.log(UserProfile.loggedIn);
 
     useEffect(()=>{
-    if(UserProfile.abc!==undefined && UserProfile.loggedIn){
-    setHome('User');
+    if(UserProfile.getLocalStorageEmail()!=='null' && UserProfile.getLocalStorageEmail()!==null &&UserProfile.getLocalStorageEmail()!==''){
+    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com'){
+        setHome('Admin');
+    sessionStorage.setItem('hi','Admin');
+    }
+    else{
+        setHome('User');
     sessionStorage.setItem('hi','User');
     }
-    else if(UserProfile.abc!==undefined && !UserProfile.loggedIn){
+    
+    }
+    else if((UserProfile.getLocalStorageEmail()==='null' || UserProfile.getLocalStorageEmail()===null ||UserProfile.getLocalStorageEmail()==='')){
         setHome('Log In');
     sessionStorage.setItem('hi','Log In');
     UserProfile.loggedIn=false;
     }
+<<<<<<< Updated upstream
     else if(UserProfile.abc===undefined){
         console.log(home);
         if(home==='Log In')
@@ -55,6 +63,8 @@ function Home() {
             UserProfile.loggedIn=true;
             UserProfile.abc="hi";
     }
+=======
+>>>>>>> Stashed changes
     });
     
     sessionStorage.setItem('J', false);

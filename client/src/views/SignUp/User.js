@@ -7,19 +7,27 @@ import Button from '@material-ui/core/Button'
 import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import SignUp2 from "./SignUp2";
+import './User.css';
+import background from '../../assets/moonbackground.jpg';
 import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
+<<<<<<< Updated upstream
 
+=======
+import axiosPath from "../../axiosRequests";
+import firebase from 'firebase';
+>>>>>>> Stashed changes
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
-        border: '1px solid',
-        backgroundColor: '#E28222',
-      '&:hover': {
-        backgroundColor: '#C6721D',
+      borderRadius: 20,
+      padding: '3px 10px',
+      border: '1px solid',
+      backgroundColor: '#E28222',
+    '&:hover': {
+      backgroundColor: '#C6721D',
       },
     },
 }))(Button);
@@ -30,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 function User(props){
+  console.log(UserProfile.getLocalStorageEmail());
 
 
 
@@ -39,11 +48,11 @@ function User(props){
     name: '',
     pob: '',
     dob: '',
-    email: '',
+    email: null,
     tob: '',
     b:false
 });
-  let p1='';
+  let p1=null;
   let p2='';
   let p3='';
   let p4='';
@@ -51,8 +60,56 @@ function User(props){
   let p6='';
   let p7='';
   let p8='';
+    
+      useEffect(()=>{
+    if(newUser.b){
+
+      UserProfile.setEmail(null);
+      UserProfile.setName('');
+      UserProfile.loggingOut();
+      UserProfile.setBirthday('');
+      UserProfile.setBirthplace('');
+      UserProfile.setBirthTime('');
+      UserProfile.setLocalStorageBTime();
+      UserProfile.setLocalStorageBDay();
+      UserProfile.setLocalStorageBPlace();
+      UserProfile.setLocalStorageEmail();
+      UserProfile.setLocalStorageName();
+      UserProfile.setLocalStorageisLoggedIn();
+      UserProfile.setLocalStorageisLoggedInWithGoogle();
+      UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+
+      
+
+
+
+    }
+
+  });
+
+  let ret=false;
+    
+  const url = 'personal/'
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(p1 !== null){
+        const result = await axiosPath.makeGetRequest("personal/" + p1);
+        setData(result);
+      };
+    }
+      fetchData();
+}, [])
+const [st, newStat]=useState(0);
+    
   console.log(props);
+<<<<<<< Updated upstream
   if(props===undefined || props.location.state===undefined || props.location.state.pob===undefined){
+=======
+  if(props===undefined || props.location.state===undefined || props.location.state===null || props.location.state.user.email===undefined){
+>>>>>>> Stashed changes
     p1=UserProfile.getLocalStorageEmail();
     p2=UserProfile.getLocalStorageName();
     p3=UserProfile.getLocalStorageBDay();
@@ -61,8 +118,17 @@ function User(props){
     p6=UserProfile.getLocalStorageisLoggedIn();
     p7=UserProfile.getLocalStorageisLoggedInWithGoogle();
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
+    console.log(UserProfile.getLocalStorageEmail());
+    if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
+<<<<<<< Updated upstream
 
+=======
+    console.log("Make it true");
+    }
+    else
+    ret=true;
+>>>>>>> Stashed changes
   }
   else{
     p1=props.location.state.user.email;
@@ -87,6 +153,7 @@ function User(props){
   newUser.tob=p4;
   newUser.pob=p5;
   console.log(p5);
+<<<<<<< Updated upstream
   const [st, newStat]=useState(0);
 
 
@@ -118,6 +185,88 @@ function User(props){
 
 
   if(p1===null)
+=======
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(p1 !== null){
+        const result = await axiosPath.makeGetRequest("personal/" + p1);
+        setData(result);
+      };
+    }
+      fetchData();
+}, [])
+ 
+
+if(ret)
+return <Redirect to='/Home'/>
+
+
+
+const renderTable = () => {
+  if(data){
+      console.log("data:" + data);
+      var email=data.Email;
+      if(data.Name!==undefined)
+      var name=data.Name;
+      if(data.Sign!==undefined)
+      var sign=data.Sign;
+      if(data.House!==undefined)
+      var house=data.House;
+      if(data.TimeOfBirth!==undefined)
+      var time=data.TimeOfBirth;
+      if(data.Birthday!==undefined)
+      var bday = data.Birthday;
+      if(data.LocationOfBirth!==undefined)
+      var location = data.LocationOfBirth;
+
+      return(
+      //<h1>{str}</h1>
+      <div>
+          <p style={{marginTop:20}}>Email: {email}</p>
+          <p>Birthday: {bday}</p>
+          <p>Birth Location: {location}</p>
+          <p>Birth Time: {time}</p>
+          <p>Sign: {sign}</p>
+      </div>
+      
+      )
+  // return data.map(user => {
+  // return (
+  //     <tr key = {user._id}>
+  //         <td>{user.Name}</td>
+  //         <td>{user.Email}</td>
+  //     </tr>
+  // )
+  // })
+      }
+}
+const renderName = () => {
+  if(data){
+      if(data.Name!==undefined)
+      var name=data.Name;
+
+      return(
+      //<h1>{str}</h1>
+      <div>
+        <p style={{fontSize:'45px'}}>Hi, Welcome {name}</p>
+      </div>
+      
+      )
+  // return data.map(user => {
+  // return (
+  //     <tr key = {user._id}>
+  //         <td>{user.Name}</td>
+  //         <td>{user.Email}</td>
+  //     </tr>
+  // )
+  // })
+      }
+}
+
+
+  if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
+>>>>>>> Stashed changes
     return(<Redirect to="/Home"/>);
     console.log(UserProfile.getLocalStorageName());
 
@@ -160,7 +309,7 @@ UserProfile.loggedIn=true;
       UserProfile.loggedIn=false;
 
   
-      UserProfile.setEmail('');
+      UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
@@ -170,7 +319,7 @@ UserProfile.loggedIn=true;
           name: '',
           pob: '',
           dob: '',
-          email: '',
+          email: null,
           tob:'',
           b:true
           };
@@ -192,7 +341,7 @@ UserProfile.loggedIn=true;
           name: '',
           pob: '',
           dob: '',
-          email: '',
+          email: null,
           tob:'',
           b:true
           };
@@ -202,8 +351,9 @@ UserProfile.loggedIn=true;
     }
 
   function handle(){
+    firebase.auth().signOut();
         console.log("Hi");
-        UserProfile.setEmail('');
+        UserProfile.setEmail(null);
         UserProfile.setName('');
         UserProfile.loggingOut();
         UserProfile.setBirthday('');
@@ -213,7 +363,7 @@ UserProfile.loggedIn=true;
             name: '',
             pob: '',
             dob: '',
-            email: '',
+            email: null,
             tob:'',
             b:true
             };
@@ -235,7 +385,7 @@ UserProfile.loggedIn=true;
             name: '',
             pob: '',
             dob: '',
-            email: '',
+            email: null,
             tob:'',
             b:true
             };
@@ -255,29 +405,31 @@ UserProfile.loggedIn=true;
     if(p7){//google login
         console.log("Google");
     return(
-  <p>
-        {newUser.name}<br></br>
-        {newUser.email}<br></br>
-        {newUser.dob}<br></br>
-        {newUser.pob}<br></br>
-        {newUser.tob}<br></br>
-        <br></br>
-        <div>
 
+      <div className="User">
+      <header className="User-header" style={{backgroundImage: `url(${background})` }}>
+      <div>{renderName()}</div>
+      <div className="User-card">
+        <div>{renderTable()}</div>
+      </div>
 
-        <GoogleLogout 
+      <div style={{marginTop: 30}}>
+      <GoogleLogout
         onLogoutSuccess={handle2}
                    clientId={config.GOOGLE_CLIENT_ID}
                    theme="dark"
                  
-         />                        </div>
-   </p>
+         />              </div>
+      </header>
+              
+         </div>    
+
     );
    
                    } 
                    else if(!p7) {//regular login
                   if(newUser.name===""&& newUser.email===""){
-      UserProfile.setEmail('');
+      UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
@@ -303,6 +455,7 @@ UserProfile.loggedIn=true;
       return(<Redirect to="/Home"/>);
       }
                        return(
+<<<<<<< Updated upstream
                         <p>
                         {newUser.name}<br></br>
                         {newUser.email}<br></br>
@@ -314,8 +467,23 @@ UserProfile.loggedIn=true;
                         <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
                       </div>
                        </p>
+=======
+                        <div className="User">
+                          <header className="User-header" style={{backgroundImage: `url(${background})` }}>
+                          <div>{renderName()}</div>
+                          <div className="User-card">
+                            <div>{renderTable()}</div>
+                          </div>
+
+                          <div style={{marginTop: 30}}>
+                            <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+                          </div>
+                          </header>
+                          </div>
+>>>>>>> Stashed changes
                         ); }
                         else{
+                          console.log('hi');
                             return <p>{newUser.name}</p>;
                         }
 }
