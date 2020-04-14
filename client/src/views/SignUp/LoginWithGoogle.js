@@ -1,5 +1,5 @@
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect, Component, useImperativeHandle} from 'react';
 import config from './config.json';
 import UserProfile from './UserState.js';
 import {Redirect} from 'react-router-dom';
@@ -8,12 +8,10 @@ import axiosPath from '../../axiosRequests';
 
 class LoginWithGoogle extends Component {
     //be able to also store the birthday and birthplace as states, but this relies on the axios
-       
-    
-   
+  
     constructor() {
-        
-        super();
+         
+        super();let bool=false;
         UserProfile.name='';
         UserProfile.email=null;
         UserProfile.isLoggedIn=false;
@@ -63,7 +61,7 @@ signOut2=()=>{
         console.log(this.state.nextPage);
         this.state.loggedInWithGoogle=true;
     }).catch(res2=>{
-        alert('Invalid Username or Password');
+        alert('Not a registered email');
         UserProfile.loggingOut();
         UserProfile.setLocalStorageisLoggedIn();
         UserProfile.setLocalStorageisLoggedInWithoutGoogle();
@@ -98,6 +96,8 @@ li=()=>{
         console.log(obj);
  if(obj!==undefined && obj.Email===response.profileObj.email && obj.Password===undefined){
 
+this.bool=true;
+console.log(this.bool);
 
 
         //response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
@@ -122,18 +122,28 @@ li=()=>{
     //console.log(this.state.name);
    // console.log(this.state.email);
    UserProfile.loggedIn=true;
+   this.state.loggedIn=true;
+   this.nextPage='/User';
+
    console.log(UserProfile.getLocalStorageName());
+   
  }
 
 
  else{
 this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:false, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
 UserProfile.loggedIn=false; 
+this.state.loggedIn=false;
 }
           
     //  }
   };
 
+
+handle=async()=>{
+    this.setState(null);
+
+}
 
   /*
   getLocalStorageisLoggedIn2=()=>{
@@ -211,7 +221,6 @@ this.handle();
     );
 
   }
-}
 }
 }
 
