@@ -9,11 +9,15 @@ import { useForm } from 'react-hook-form'
 import SignUpWithGoogle from "./SignUpWithGoogle";
 import '../Home/Home.css';
 import UserProfile from './UserState';
+import background from '../../assets/moonbackground.jpg';
+import axiosPath from '../../axiosRequests';
 
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -143,6 +147,17 @@ function SignUp2(props) {
                         UserProfile.setLocalStorageName();
                         UserProfile.setLocalStorageBPlace(newUser.pob);
                         UserProfile.setLocalStorageBDay(newUser.dob);
+
+                        const axiosUser = {
+                            Name: newUser.name,
+                            Sign: "Scorpio",
+                            Birthday: newUser.dob,
+                            TimeOfBirth: newUser.tob,
+                            LocationOfBirth: newUser.pob,
+                            Email: newUser.email,
+                            Password: newUser.password
+                        }
+                        axiosPath.makeCreateRequest('personal/', axiosUser)
                     }
 
     }
@@ -232,7 +247,8 @@ d('/SignUp2');
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
-                    </div>
+                </div>
+            </div>
 
 
             </header>
