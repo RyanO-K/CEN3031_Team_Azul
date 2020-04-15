@@ -1,7 +1,7 @@
 import axios from 'axios'
 /*
 Give bodyInfo in the format of horoscopeSchema if getting a specific one, creating or updating, otherwise just pass in the ID of the entry you want to delete.
-personal/:Email for User info or horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign for horoscope info
+personal/{Email} for User info or horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign for horoscope info
 dont include an email or ID if you want to get all or are creating a entry
 */
 
@@ -34,17 +34,6 @@ async makeUpdateRequest(url, bodyInfo) {
 async makeCreateRequest(url, bodyInfo) {
   
   let res = await axios.post('/api/' + url,bodyInfo);
-  return res;
-},
-/*auth:{
-username:'',
-password:''
-
-}
-*/
-async makeAuthRequest(url, authInfo) {
-  
-  let res = await axios.get('/api/' + url,authInfo);
   return res;
 }
 

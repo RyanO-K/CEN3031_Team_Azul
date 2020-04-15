@@ -23,22 +23,7 @@ const create = async (req, res) => {
     });
 
 };
-const authenticate = async (req,res) => {
-    personalInformationCombo.findOne({ 'Email': req.authenticate}).then(data =>{
-        if(data!=null){
-            res.header('Access-Control-Allow-Origin', '*');
-            res.status(200).json(data);
-        }else{
-            res.header('Access-Control-Allow-Origin', '*');
-            res.status(404).send({error: 'Doc not found: ' + req.params.Email});
-        }
-    }).catch(err => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.status(500).send({
-            message: err.message || "Read failed: " + req.params.Email
-        })
-    });
-}
+
 //show a horoscope listing
 const read = async (req, res) => {
     //TODO
@@ -66,17 +51,17 @@ const read = async (req, res) => {
 const update = async (req, res) => {
     //TODO: Birthday is currently uneditable
 
-    const person = new personalInformationCombo(req.body);
+    const person = personalInformationCombo.findOne({ 'Email': req.params.Email});
     personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
-                                            Name:req.body.Name || Name,
-                                            Sign:req.body.Sign || Sign,
-                                            LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
-                                            Email:req.body.Email || Email,
-                                            Password:req.body.Password || Password
+                                            Name:req.body.Name || person.Name,
+                                            Sign:req.body.Sign || person.Sign,
+                                            LocationOfBirth:req.body.LocationOfBirth || person.LocationOfBirth,
+                                            Email:req.body.Email || person.Email,
+                                            acceptsEmail:req.body.acceptsEmail || person.acceptsEmails
 
                                             }).then(data =>{
         
-            personalInformationCombo.findOne({ '_id': req.params.Email}).then(data=>{
+            personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data=>{
             
             if(data!=null){
                 res.header('Access-Control-Allow-Origin', '*');
@@ -104,7 +89,7 @@ const update = async (req, res) => {
 //remove a horoscopeCombo
 const remove = async (req, res) => {
     //TODO
-    personalInformationCombo.findOneAndDelete({ '_id': req.params.Email}).then(data =>{
+    personalInformationCombo.findOneAndDelete({ 'Email': req.params.Email}).then(data =>{
         if(data != null){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(200).send(data);
@@ -155,6 +140,5 @@ module.exports = {
     update,
     read,
     create,
-    options,
-    authenticate
+    options
 };
