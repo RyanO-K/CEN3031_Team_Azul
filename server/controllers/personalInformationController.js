@@ -61,7 +61,7 @@ const update = async (req, res) => {
 
                                             }).then(data =>{
         
-            personalInformationCombo.findOne({ '_id': req.params.Email}).then(data=>{
+            personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data=>{
             
             if(data!=null){
                 res.header('Access-Control-Allow-Origin', '*');
