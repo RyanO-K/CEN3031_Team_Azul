@@ -9,6 +9,7 @@ import './Home.css';
 import LoginWithGoogle from '../SignUp/LoginWithGoogle';
 import UserProfile from '../SignUp/UserState';
 import Moon from '../../components/Moon/Moon'
+//import Moon from '../../components/Moon/Moon'
 
 const ColorButton = withStyles(theme => ({
     root: {
@@ -73,7 +74,7 @@ function Home() {
 
         <div className="App">
             <header className="App-header" style={{backgroundImage: `url(${background})` }}>
-                <div className="Moon">
+            <div className="Moon">
                     <Moon></Moon>
                 </div>
                 <h1 className="MoonFlow">
