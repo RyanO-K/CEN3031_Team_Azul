@@ -21,13 +21,13 @@ async log2(){
         Birthday: this.state.bday,
         TimeOfBirth: this.state.btime,
         LocationOfBirth: this.state.bplace,
-        Email: UserProfile.getLocalStorageEmail(),
-        Password:'testPassword'
+        Email: UserProfile.getLocalStorageEmail()
     }
     console.log(axiosUser);
   const a=
   await (axiosPath.makeUpdateRequest('personal/'+UserProfile.getLocalStorageEmail(), axiosUser));
   console.log(a);
+  console.log(axiosUser);
 UserProfile.setName(this.state.name);
 UserProfile.setBirthday(this.state.bday);
 UserProfile.setBirthplace(this.state.bplace);
