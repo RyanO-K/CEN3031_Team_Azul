@@ -11,6 +11,7 @@ import User from "./views/SignUp/User";
 import axiosPath from './axiosRequests';
 import Login from "./views/SignUp/Login";
 import PasswordReset from "./views/SignUp/ResetPassword";
+import Edit from './views/SignUp/Edit';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route exact path="/Admin" component={Admin} />
         <Route exact path="/User" component={User} />
         <Route exact path="/PasswordReset" component={PasswordReset} />
+        <Route exact path="/Edit" component={Edit} />
         <Route component={NotFound}/>
       </Switch>
     </div>
