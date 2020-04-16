@@ -180,18 +180,25 @@ const renderTable = () => {
   if(data){
       console.log("data:" + data);
       var email=data.Email;
-      if(data.Name!==undefined)
-      var name=data.Name;
-      if(data.Sign!==undefined)
-      var sign=data.Sign;
-      if(data.House!==undefined)
-      var house=data.House;
-      if(data.TimeOfBirth!==undefined)
-      var time=data.TimeOfBirth;
-      if(data.Birthday!==undefined)
-      var bday = data.Birthday;
-      if(data.LocationOfBirth!==undefined)
-      var location = data.LocationOfBirth;
+      var name='';
+      var sign='';
+      var house='';
+      var time='';
+      var bday='';
+      var location='';
+      console.log(data.TimeOfBirth);
+      if(data.Name!==undefined && data.name!=='undefined')
+      name=data.Name;
+      if(data.Sign!==undefined && data.Sign!=='undefined')
+      sign=data.Sign;
+      if(data.House!==undefined && data.House!=='undefined')
+      house=data.House;
+      if(data.TimeOfBirth!==undefined && data.TimeOfBirth!=='undefined')
+      time=data.TimeOfBirth;
+      if(data.Birthday!==undefined && data.Birthday!=='undefined')
+      bday = data.Birthday;
+      if(data.LocationOfBirth!==undefined && data.LocationOfBirth!=='undefined')
+      location = data.LocationOfBirth;
 
       return(
       //<h1>{str}</h1>
@@ -237,7 +244,7 @@ const renderName = () => {
       }
 }
 
-
+console.log(data);
   if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
     return(<Redirect to="/Home"/>);
     console.log(UserProfile.getLocalStorageName());
@@ -392,6 +399,12 @@ UserProfile.loggedIn=true;
                    theme="dark"
                  
          />              </div>
+          <div>
+<br></br><br></br>
+<ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Edit'}}>Edit Information</ColorButton>
+
+
+                          </div>
       </header>
               
          </div>    
@@ -436,6 +449,13 @@ UserProfile.loggedIn=true;
 
                           <div style={{marginTop: 30}}>
                             <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+                          </div>
+
+                          <div>
+<br></br><br></br>
+<ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Edit'}}>Edit Information</ColorButton>
+
+
                           </div>
                           </header>
                           </div>
