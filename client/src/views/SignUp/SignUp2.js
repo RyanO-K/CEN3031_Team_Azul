@@ -113,6 +113,10 @@ function SignUp2(props) {
             bool=true;
             console.log("pob err");
         }
+        else if(newUser.pob!==undefined && newUser.pob==='undefined'){
+            bool=true;
+            alert('undefined is an invalid place of birth');
+        }
 
      //   if(newUser.tob.length===0){
        //     problem.tobP=true;
@@ -128,6 +132,7 @@ function SignUp2(props) {
             if(problem.pobP){
                 err+="No place of birth given\n";
                 problem.pobP=false;
+                alert(err);
 
             }
 
@@ -144,7 +149,7 @@ function SignUp2(props) {
             //}
 
 
-            alert(err);
+          //  alert(err);
 
                     }
                     else{
