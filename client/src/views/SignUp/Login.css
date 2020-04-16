@@ -1,0 +1,39 @@
+@font-face{
+    src: url('../../fonts/Montserrat/Montserrat-Regular.ttf');
+    font-family: montreg;
+}
+
+.Login {
+    font-family: montreg;
+    text-align: center;
+    background: #282c34;
+}
+
+.Login-card{
+    font-family: montreg;
+    color: black;
+    height: 315px;
+    width: 275px;
+    background-color: #0AC98F;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;
+}
+
+.Login-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    font-family: mont;
+}
+
+.App-link {
+    color: #09d3ac;
+}
