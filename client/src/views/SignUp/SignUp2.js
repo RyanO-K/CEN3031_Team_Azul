@@ -57,8 +57,20 @@ function SignUp2(props) {
     
     if(props.location.state===undefined)
     return <Redirect to='/Home'/>;
+
+    if(props.location.state.email===undefined){
+        newUser.name=UserProfile.getLocalStorageTempName();
+        newUser.email=UserProfile.getLocalStorageTempEmail();
+    }
+    else{
     newUser.name=props.location.state.name;
     newUser.email=props.location.state.email;
+    UserProfile.setTempEmail(newUser.email);
+    UserProfile.setTempName(newUser.name);
+    UserProfile.setLocalStorageTempEmail();
+    UserProfile.setLocalStorageTempName();
+    }
+    console.log(newUser);
 
     const onSubmit = (data,e) => {
         const user = {
@@ -88,25 +100,25 @@ function SignUp2(props) {
         let bool=false;
         let l="";
 
-        console.log(newUser.dob);
-        if(newUser.dob.length!==10){
-            problem.dobP=true;
-           bool=true;
-           console.log("dob err");
-        }
+       // console.log(newUser.dob);
+        //if(newUser.dob.length!==10){
+          //  problem.dobP=true;
+           //bool=true;
+           //console.log("dob err");
+        //}
 
 
-        if(newUser.pob.length===0){
+        if(newUser.pob===undefined || newUser.pob.length===0){
             problem.pobP=true;
             bool=true;
             console.log("pob err");
         }
 
-        if(newUser.tob.length===0){
-            problem.tobP=true;
-            bool=true;
-            console.log("tob err");
-        }
+     //   if(newUser.tob.length===0){
+       //     problem.tobP=true;
+         //   bool=true;
+           // console.log("tob err");
+        //}
 
 
 
@@ -119,17 +131,17 @@ function SignUp2(props) {
 
             }
 
-            if(problem.dobP){
-                err+="No date of birth given\n";
-                problem.dobP=false;
+           // if(problem.dobP){
+             //   err+="No date of birth given\n";
+              //  problem.dobP=false;
 
-            }
+            //}
 
-            if(problem.tobP){
-                err+="No time of birth given\n";
-                problem.tobP=false;
+           // if(problem.tobP){
+             //   err+="No time of birth given\n";
+               // problem.tobP=false;
 
-            }
+            //}
 
 
             alert(err);
@@ -137,16 +149,18 @@ function SignUp2(props) {
                     }
                     else{
                         UserProfile.loggedIn=true;
-                        UserProfile.setName(props.location.state.name);
-                        UserProfile.setEmail(props.location.state.email);
+                        UserProfile.setName(newUser.name);
+                        UserProfile.setEmail(newUser.email);
                         UserProfile.loggingInWithGoogle();
+                        UserProfile.setBirthplace(newUser.pob);
+                        UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthTime(newUser.tob);
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageEmail();
                         UserProfile.setLocalStorageisLoggedInWithGoogle();
                         UserProfile.setLocalStorageName();
-                        UserProfile.setLocalStorageBPlace(newUser.pob);
-                        UserProfile.setLocalStorageBDay(newUser.dob);
+                        UserProfile.setLocalStorageBPlace();
+                        UserProfile.setLocalStorageBDay();
 
                         const axiosUser = {
                             Name: newUser.name,
@@ -164,7 +178,7 @@ function SignUp2(props) {
 
 
    const func=(a)=>{
-    if(a.length==10 && newUser.pob.length>0 && newUser.tob.length>0)
+    if(newUser.pob.length>0)
     d('/User');
 else
     d('/SignUp2');
@@ -181,7 +195,7 @@ else
 
     const func2=(b)=>{
 console.log(newUser);
-        if(newUser.dob.length==10 && b.length>0 && newUser.tob.length>0)
+        if(b.length>0)
         d('/User');
     else
         d('/SignUp2');
@@ -197,7 +211,7 @@ console.log(newUser);
         };
 
         const func6=(efg)=>{
-            if(newUser.dob.length==10 && newUser.pob.length>0 && efg.length>0)
+            if(newUser.pob.length>0)
 d('/User');
 else
 d('/SignUp2');
@@ -244,7 +258,7 @@ d('/SignUp2');
                     </div>
 
                     <div>
-                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
+                    <ColorButton onClickCapture={handle}  onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
                 </div>
