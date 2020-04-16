@@ -1,257 +1,280 @@
-import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
-import { Flex, Box, Heading, Text } from 'rebass';
-import { Label, Input } from '@rebass/forms'
-import firebase from './config2';
-import UserProfile from './UserState';
-import axiosPath from '../../axiosRequests';
-import SignUpWithGoogle from './SignUpWithGoogle';
+import React, {useState, useEffect, Component} from 'react';
+import { Route, Switch, Redirect  } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import './SignUp.css';
-import Button from "@material-ui/core/Button"
+import Button from '@material-ui/core/Button'
+import './SignUp2.css';
+import { useForm } from 'react-hook-form'
+import SignUpWithGoogle from "./SignUpWithGoogle";
+import '../Home/Home.css';
+import UserProfile from './UserState';
 import background from '../../assets/moonbackground.jpg';
-import { useForm } from 'react-hook-form';
+import axiosPath from '../../axiosRequests';
+
 
 const ColorButton = withStyles(theme => ({
-  root: {
-      borderRadius: 20,
-      fontSize: 12,
-      padding: '3px 10px',
-      border: '1px solid',
-      backgroundColor: '#E28222',
-    '&:hover': {
-      backgroundColor: '#C6721D',
+    root: {
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
+        border: '1px solid',
+        backgroundColor: '#E28222',
+      '&:hover': {
+        backgroundColor: '#C6721D',
+      },
     },
-  },
 }))(Button);
 
 const useStyles = makeStyles(theme => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
+    margin: {
+      margin: theme.spacing(1),
+    },
 }));
 
-class SignUp extends Component {
-    constructor() {
-        super();
-        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false};
-    }
+function SignUp2(props) {
+    const classes = useStyles();
+    console.log(UserProfile.getName());
+    const { register, handleSubmit, errors } = useForm();
+    const [newUser, setNewUser] = useState({
+        name: null,
+        pob: '',
+        dob: '',
+        tob:'',
+        email: null
 
+    });
+    const [problem, setProblem] = useState({
+        pobP: false,
+        dobP: false,
+        tobP: false
+    });
+    const [destination,d]=useState("/SignUp2");
 
-    async log2(){
-        let a= '';
-        try{
-            a=await axiosPath.makeGetRequest('personal/'+this.state.email)}
-            catch{
-                a=undefined;
-            };
-            const b=a;
-console.log(b);
-return b;
-       };
-
-
-       LoginPage=()=>{
-         console.log("click clack");
-        this.props.history.push('/Login');
-      }
-
-      
-handleInputChange = (event) => {
-   this.setState({ [event.target.name]: event.target.value });
- };
-handleSubmit = async (event) => {
-   event.preventDefault();
-   if(!(UserProfile.getLocalStorageEmail()==='' ||UserProfile.getLocalStorageEmail()==='null' || UserProfile.getLocalStorageEmail()===null || UserProfile.getLocalStorageEmail()===undefined || UserProfile.getLocalStorageEmail()==='undefined'))
-              alert("You are already logged in with email "+UserProfile.getLocalStorageEmail()+".  Please log out before creating a new account");
-   else{
-              if(this.state.email.length===0)
-   alert("Please provide an email");
-   else{
-   const obj=await this.log2();
-   if(obj!==undefined){
-   alert("Already a user with this email");
-   return (<Redirect to={{pathname: '/Login'}}></Redirect>);
-   }
-   else{
-   const { email, password } = this.state;
-   if(password===undefined || password.length<6)
-   alert("Please use a password of 6 or more characters");
-   else{
-     if(this.state.name===undefined || this.state.name.length===0)
-     alert("Please provide a name");
-     else{
-       if(this.state.pob===undefined ||this.state.pob.length===0)
-       alert("Please provide a birth location");
-       else{
-         if(this.state.pob !== undefined && this.state.pob==='undefined')
-         alert('undefined is an invalid birth location');
-         else{
-console.log(this.state.pob);
-firebase
-     .auth()
-     .createUserWithEmailAndPassword(email, password)
-     .then(async (user) => {
-    this.state.loggedIn=true;
+    useEffect(() => {
+        console.log(newUser)
+    }, [newUser]);
     
-       UserProfile.loggingInWithoutGoogle();
-       UserProfile.setName(this.state.name);
-       UserProfile.setEmail(this.state.email);
-       UserProfile.setBirthday(this.state.dob);
-       UserProfile.setBirthplace(this.state.pob);
-       UserProfile.setBirthTime(this.state.tob);
-       UserProfile.loggedIn=true;
-       UserProfile.setLocalStorageBTime();
-       UserProfile.setLocalStorageBDay();
-       UserProfile.setLocalStorageBPlace();
-       UserProfile.setLocalStorageEmail();
-       UserProfile.setLocalStorageName();
-       UserProfile.setLocalStorageisLoggedIn();
-       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+    if(props.location.state===undefined)
+    return <Redirect to='/Home'/>;
 
-       const axiosUser = {
-        Name: this.state.name,
-        Sign: "Scorpio",
-        Birthday: this.state.dob,
-        TimeOfBirth: this.state.tob,
-        LocationOfBirth: this.state.pob,
-        Email: this.state.email,
+    if(props.location.state.email===undefined){
+        newUser.name=UserProfile.getLocalStorageTempName();
+        newUser.email=UserProfile.getLocalStorageTempEmail();
     }
-    await axiosPath.makeCreateRequest('personal/', axiosUser);
-    console.log("SUccess");
-    if(this.state.email==='Admin@admin.com')
-      this.props.history.push('/Admin');
+    else{
+    newUser.name=props.location.state.name;
+    newUser.email=props.location.state.email;
+    UserProfile.setTempEmail(newUser.email);
+    UserProfile.setTempName(newUser.name);
+    UserProfile.setLocalStorageTempEmail();
+    UserProfile.setLocalStorageTempName();
+    }
+    console.log(newUser);
+
+    const onSubmit = (data,e) => {
+        const user = {
+            name:newUser.name,
+            pob: data.pob,
+            dob: data.dob,
+            email:newUser.email,
+            tob:newUser.tob
+        }
+        console.log("User"+data);
+        // {...newUser,
+        //     name: data.name,
+        //     pob: data.pob,
+        //     dob: data.dob,
+        //     email: data.email,
+        //     password: data.password
+        // }
+        setNewUser(user);
+        e.target.reset();
+        console.log(user);
+
+        //send it here?
+    };
+
+
+    async function handle(){
+        let bool=false;
+        let l="";
+
+       // console.log(newUser.dob);
+        //if(newUser.dob.length!==10){
+          //  problem.dobP=true;
+           //bool=true;
+           //console.log("dob err");
+        //}
+
+
+        if(newUser.pob===undefined || newUser.pob.length===0){
+            problem.pobP=true;
+            bool=true;
+            console.log("pob err");
+        }
+        else if(newUser.pob!==undefined && newUser.pob==='undefined'){
+            bool=true;
+            alert('undefined is an invalid place of birth');
+        }
+
+     //   if(newUser.tob.length===0){
+       //     problem.tobP=true;
+         //   bool=true;
+           // console.log("tob err");
+        //}
+
+
+
+        let err="";
+
+        if(bool){
+            if(problem.pobP){
+                err+="No place of birth given\n";
+                problem.pobP=false;
+                alert(err);
+
+            }
+
+           // if(problem.dobP){
+             //   err+="No date of birth given\n";
+              //  problem.dobP=false;
+
+            //}
+
+           // if(problem.tobP){
+             //   err+="No time of birth given\n";
+               // problem.tobP=false;
+
+            //}
+
+
+          //  alert(err);
+
+                    }
+                    else{
+                        UserProfile.loggedIn=true;
+                        UserProfile.setName(newUser.name);
+                        UserProfile.setEmail(newUser.email);
+                        UserProfile.loggingInWithGoogle();
+                        UserProfile.setBirthplace(newUser.pob);
+                        UserProfile.setBirthday(newUser.dob);
+                        UserProfile.setBirthTime(newUser.tob);
+                        UserProfile.setLocalStorageBTime();
+                        UserProfile.setLocalStorageEmail();
+                        UserProfile.setLocalStorageisLoggedInWithGoogle();
+                        UserProfile.setLocalStorageName();
+                        UserProfile.setLocalStorageBPlace();
+                        UserProfile.setLocalStorageBDay();
+
+                        const axiosUser = {
+                            Name: newUser.name,
+                            Sign: "Scorpio",
+                            Birthday: newUser.dob,
+                            TimeOfBirth: newUser.tob,
+                            LocationOfBirth: newUser.pob,
+                            Email: newUser.email,
+                            Password: newUser.password
+                        }
+                        axiosPath.makeCreateRequest('personal/', axiosUser)
+                    }
+
+    }
+
+
+   const func=(a)=>{
+    if(newUser.pob.length>0)
+    d('/User');
+else
+    d('/SignUp2');
+    const user={
+        name:newUser.name,
+        pob: newUser.pob,
+        dob: a,
+        email:newUser.email,
+        tob: newUser.tob
+    }
+    UserProfile.setBirthday(a);
+    setNewUser(user);
+    };
+
+    const func2=(b)=>{
+console.log(newUser);
+        if(b.length>0)
+        d('/User');
     else
-      this.props.history.push('/User');
-     //  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}/>);
+        d('/SignUp2');
+        const user={
+            name:newUser.name,
+            pob: b,
+            dob: newUser.dob,
+            email:newUser.email,
+            tob:newUser.tob
+        }
+        UserProfile.setBirthplace(b);
+        setNewUser(user);
+        };
 
+        const func6=(efg)=>{
+            if(newUser.pob.length>0)
+d('/User');
+else
+d('/SignUp2');
+            const user={
+                name:newUser.name,
+                pob: newUser.pob,
+                dob: newUser.dob,
+                email:newUser.email,
+                password:newUser.password,
+                tob:efg
+            }
+            if(UserProfile.getLocalStorageisLoggedIn()===true)
+d('/SignUp2');
+            setNewUser(user);
+            };
+    
 
+    return (
 
-     })
-     .catch((error) => {
-       this.setState({ error: error });
-     });
-    }
-  }
-  }
-  }
-}
-}
-   }
- };
-
-
- componentDidUpdate(){
-   console.log(30);
-   console.log(this.state.loggedIn);
-  if(this.state.loggedIn)
-  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}></Redirect>);
-
-}
-
- render() {
-   const { email, password, error , name, dob, tob, pob} = this.state;
-console.log(10);
-   return (
-       <div className="SignIn">
-            <header className="SignIn-header" style={{backgroundImage: `url(${background})` }}>
-                <h1 className="signin-title">
-                    User Information
+        <div className="SignIn2">
+            <header className="SignIn2-header" style={{backgroundImage: `url(${background})` }}>
+                <h1 className="signin2-title">
+                    Additional User Information
                 </h1>
-               
-       
-                  <div className="Signin-card">  <p></p> 
+                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                {/* <a
+                    className="App-link"
+                    href="https://reactjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                </a> */}
 
-           <form onSubmit={this.handleSubmit}>
+            <div className="Signin2-card">
+                <div style={{marginTop:'20px'}}>
+                        <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
+                    </div>
 
-           <div>
-            <input
-               type="text"
-               name="name"
-               placeholder="name"
+                    <div>
+                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
+                    </div>
 
-               value={name}
-               onChange={this.handleInputChange}
-             />
-             </div>
-
-<div>
-           <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
-           </div>
-             <div>
-             <input
-               type="password"
-               name="password"
-               placeholder="Password"
-
-               value={password}
-               onChange={this.handleInputChange}
-             />
-             </div>
+                    <div>
+                    <ColorButton onClickCapture={handle}  onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
-             <div>
-            <input
-               type="text"
-               name="pob"
-               placeholder="place of birth"
-
-               value={pob}
-               onChange={this.handleInputChange}
-             />
-             </div>
-
-             <div>
-            <input
-               type="text"
-               name="tob"
-               placeholder="time of birth"
-                      
-               value={tob}
-               onChange={this.handleInputChange}
-             />
-             </div>
-
-             <div>
-            <input
-               type="date"
-               name="dob"
-               placeholder="date of birth"
-               value={dob}
-               onChange={this.handleInputChange}
-             />
-             </div>
+                </div>
+            </div>
 
 
-             <p style={{marginBottom:-15}}></p>
-             <div>
-             <ColorButton children="Register" className={useStyles.margin} size="large" onClick={this.handleSubmit}/>
-</div>
-           </form>
-<p style={{marginTop: 5, marginBottom: 10, fontSize:25}}>or</p>
-       <SignUpWithGoogle></SignUpWithGoogle>
-           </div>
-           
-       
-       
-       <p style={{marginBottom:5}}>
-                    <br></br><br></br>
-                    Already a User?
-                </p>
-                <div>
-                <ColorButton onClickCapture={this.LoginPage}className={useStyles.margin} size="large" variant="outlined" >GO LOGIN NOW</ColorButton>
-                        </div>
-</header>
-       </div>
-
-       
-                
-   );
-   console.log(this.state.email);
+            </header>
+        </div>
+    );
 
 
- }
 }
-export default withRouter(SignUp);
+
+export default SignUp2;
