@@ -10,6 +10,8 @@ var UserProfile = (function() {
     var loggedInWithoutGoogle="";
     var birthtime="";
     var abc="";
+    var tempEmail='';
+    var tempName='';
 
     var getName = function() {
       return full_name;    // Or pull this from cookie/localStorage
@@ -28,6 +30,13 @@ var UserProfile = (function() {
         full_email = email;     
         // Also set this in cookie/localStorage
       };
+var setTempEmail=function(tem){
+    tempEmail=tem;
+};
+
+var setTempName=function(nam){
+    tempName=nam;
+};
 
 
       var setLocalStorageName=()=>{
@@ -71,6 +80,26 @@ var UserProfile = (function() {
             localStorage.setItem('stuffer', loggedInWithGoogle);
             setLocalStorageisLoggedIn();
            }
+
+
+
+           
+        var setLocalStorageTempName=()=>{
+            localStorage.setItem('tempPass', tempName);
+           }
+           
+           var getLocalStorageTempName=()=>{
+            return localStorage.getItem('tempPass');
+        }
+
+
+        var setLocalStorageTempEmail=()=>{
+            localStorage.setItem('tempPass2', tempEmail);
+           }
+           
+           var getLocalStorageTempEmail=()=>{
+            return localStorage.getItem('tempPass2');
+        }
            
             var getLocalStorageisLoggedInWithGoogle=()=>{
                 return (((localStorage.getItem('stuffer'))==='true'));
@@ -209,7 +238,13 @@ var UserProfile = (function() {
       setLocalStorageBTime:setLocalStorageBTime,
       loggedIn:loggedIn,
       getPage:getPage,
-      setPage:setPage
+      setPage:setPage,
+      setTempEmail:setTempEmail,
+      setTempName:setTempName,
+      setLocalStorageTempEmail:setLocalStorageTempEmail,
+      setLocalStorageTempName:setLocalStorageTempName,
+      getLocalStorageTempEmail:getLocalStorageTempEmail,
+      getLocalStorageTempName:getLocalStorageTempName
     }
   
   })();
