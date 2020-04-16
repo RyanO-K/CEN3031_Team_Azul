@@ -57,7 +57,9 @@ const update = async (req, res) => {
                                             Sign:req.body.Sign || Sign,
                                             LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
                                             Email:req.body.Email || Email,
-                                            Password:req.body.Password || Password
+                                            Birthday:req.body.Birthday || Birthday,
+                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth
+
 
                                             }).then(data =>{
         
