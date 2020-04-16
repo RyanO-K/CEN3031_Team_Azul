@@ -1,13 +1,38 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Label, Input } from '@rebass/forms'
-import { Flex, Box, Button, Heading, Text, Link } from 'rebass';
+import { Flex, Box, Heading, Text, Link } from 'rebass';
 import firebase from './config2';
 import UserProfile from './UserState';
 import axiosPath from '../../axiosRequests';
 import LoginWithGoogle from './LoginWithGoogle';
 import { Route, Switch, Redirect  } from 'react-router-dom';
 import User from './User';
+import background from '../../assets/moonbackground.jpg';
+import "./Login.css";
+import Button from "@material-ui/core/Button";
+import logo from '../../assets/logo.svg';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+
+
+const ColorButton = withStyles(theme => ({
+  root: {
+      borderRadius: 20,
+      fontSize: 12,
+      padding: '3px 10px',
+      border: '1px solid',
+      backgroundColor: '#E28222',
+    '&:hover': {
+      backgroundColor: '#C6721D',
+    },
+  },
+}))(Button);
+
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 class Login extends Component {
     constructor(){
@@ -30,6 +55,10 @@ return a;
        };
 
 
+toSignUpPage=()=>{
+  console.log("clickety click");
+  this.props.history.push('/SignUp');
+}
 
 handleSubmit = async (event) => {
    event.preventDefault();
@@ -118,41 +147,47 @@ firebase
     return <Redirect to='/User'/>
    const { email, password, error } = this.state;
    return (
-     <div>
-       <Flex>
-         <Box>
-           <Heading>Log In</Heading>
-         </Box>
-       </Flex>
-       {error ? (
-         <Flex>
-           <Box>
-             <Text>{error.message}</Text>
-           </Box>
-         </Flex>
-       ) : null}
-       <Flex>
-         <Box>
+     <div className="Login">
+       <header className="Login-header" style={{backgroundImage: `url(${background})` }}>
+                <h1 className="login-title">
+                    Welcome to MoonFlow
+                </h1>
+                
+       
+      
+       <div className="Login-card">
+                    <p style={{marginBottom:5}}>Login</p>
+                    
            <form on onSubmit={this.handleSubmit}>
-             <Input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
-             <Input
+             <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
+             <div style={{marginBottom:7,marginTop:1}}>   <input
                type="password"
                name="password"
                placeholder="Password"
                value={password}
                onChange={this.handleInputChange}
              />
-             <Button children="Log In" />
+             </div>
+             <div>
+             <ColorButton children="Login" variant="outlined"size="large" className={useStyles.margin} onClick={this.handleSubmit}/>
+           </div>
            </form>
-
-         </Box>
-       </Flex>
+<div style={{fontSize:15}}>
        Forgot Password?
-       <Link href='/PasswordReset'>Reset Password</Link>
+       <Link href='/PasswordReset'><br></br>Reset Password</Link>
+</div>
 
-
-       or
+       <p style={{marginTop: 10, marginBottom: 15, fontSize:25}}>or</p>
        <LoginWithGoogle></LoginWithGoogle>
+       </div>
+       <div>
+                    <br></br><br></br>
+                    <p style={{marginBottom:5}}>
+                        Don't have an account?
+                    </p>
+                    <ColorButton onClickCapture={this.toSignUpPage}className={useStyles.margin} size="large" variant="outlined" >Sign Up Here</ColorButton>
+</div>
+       </header>
      </div>
    );
  }
