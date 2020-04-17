@@ -263,7 +263,54 @@ const classes = useStyles();
                                 <Dropdown.Item as="button" id="12th" onClick={(e) => dispHouses(e)}>12th</Dropdown.Item>
                             </div>
                         </DropdownButton>
-                        <DropdownButton id="dropdown-basic-button" title="Current Lunar Phase">
+                        
+                    </div>
+                </div>
+                 <div>
+                <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+         </div>
+    </p>
+
+            <p className="column2">
+
+                <div style={{marginBottom:5}}>Sun: 
+                    <div style={{fontSize:17}}>
+                        {data.sun}
+                    </div>
+                </div>
+                <div style={{marginBottom:5}}>Moon: 
+                    <div style={{fontSize:17}}>
+                        {data.moon}
+                    </div>
+                </div>
+                <div style={{marginBottom:5}}>House: 
+                    <div style={{fontSize:17}}>
+                        {data.house}
+                    </div>
+                </div>
+                <div style={{marginBottom:5}}>Interpretation: 
+                    <div style={{fontSize:17}}>
+                        {data.interpretation}
+                    </div>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div style={{marginTop:20}}>
+                        <TextField
+                            id="standard-multiline-static"
+                            onChange={handleChange}
+                            label="Interpretation"
+                            multiline
+                            rows="4"
+                        />
+                    </div>
+                    <input type="submit" value="Submit" />
+                </form>
+
+            </p>
+        </div>
+        
+        <div>
+            <DropdownButton id="dropdown-basic-button" title="Current Lunar Phase">
                             <div>
                                 <Dropdown.Item as="button" id="New Moon" onClick={(e) => changeLunar(e)}>New Moon</Dropdown.Item>
                             </div>
@@ -288,55 +335,9 @@ const classes = useStyles();
                             <div>
                                 <Dropdown.Item as="button" id="Waning Crescent" onClick={(e) => changeLunar(e)}>Waning Crescent</Dropdown.Item>
                             </div>
-                        </DropdownButton>
-                    </div>
-                </div>
-                 <div>
-                <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
-                </div>
-            </p>
-
-            <p className="column2">
-
-                <div style={{marginBottom:5}}>Sun: 
-                    <div style={{fontSize:17}}>
-                        {data.sun}
-                    </div>
-                </div>
-                <div style={{marginBottom:5}}>Moon: 
-                    <div style={{fontSize:17}}>
-                        {data.moon}
-                    </div>
-                </div>
-                <div style={{marginBottom:5}}>House: 
-                    <div style={{fontSize:17}}>
-                        {data.house}
-                    </div>
-                </div>
-                <div style={{marginBottom:5}}>Interpretation: 
-                    <div style={{fontSize:17}}>
-                        {data.interpretation}
-                    </div>
-                </div>
-                <div style = {{marginBottom:5}}>Current Lunar Phase:
-                    <div style = {{fontSize:17}}>{lunar}</div>
-                </div>
-                <form onSubmit={handleSubmit}>
-                    <div style={{marginTop:20}}>
-                        <TextField
-                            id="standard-multiline-static"
-                            onChange={handleChange}
-                            label="Interpretation"
-                            multiline
-                            rows="4"
-                        />
-                    </div>
-                    <input type="submit" value="Submit" />
-                </form>
-
-            </p>
-        </div>
-        </header>
+            </DropdownButton>
+         </div>        
+</header>
 
 
     );
