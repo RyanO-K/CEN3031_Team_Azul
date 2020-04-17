@@ -59,6 +59,8 @@ const Admin = () =>{
 
     const [info, setInfo] = useState('');
 
+    const [lunar, setLunar] = useState('');
+
     const handleChange = (event) => {
         setInfo(event.target.value)
     }
@@ -139,6 +141,11 @@ const classes = useStyles();
 
         
         
+    }
+
+    const changeLunar = async (clicked) => {
+        const newLunar = clicked.target.id;
+        setLunar(newLunar);
     }
     return (
 
