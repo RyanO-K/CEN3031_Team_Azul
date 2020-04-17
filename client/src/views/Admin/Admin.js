@@ -152,7 +152,7 @@ const classes = useStyles();
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
     <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
     <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here</p>
-        <div className="Admin-card">
+        <div className="Admin-card column1">
             <p style={{marginLeft:40}}className='column1' >
                 <div>
                     <div className="flot1">
@@ -309,7 +309,7 @@ const classes = useStyles();
             </p>
         </div>
         
-        <div>
+        <div className = "Admin-card column2">
             <DropdownButton id="dropdown-basic-button" title="Current Lunar Phase">
                             <div>
                                 <Dropdown.Item as="button" id="New Moon" onClick={(e) => changeLunar(e)}>New Moon</Dropdown.Item>
