@@ -51,15 +51,16 @@ const read = async (req, res) => {
 const update = async (req, res) => {
     //TODO: Birthday is currently uneditable
 
-    const person = personalInformationCombo.findOne(req.params.Email);
+    const person = personalInformationCombo.findOne({ 'Email': req.params.Email});
     personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
-                                            Name:req.body.Name || person.Name,
-                                            Sign:req.body.Sign || person.Sign,
-                                            LocationOfBirth:req.body.LocationOfBirth || person.LocationOfBirth,
-                                            Email:req.body.Email || person.Email,
-                                            Birthday:req.body.Birthday || person.Birthday,
-                                            TimeOfBirth:req.body.TimeOfBirth||person.TimeOfBirth
-
+                                            Name:req.body.Name || Name,
+                                            Sign:req.body.Sign || Sign,
+                                            LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
+                                            Email:req.body.Email || Email,
+                                            Birthday:req.body.Birthday || Birthday,
+                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth,
+                                            House:req.body.House||House,
+                                            acceptsEmail:req.body.acceptsEmail || person.acceptsEmails
 
                                             }).then(data =>{
         
@@ -91,7 +92,7 @@ const update = async (req, res) => {
 //remove a horoscopeCombo
 const remove = async (req, res) => {
     //TODO
-    personalInformationCombo.findOneAndDelete({ '_id': req.params.Email}).then(data =>{
+    personalInformationCombo.findOneAndDelete({ 'Email': req.params.Email}).then(data =>{
         if(data != null){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(200).send(data);

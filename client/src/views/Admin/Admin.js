@@ -139,7 +139,7 @@ const Admin = () =>{
 
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
     <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
-    <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here:</p>
+    <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here</p>
         <div className="Admin-card">
             <p style={{marginLeft:40}}className='column1' >
                 <div>
@@ -282,7 +282,7 @@ const Admin = () =>{
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div style={{marginTop:20}}>
-                        <ColorText
+                        <TextField
                             id="standard-multiline-static"
                             onChange={handleChange}
                             label="Interpretation"

@@ -244,7 +244,6 @@ const renderName = () => {
       }
 }
 
-console.log(data);
   if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
     return(<Redirect to="/Home"/>);
     console.log(UserProfile.getLocalStorageName());
