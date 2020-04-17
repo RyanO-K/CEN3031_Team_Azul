@@ -10,7 +10,8 @@ const personalInformationData = new mongoose.Schema({
   Birthday:{type: String},
   TimeOfBirth:{type: String},
   LocationOfBirth:{type: String,required:true},
-  Email:{type:String,required:true,unique:true}
+  Email:{type:String,required:true,unique:true},
+  House:{type:String}
   },{
     collection: 'Users'
   });
