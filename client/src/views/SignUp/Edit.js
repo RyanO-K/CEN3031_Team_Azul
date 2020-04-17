@@ -21,7 +21,8 @@ async log2(){
         Birthday: this.state.bday,
         TimeOfBirth: this.state.btime,
         LocationOfBirth: this.state.bplace,
-        Email: UserProfile.getLocalStorageEmail()
+        Email: UserProfile.getLocalStorageEmail(),
+        House:''
     }
     console.log(axiosUser);
   const a=
@@ -59,6 +60,7 @@ handleInputChange = (event) => {
 render(){
     if(UserProfile.getLocalStorageEmail()===''||UserProfile.getLocalStorageEmail()===null || UserProfile.getLocalStorageEmail()==='null'||UserProfile.getLocalStorageEmail()===undefined)
         return (<Redirect to='/Home'/>);
+        console.log(UserProfile.getLocalStorageEmail());
  const {name, bday, bplace, btime, error } = this.state;
  return(
     <div className="Signin-card">
@@ -67,7 +69,7 @@ render(){
     <form on onSubmit={this.handleSubmit}>
              <Input type="text" name="name" placeholder="Name" value={name} onChange={this.handleInputChange} />
              <Input type="date" name="bday" placeholder="Birth Date" value={bday} onChange={this.handleInputChange} />
-             <Input type="text" name="btime" placeholder="Birth Time" value={btime} onChange={this.handleInputChange} />
+             <Input type="time" name="btime" placeholder="Birth Time" value={btime} onChange={this.handleInputChange} />
              <Input type="text" name="bplace" placeholder="Birth Place" value={bplace} onChange={this.handleInputChange} />
              <Button children="Log In" />
            </form>
