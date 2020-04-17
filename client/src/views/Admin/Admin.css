@@ -15,28 +15,13 @@ body {
 .Admin-card{
     font-family: montreg;
     color: black;
-
+    height: 500px;
+    width: 700px;
     background-color: #0AC98F;
     border-radius: 10px;
     box-shadow: 5px 5px 10px black;
 }
-.columnDiv1{
-    width: 800px;
-    display:inline-block;
-    height: 70%;
-    padding: 20px;
-    /* color: black;
-    background-color: lightgray; */
-	
-}
-.columnDiv2{
-    display:inline-block;
-    width: 800px;
-    height: 50px;
-    padding: 20px;
-    margin-top: 50px;
-	
-}
+
 .Header{
         background-color: #282c34;
         min-height: 100vh;
@@ -70,9 +55,7 @@ body {
     background-color: lightgray; */
 	
 }
-.currentDropDown{
-    float:left;
-}
+
 
 .flot1 {
     float: left;
