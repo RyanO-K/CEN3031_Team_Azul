@@ -10,6 +10,8 @@ import './Admin.css';
 
 const Admin = () =>{
 
+    const [lunar, setLunar] = useState('');
+
     const [data, setData] = useState({
         sun: '',
         moon: '',
@@ -77,10 +79,16 @@ const Admin = () =>{
             setData({...data, moon: newMoon, interpretation: ""})
         }
     }
+
+    const changeLunar = async (clicked) => {
+        const newLunar = clicked.target.id;
+        setLunar(newLunar);
+    }
+
     const dispHouses = async (clicked) =>
     {
         const newHouse = clicked.target.id;
-        
+
         try{
             let result = await getInterpretation(data.moon,newHouse,data.sun,data.interpretation);
             setData({...data, house: newHouse, interpretation: result.description})
@@ -89,8 +97,8 @@ const Admin = () =>{
             setData({...data, house: newHouse, interpretation: ""})
         }
 
-        
-        
+
+
     }
     return (
 
@@ -204,6 +212,32 @@ const Admin = () =>{
                             </div>
                             <div>
                                 <Dropdown.Item as="button" id="12th" onClick={(e) => dispHouses(e)}>12th</Dropdown.Item>
+                            </div>
+                        </DropdownButton>
+                        <DropdownButton id="dropdown-basic-button" title="Current Lunar Phase">
+                            <div>
+                                <Dropdown.Item as="button" id="NewMoon1" onClick={(e) => changeLunar(e)}>New Moon</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaxingCrescent1" onClick={(e) => changeLunar(e)}>Waxing Crescent</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="FirstQuarter1" onClick={(e) => changeLunar(e)}>First Quarter</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaxingGibbous1" onClick={(e) => changeLunar(e)}>Waxing Gibbous</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="FullMoon1" onClick={(e) => changeLunar(e)}>Full Moon</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaningGibbous1" onClick={(e) => changeLunar(e)}>Waning Gibbous</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="ThirdQuarter1" onClick={(e) => changeLunar(e)}>Third Quarter</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaningCrescent1" onClick={(e) => changeLunar(e)}>Waning Crescent</Dropdown.Item>
                             </div>
                         </DropdownButton>
                     </div>

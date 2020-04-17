@@ -33,31 +33,29 @@ if(sessionStorage.getItem('hi')===null)
 sessionStorage.setItem('hi', 'Log In');
 function Home() {
     //console.log(UserProfile.abc);
-    const[home, setHome]=useState(sessionStorage.getItem('hi'));
+    const [home, setHome] = useState(sessionStorage.getItem('hi'));
 
-    let arr=['Log In', 'User'];
+    let arr = ['Log In', 'User'];
     //console.log(UserProfile.loggedIn);
 
-    useEffect(()=>{
-    if(UserProfile.abc!==undefined && UserProfile.loggedIn){
-    setHome('User');
-    sessionStorage.setItem('hi','User');
-    }
-    else if(UserProfile.abc!==undefined && !UserProfile.loggedIn){
-        setHome('Log In');
-    sessionStorage.setItem('hi','Log In');
-    UserProfile.loggedIn=false;
-    }
-    else if(UserProfile.abc===undefined){
-        //console.log(home);
-        if(home==='Log In')
-            UserProfile.loggedIn=false;
-        else
-            UserProfile.loggedIn=true;
-            UserProfile.abc="hi";
-    }
+    useEffect(() => {
+        if (UserProfile.abc !== undefined && UserProfile.loggedIn) {
+            setHome('User');
+            sessionStorage.setItem('hi', 'User');
+        } else if (UserProfile.abc !== undefined && !UserProfile.loggedIn) {
+            setHome('Log In');
+            sessionStorage.setItem('hi', 'Log In');
+            UserProfile.loggedIn = false;
+        } else if (UserProfile.abc === undefined) {
+            //console.log(home);
+            if (home === 'Log In')
+                UserProfile.loggedIn = false;
+            else
+                UserProfile.loggedIn = true;
+            UserProfile.abc = "hi";
+        }
     });
-    
+
     sessionStorage.setItem('J', false);
     /*
     window.beforeunload = (e) => {console.log(home);
@@ -68,17 +66,18 @@ function Home() {
         home=sessionStorage.getItem('hi');
       };
     
-*/const classes = useStyles();
+*/
+    const classes = useStyles();
     return (
 
         <div className="App">
-            <header className="App-header" style={{backgroundImage: `url(${background})` }}>
+            <header className="App-header" style={{backgroundImage: `url(${background})`}}>
                 <div className="Moon">
                     <Moon></Moon>
                 </div>
                 <h1 className="MoonFlow">
                     Moon Flow
-                    </h1>
+                </h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 <p>
                     Because you are the skies in ecstatic motion
@@ -91,8 +90,10 @@ function Home() {
                 >
                 </a> */}
                 <div>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/SignUp'> Sign Up </ColorButton>
-                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Login'> {home}</ColorButton>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined"
+                                 to='/SignUp'> Sign Up </ColorButton>
+                    <ColorButton className={classes.margin} component={Link} size="large" variant="outlined"
+                                 to='/Login'> {home}</ColorButton>
                 </div>
             </header>
         </div>
