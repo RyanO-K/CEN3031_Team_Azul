@@ -256,6 +256,32 @@ const classes = useStyles();
                                 <Dropdown.Item as="button" id="12th" onClick={(e) => dispHouses(e)}>12th</Dropdown.Item>
                             </div>
                         </DropdownButton>
+                        <DropdownButton id="dropdown-basic-button" title="Current Lunar Phase">
+                            <div>
+                                <Dropdown.Item as="button" id="NewMoon1" onClick={(e) => changeLunar(e)}>New Moon</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaxingCrescent1" onClick={(e) => changeLunar(e)}>Waxing Crescent</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="FirstQuarter1" onClick={(e) => changeLunar(e)}>First Quarter</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaxingGibbous1" onClick={(e) => changeLunar(e)}>Waxing Gibbous</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="FullMoon1" onClick={(e) => changeLunar(e)}>Full Moon</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaningGibbous1" onClick={(e) => changeLunar(e)}>Waning Gibbous</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="ThirdQuarter1" onClick={(e) => changeLunar(e)}>Third Quarter</Dropdown.Item>
+                            </div>
+                            <div>
+                                <Dropdown.Item as="button" id="WaningCrescent1" onClick={(e) => changeLunar(e)}>Waning Crescent</Dropdown.Item>
+                            </div>
+                        </DropdownButton>
                     </div>
                 </div>
                  <div>
