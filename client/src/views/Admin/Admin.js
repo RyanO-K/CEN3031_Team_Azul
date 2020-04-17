@@ -152,6 +152,7 @@ const classes = useStyles();
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
     <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
     <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here</p>
+<<<<<<< HEAD
 
     <div className = "flexbox">
 
@@ -171,6 +172,9 @@ const classes = useStyles();
 
 
     <div className="Admin-card column1">
+=======
+        <div className="Admin-card column1">
+>>>>>>> parent of 170a5f2... More Styling, added the send email button
             <p style={{marginLeft:40}}className='column1' >
                 <div>
                     <div className="flot1">
