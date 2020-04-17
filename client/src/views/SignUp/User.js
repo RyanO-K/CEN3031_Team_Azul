@@ -47,6 +47,7 @@ function User(props){
     dob: '',
     email: null,
     tob: '',
+    house:'',
     b:false
 });
   let p1=null;
@@ -57,6 +58,7 @@ function User(props){
   let p6='';
   let p7='';
   let p8='';
+  let p9='';
     
       useEffect(()=>{
     if(newUser.b){
@@ -65,6 +67,8 @@ function User(props){
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
+      UserProfile.setHouse('');
+      UserProfile.setLocalStorageHouse();
       UserProfile.setBirthplace('');
       UserProfile.setBirthTime('');
       UserProfile.setLocalStorageBTime();
@@ -111,6 +115,7 @@ const [st, newStat]=useState(0);
     p6=UserProfile.getLocalStorageisLoggedIn();
     p7=UserProfile.getLocalStorageisLoggedInWithGoogle();
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
+    p9=UserProfile.getLocalStorageHouse();
     console.log(UserProfile.getLocalStorageEmail());
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
@@ -125,10 +130,27 @@ const [st, newStat]=useState(0);
     p3=props.location.state.user.dob;
     p4=props.location.state.user.tob;
     p5=props.location.state.user.pob;
+    p9=props.location.state.house;
     p6=true;
     UserProfile.loggedIn=true;
-    if(p7===false)
+    if(p7===false){
     UserProfile.loggingInWithoutGoogle();
+    UserProfile.setEmail(p1);
+    UserProfile.setName(p2);
+    UserProfile.setBirthplace(p5);
+    UserProfile.setBirthTime(p4);
+    UserProfile.setBirthday(p3);
+    UserProfile.setHouse(p9);
+    UserProfile.setLocalStorageHouse();
+    UserProfile.setLocalStorageBDay();
+    UserProfile.setLocalStorageBPlace();
+    UserProfile.setLocalStorageEmail();
+    UserProfile.setLocalStorageisLoggedIn();
+    UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+    UserProfile.setLocalStorageBTime();
+    UserProfile.setLocalStorageName();
+
+    }
   else
     UserProfile.loggingInWithGoogle();
 UserProfile.loggedIn=true;
@@ -137,6 +159,8 @@ UserProfile.loggedIn=true;
   UserProfile.setBirthplace(p5);
   UserProfile.setBirthTime(p4);
   UserProfile.setBirthday(p3);
+  UserProfile.setHouse(p9);
+  UserProfile.setLocalStorageHouse();
   UserProfile.setLocalStorageBDay();
   UserProfile.setLocalStorageBPlace();
   UserProfile.setLocalStorageEmail();
@@ -158,6 +182,7 @@ UserProfile.loggedIn=true;
   newUser.dob=p3;
   newUser.tob=p4;
   newUser.pob=p5;
+  newUser.house=p9;
   console.log(p5);
 
   useEffect(() => {
@@ -178,7 +203,7 @@ return <Redirect to='/Home'/>
 
 const renderTable = () => {
   if(data){
-      console.log("data:" + data);
+      console.log(data);
       var email=data.Email;
       var name='';
       var sign='';
@@ -208,6 +233,7 @@ const renderTable = () => {
           <p>Birth Location: {location}</p>
           <p>Birth Time: {time}</p>
           <p>Sign: {sign}</p>
+          <p>House: {house}</p>
       </div>
       
       )
@@ -259,6 +285,8 @@ UserProfile.loggedIn=true;
     UserProfile.setBirthplace(p5);
     UserProfile.setBirthTime(p4);
     UserProfile.setBirthday(p3);
+    UserProfile.setHouse(p9);
+    UserProfile.setLocalStorageHouse();
     UserProfile.setLocalStorageBDay();
     UserProfile.setLocalStorageBPlace();
     UserProfile.setLocalStorageEmail();
@@ -294,19 +322,21 @@ UserProfile.loggedIn=true;
       UserProfile.setBirthday('');
       UserProfile.setBirthplace('');
       UserProfile.setBirthTime('');
+      UserProfile.setHouse('');
       let a={
           name: '',
           pob: '',
           dob: '',
           email: null,
           tob:'',
+          house:'',
           b:true
           };
           setNewUser(a);
           newStat(3);
-          setTimeout(3000);
           UserProfile.loggedIn=false;
       UserProfile.setLocalStorageBTime();
+      UserProfile.setLocalStorageHouse();
       UserProfile.setLocalStorageBDay();
       UserProfile.setLocalStorageBPlace();
       UserProfile.setLocalStorageEmail();
@@ -322,6 +352,7 @@ UserProfile.loggedIn=true;
           dob: '',
           email: null,
           tob:'',
+          house:'',
           b:true
           };
           setNewUser(r);
@@ -338,12 +369,14 @@ UserProfile.loggedIn=true;
         UserProfile.setBirthday('');
         UserProfile.setBirthplace('');
         UserProfile.setBirthTime('');
+        UserProfile.setHouse('');
         let a={
             name: '',
             pob: '',
             dob: '',
             email: null,
             tob:'',
+            house:'',
             b:true
             };
             setNewUser(a);
@@ -353,6 +386,7 @@ UserProfile.loggedIn=true;
         UserProfile.setLocalStorageBTime();
         UserProfile.setLocalStorageBDay();
         UserProfile.setLocalStorageBPlace();
+        UserProfile.setLocalStorageHouse();
         UserProfile.setLocalStorageEmail();
         UserProfile.setLocalStorageName();
         UserProfile.setLocalStorageisLoggedIn();
@@ -366,6 +400,7 @@ UserProfile.loggedIn=true;
             dob: '',
             email: null,
             tob:'',
+            house:'',
             b:true
             };
             setNewUser(r);
@@ -380,6 +415,19 @@ UserProfile.loggedIn=true;
 }}/>
 );
     }
+    UserProfile.setName(data.Name);
+    UserProfile.setBirthplace(data.LocationOfBirth);
+    UserProfile.setBirthTime(data.TimeOfBirth);
+    UserProfile.setBirthday(data.Birthday);
+    UserProfile.setHouse(p9);
+    UserProfile.setLocalStorageHouse();
+    UserProfile.setLocalStorageBDay();
+    UserProfile.setLocalStorageBPlace();
+    UserProfile.setLocalStorageisLoggedIn();
+    UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+    UserProfile.setLocalStorageBTime();
+    UserProfile.setLocalStorageName();
+    console.log(UserProfile.getLocalStorageName());
 
     if(p7){//google login
         console.log("Google");
@@ -415,6 +463,7 @@ UserProfile.loggedIn=true;
                    else if(!p7) {//regular login
                   if(newUser.name===""&& newUser.email===""){
       UserProfile.setEmail(null);
+      UserProfile.setHouse('');
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
@@ -429,6 +478,7 @@ UserProfile.loggedIn=true;
       UserProfile.loggedIn=false;
       else
       UserProfile.loggedIn=false;
+      UserProfile.setLocalStorageHouse();
       UserProfile.setLocalStorageBTime();
       UserProfile.setLocalStorageBDay();
       UserProfile.setLocalStorageBPlace();
@@ -439,6 +489,7 @@ UserProfile.loggedIn=true;
       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
       //return(<Redirect to="/Home"/>);
       }
+      console.log(UserProfile.getLocalStorageName());
                        return(
                         <div className="User">
                           <header className="User-header" style={{backgroundImage: `url(${background})` }}>
