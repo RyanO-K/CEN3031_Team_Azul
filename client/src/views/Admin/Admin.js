@@ -103,6 +103,9 @@ const classes = useStyles();
         UserProfile.setEmail('');
         UserProfile.setLocalStorageEmail();
         }
+    function sendEmail(){
+        //TODO @ SONG
+        }
     if(UserProfile.getLocalStorageEmail()!=='admin')
     return(<Redirect to="/Home"/>);
 
@@ -152,7 +155,7 @@ const classes = useStyles();
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
     <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
     <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here</p>
-        <div className="Admin-card column1">
+        <div className="columnDiv1 Admin-card">
             <p style={{marginLeft:40}}className='column1' >
                 <div>
                     <div className="flot1">
@@ -309,33 +312,27 @@ const classes = useStyles();
             </p>
         </div>
         
-        <div className = "Admin-card column2">
-            <DropdownButton id="dropdown-basic-button" title="Current Lunar Phase">
-                            <div>
-                                <Dropdown.Item as="button" id="New Moon" onClick={(e) => changeLunar(e)}>New Moon</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Waxing Crescent" onClick={(e) => changeLunar(e)}>Waxing Crescent</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="First Quarter" onClick={(e) => changeLunar(e)}>First Quarter</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Waxing Gibbous" onClick={(e) => changeLunar(e)}>Waxing Gibbous</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Full Moon" onClick={(e) => changeLunar(e)}>Full Moon</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Waning Gibbous" onClick={(e) => changeLunar(e)}>Waning Gibbous</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Third Quarter" onClick={(e) => changeLunar(e)}>Third Quarter</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Waning Crescent" onClick={(e) => changeLunar(e)}>Waning Crescent</Dropdown.Item>
-                            </div>
-            </DropdownButton>
+        <div className = "Admin-card columnDiv2">
+            <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic" className = "currentDropDown">
+                Current Lunar Phase
+            </Dropdown.Toggle>
+                <Dropdown.Menu>                       
+                    <Dropdown.Item as="button" id="New Moon" onClick={(e) => changeLunar(e)}>New Moon</Dropdown.Item>
+                    <Dropdown.Item as="button" id="Waxing Crescent" onClick={(e) => changeLunar(e)}>Waxing Crescent</Dropdown.Item>                     
+                    <Dropdown.Item as="button" id="First Quarter" onClick={(e) => changeLunar(e)}>First Quarter</Dropdown.Item>                      
+                    <Dropdown.Item as="button" id="Waxing Gibbous" onClick={(e) => changeLunar(e)}>Waxing Gibbous</Dropdown.Item>                      
+                    <Dropdown.Item as="button" id="Full Moon" onClick={(e) => changeLunar(e)}>Full Moon</Dropdown.Item>                      
+                    <Dropdown.Item as="button" id="Waning Gibbous" onClick={(e) => changeLunar(e)}>Waning Gibbous</Dropdown.Item>                       
+                    <Dropdown.Item as="button" id="Third Quarter" onClick={(e) => changeLunar(e)}>Third Quarter</Dropdown.Item>                      
+                    <Dropdown.Item as="button" id="Waning Crescent" onClick={(e) => changeLunar(e)}>Waning Crescent</Dropdown.Item>                      
+                </Dropdown.Menu>
+            </Dropdown>
+            <form onSubmit={handleSubmit}>
+                    
+                    <input onClick={sendEmail} type="submit" value="Send Email" className="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-2 MuiButton-outlined makeStyles-margin-1 MuiButton-outlinedSizeLarge MuiButton-sizeLarge" size="large" variant="outlined"/>
+                    
+                </form>
          </div>        
 </header>
 
