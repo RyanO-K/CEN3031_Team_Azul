@@ -318,6 +318,9 @@ const classes = useStyles();
                         {data.interpretation}
                     </div>
                 </div>
+                <div style = {{marginBottom:5}}>Current Lunar Phase:
+                    <div style = {{fontSize:17}}>{lunar}</div>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div style={{marginTop:20}}>
                         <TextField
