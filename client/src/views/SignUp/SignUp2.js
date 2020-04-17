@@ -41,7 +41,8 @@ function SignUp2(props) {
         pob: '',
         dob: '',
         tob:'',
-        email: null
+        email: null,
+        house:''
 
     });
     const [problem, setProblem] = useState({
@@ -78,7 +79,8 @@ function SignUp2(props) {
             pob: data.pob,
             dob: data.dob,
             email:newUser.email,
-            tob:newUser.tob
+            tob:newUser.tob,
+            house:newUser.house
         }
         console.log("User"+data);
         // {...newUser,
@@ -108,14 +110,10 @@ function SignUp2(props) {
         //}
 
 
-        if(newUser.pob===undefined || newUser.pob.length===0){
-            problem.pobP=true;
+        if(newUser.dob===undefined || newUser.dob.length!==10){
+            problem.dobP=true;
             bool=true;
-            console.log("pob err");
-        }
-        else if(newUser.pob!==undefined && newUser.pob==='undefined'){
-            bool=true;
-            alert('undefined is an invalid place of birth');
+            console.log("dob err");
         }
 
      //   if(newUser.tob.length===0){
@@ -129,9 +127,9 @@ function SignUp2(props) {
         let err="";
 
         if(bool){
-            if(problem.pobP){
+            if(problem.dobP){
                 err+="No place of birth given\n";
-                problem.pobP=false;
+                problem.dobP=false;
                 alert(err);
 
             }
@@ -153,6 +151,11 @@ function SignUp2(props) {
 
                     }
                     else{
+
+                       
+                       
+
+                        
                         UserProfile.loggedIn=true;
                         UserProfile.setName(newUser.name);
                         UserProfile.setEmail(newUser.email);
@@ -160,6 +163,7 @@ function SignUp2(props) {
                         UserProfile.setBirthplace(newUser.pob);
                         UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthTime(newUser.tob);
+
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageEmail();
                         UserProfile.setLocalStorageisLoggedInWithGoogle();
@@ -183,7 +187,7 @@ function SignUp2(props) {
 
 
    const func=(a)=>{
-    if(newUser.pob.length>0)
+    if(a.length===10)
     d('/User');
 else
     d('/SignUp2');
@@ -192,7 +196,8 @@ else
         pob: newUser.pob,
         dob: a,
         email:newUser.email,
-        tob: newUser.tob
+        tob: newUser.tob,
+        house:newUser.house
     }
     UserProfile.setBirthday(a);
     setNewUser(user);
@@ -200,7 +205,7 @@ else
 
     const func2=(b)=>{
 console.log(newUser);
-        if(b.length>0)
+        if(newUser.dob.length===10)
         d('/User');
     else
         d('/SignUp2');
@@ -209,14 +214,15 @@ console.log(newUser);
             pob: b,
             dob: newUser.dob,
             email:newUser.email,
-            tob:newUser.tob
+            tob:newUser.tob,
+            house:newUser.house
         }
         UserProfile.setBirthplace(b);
         setNewUser(user);
         };
 
         const func6=(efg)=>{
-            if(newUser.pob.length>0)
+            if(newUser.dob.length===10)
 d('/User');
 else
 d('/SignUp2');
@@ -226,7 +232,8 @@ d('/SignUp2');
                 dob: newUser.dob,
                 email:newUser.email,
                 password:newUser.password,
-                tob:efg
+                tob:efg,
+                house:newUser.house
             }
             if(UserProfile.getLocalStorageisLoggedIn()===true)
 d('/SignUp2');
@@ -259,7 +266,7 @@ d('/SignUp2');
                     </div>
 
                     <div>
-                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
+                        <input type="time" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>
 
                     <div>
