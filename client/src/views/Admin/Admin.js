@@ -152,7 +152,25 @@ const classes = useStyles();
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
     <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
     <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here</p>
-        <div className="Admin-card column1">
+
+    <div className = "flexbox">
+
+        <div className = "int-col">
+            Interpretation Column
+        </div>
+
+        <div className = "lunar-col">
+            Lunar Phase Column
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div className="Admin-card column1">
             <p style={{marginLeft:40}}className='column1' >
                 <div>
                     <div className="flot1">
