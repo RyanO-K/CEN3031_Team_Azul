@@ -14,6 +14,7 @@ import Button from "@material-ui/core/Button"
 import background from '../../assets/moonbackground.jpg';
 import { useForm } from 'react-hook-form';
 
+
 const ColorButton = withStyles(theme => ({
   root: {
       borderRadius: 20,
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 class SignUp extends Component {
     constructor() {
         super();
-        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false};
+        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:''};
     }
 
 
@@ -83,8 +84,8 @@ handleSubmit = async (event) => {
      if(this.state.name===undefined || this.state.name.length===0)
      alert("Please provide a name");
      else{
-       if(this.state.pob===undefined ||this.state.pob.length===0)
-       alert("Please provide a birth location");
+       if(this.state.dob===undefined ||this.state.dob.length!==10)
+       alert("Please provide a valid birth date");
        else{
 console.log(this.state.pob);
 firebase
@@ -93,12 +94,17 @@ firebase
      .then(async (user) => {
     this.state.loggedIn=true;
     
-       UserProfile.loggingInWithoutGoogle();
+      
+console.log("why");
+
+
+ UserProfile.loggingInWithoutGoogle();
        UserProfile.setName(this.state.name);
        UserProfile.setEmail(this.state.email);
        UserProfile.setBirthday(this.state.dob);
        UserProfile.setBirthplace(this.state.pob);
        UserProfile.setBirthTime(this.state.tob);
+       
        UserProfile.loggedIn=true;
        UserProfile.setLocalStorageBTime();
        UserProfile.setLocalStorageBDay();
@@ -107,7 +113,9 @@ firebase
        UserProfile.setLocalStorageName();
        UserProfile.setLocalStorageisLoggedIn();
        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-
+       
+       
+      
        const axiosUser = {
         Name: this.state.name,
         Sign: "Scorpio",
@@ -115,7 +123,9 @@ firebase
         TimeOfBirth: this.state.tob,
         LocationOfBirth: this.state.pob,
         Email: this.state.email,
+        House:''
     }
+    console.log("MADE IT");
     await axiosPath.makeCreateRequest('personal/', axiosUser);
     console.log("SUccess");
     if(this.state.email==='Admin@admin.com')
@@ -201,7 +211,7 @@ console.log(10);
 
              <div>
             <input
-               type="text"
+               type="time"
                name="tob"
                placeholder="time of birth"
                       
