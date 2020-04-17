@@ -1,11 +1,35 @@
+var swisseph=require('swisseph');
+//var UserProfile=require('../../client/src/views/SignUp/UserState');
+
 //personalInformationCombo is the object we will create when making a new entry
 var personalInformationCombo = require( '../models/personalInformationSchema.js');
 
 //create a horoscope combo
 const create = async (req, res) => {
+
+    let house='';
+    console.log(req);
+    if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
+    var arr=req.body.Birthday.split('-');
+    var arr2=req.body.TimeOfBirth.split(':');
+    console.log('10');
+    var julday= swisseph.swe_julday(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]), parseInt(arr2[0]), swisseph.SE_GREG_CAL )
+    console.log(julday);
+    console.log('30');
+    swisseph.swe_houses(julday, 30, -82, 'C', function(houses){
+     console.log(houses);   
+     house=houses.house[0];
+    });
+    console.log('40');
+   }
+    
+    req.body.House=house;
+    console.log(req.body);
+
     const person = new personalInformationCombo(req.body);
 
-    
+console.log(person);
+
     person.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(person);
@@ -17,6 +41,7 @@ const create = async (req, res) => {
             });
         }
         res.header('Access-Control-Allow-Origin', '*');
+        console.log(person);
         res.status(500).send({
             message: err.message || "Error on create"
         });
@@ -58,8 +83,8 @@ const update = async (req, res) => {
                                             LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
                                             Email:req.body.Email || Email,
                                             Birthday:req.body.Birthday || Birthday,
-                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth
-
+                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth,
+                                            House:req.body.House||House
 
                                             }).then(data =>{
         
