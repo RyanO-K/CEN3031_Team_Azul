@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login(){
-    console.log("email is: "+UserProfile.getLocalStorageEmail());
+    
 
     const [destination,d]=useState("/Login");
     const [newUser, setNewUser] = useState({
@@ -55,11 +55,11 @@ function Login(){
     });
     const { register, handleSubmit, errors } = useForm();
     useEffect(() => {
-        console.log(newUser)
+        
     }, [newUser], [destination]);
 
     useEffect(()=>{
-        console.log(newUser.boo);
+        
         if(newUser.boo)
             d('/User');
             else if(newUser.email==='admin' && newUser.password==='admin'){
@@ -99,13 +99,13 @@ function Login(){
 
 
     async function handle(){
-        console.log("ya");
+
         let bool=false;
         let l="";
         
        
         if(newUser.boo){ const obj=await log2.apply();
-            console.log("move n");
+            
                         UserProfile.loggingInWithoutGoogle();
                         UserProfile.setName(obj.Name);
                         UserProfile.setEmail(newUser.email);
@@ -123,7 +123,9 @@ function Login(){
                         UserProfile.setLocalStorageName();
                         UserProfile.setLocalStorageisLoggedIn();
                         UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-                        console.log(destination);
+                        
+
+
 
                         const user={
                             email:newUser.email,
@@ -138,11 +140,11 @@ function Login(){
 
             }
         else{
-console.log("no");
+
         let err="";
 
        
-            console.log(UserProfile.getLocalStorageisLoggedIn());
+            
                 err="Invalid Username or Password";
             if(newUser.password!=='admin' || newUser.email!=='admin')
             alert(err);
@@ -178,11 +180,7 @@ console.log("no");
 
             const obj=await log2.apply();
             let bo=(obj.Email!==undefined && obj.Password===c);
-console.log(obj);
-console.log(bo);
-console.log(obj.email===undefined);
-console.log(newUser.password);        
-console.log(obj.Password);   
+
 
             if(newUser.password===obj.Password && obj.Email===newUser.email)
     d('/User');
@@ -214,7 +212,7 @@ else
                     }
                     setNewUser(user);
                     newUser.email=de;
-                    console.log(newUser.email);
+                    
 
                     const obj=await log2.apply();
                     let bo=(obj.Email!==undefined && obj.Password===newUser.password);
