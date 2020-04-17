@@ -51,14 +51,14 @@ const read = async (req, res) => {
 const update = async (req, res) => {
     //TODO: Birthday is currently uneditable
 
-    const person = new personalInformationCombo(req.body);
+    const person = personalInformationCombo.findOne(req.params.Email);
     personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
-                                            Name:req.body.Name || Name,
-                                            Sign:req.body.Sign || Sign,
-                                            LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
-                                            Email:req.body.Email || Email,
-                                            Birthday:req.body.Birthday || Birthday,
-                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth
+                                            Name:req.body.Name || person.Name,
+                                            Sign:req.body.Sign || person.Sign,
+                                            LocationOfBirth:req.body.LocationOfBirth || person.LocationOfBirth,
+                                            Email:req.body.Email || person.Email,
+                                            Birthday:req.body.Birthday || person.Birthday,
+                                            TimeOfBirth:req.body.TimeOfBirth||person.TimeOfBirth
 
 
                                             }).then(data =>{
