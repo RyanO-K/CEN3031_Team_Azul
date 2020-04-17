@@ -1,3 +1,8 @@
+@font-face{
+    src: url('../../fonts/Montserrat/Montserrat-Light.ttf');
+    font-family: mont;
+}
+
 .header {
     background: #0AC98F;
     display: flex;
@@ -7,8 +12,9 @@
 }
 
 .title{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: mont;
     padding-left: 1%;
+    margin-top: 15px;
 }
 
 .nav-logo {
@@ -40,4 +46,3 @@
 .nav-link:hover {
     background-color: #08bd9a;
 }
-
