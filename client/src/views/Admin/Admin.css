@@ -30,7 +30,6 @@ body {
     background-color: #0AC98F;
     border-radius: 10px;
     float: left;
-    text-align: left;
 }
 
 .Header{
@@ -71,6 +70,4 @@ body {
 .flot1 {
     float: left;
     width: 100;
-    text-align: left;
-    font-size: 12px;
 }
