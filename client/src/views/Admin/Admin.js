@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 import axiosPath from '../../axiosRequests';
 import background from '../../assets/moonbackground.jpg';
 import './Admin.css';
+import butterflies from '../../assets/butterflies.png';
+import img from '../../components/Moon/moon.png'
 import { Link } from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
 
@@ -33,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 const Admin = () =>{
 
-  if(UserProfile.getLocalStorageEmail()==='admin'){
+  if(UserProfile.getLocalStorageEmail()==='Admin@admin.com'){
     UserProfile.loggingInWithoutGoogle();
     UserProfile.setLocalStorageisLoggedIn();
     UserProfile.setEmail('admin');
@@ -54,6 +56,30 @@ const Admin = () =>{
 
     const [info, setInfo] = useState('');
 
+    const [currMoonPhase, setCurrMoonPhase] = useState('');
+
+    const changeMoonPhase = (event) => {
+        setCurrMoonPhase(event.target.id)
+    }
+
+    useEffect(() => {
+        console.log(currMoonPhase)
+    }, [currMoonPhase]);
+
+    const sendEmail = (event) => {
+        event.preventDefault();
+        try{
+            console.log("submit")
+            // let result = await axiosPath.makeUpdateRequest('horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign,{
+            //     "house": house,
+            //     "sign": sign,
+            //     "moonphase": moonphase,
+            //     "description": description
+            //     });
+        }catch(err){
+        }
+    }
+
     const handleChange = (event) => {
         setInfo(event.target.value)
     }
@@ -63,7 +89,7 @@ const Admin = () =>{
         setData({...data, interpretation: info})
         createInterpretation(data.moon,data.house,data.sun,info);
     }
-    const classes = useStyles();
+const classes = useStyles();
     const getInterpretation = async (moonphase, house, sign) => {
         let result = await axiosPath.makeGetRequest('horoscopeInfo/search/?moonphase='+moonphase+'&house='+house+'&sign='+sign);
         return result
@@ -96,7 +122,7 @@ const Admin = () =>{
         UserProfile.setEmail('');
         UserProfile.setLocalStorageEmail();
         }
-    if(UserProfile.getLocalStorageEmail()!=='Admin@admin.com')
+    if(UserProfile.getLocalStorageEmail()!=='admin')
     return(<Redirect to="/Home"/>);
 
     const dispSunSign = async (clicked) =>
@@ -139,7 +165,8 @@ const Admin = () =>{
 
 <header className="Header" style={{backgroundImage: `url(${background})` }}>
     <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
-    <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here</p>
+    <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here:</p>
+    <div>
         <div className="Admin-card">
             <p style={{marginLeft:40}}className='column1' >
                 <div>
@@ -253,9 +280,6 @@ const Admin = () =>{
                         </DropdownButton>
                     </div>
                 </div>
-                 <div>
-                <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
-                </div>
             </p>
 
             <p className="column2">
@@ -295,6 +319,44 @@ const Admin = () =>{
 
             </p>
         </div>
+        <div className="Email-card">
+            <div>
+                <input type="image" id="NewMoon" src="https://i.imgur.com/DCrZonl.png" onClick={(e) => changeMoonPhase(e)}/>
+                New Moon
+            </div>
+            <div>
+                <input type="image" id="WaxingCrescent" src="https://i.imgur.com/PWhVPg5.png" onClick={(e) => changeMoonPhase(e)}/>
+                Waxing Crescent
+            </div>
+            <div>
+                <input type="image" id="FirstQuarter" src="https://i.imgur.com/nAQ95qN.png" onClick={(e) => changeMoonPhase(e)}/>
+                First Quarter
+            </div><div>
+                <input type="image" id="WaxingGibbous" src="https://i.imgur.com/d7C4UrE.png" onClick={(e) => changeMoonPhase(e)}/>
+                Waxing Gibbous
+            </div>
+            <div>
+                <input type="image" id="FullMoon" src="https://i.imgur.com/zWy3vSU.png" onClick={(e) => changeMoonPhase(e)}/>
+                Full Moon
+            </div>
+            <div>
+                <input type="image" id="WaningGibbous" src="https://i.imgur.com/vOqxYrM.png" onClick={(e) => changeMoonPhase(e)}/>
+                Waning Gibbous
+            </div>
+            <div>
+                <input type="image" id="LastQuarter" src="https://i.imgur.com/kxIicxI.png" onClick={(e) => changeMoonPhase(e)}/>
+                Last Quarter
+            </div>
+            <div>
+                <input type="image" id="WaningCrescent" src="https://i.imgur.com/xwZUmoR.png" onClick={(e) => changeMoonPhase(e)}/>
+                Waning Crescent
+            </div>
+            <ColorButton onClick={sendEmail}>Submit</ColorButton>
+         </div>
+         <div>
+         <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
+         </div>
+         </div>
         </header>
 
 
