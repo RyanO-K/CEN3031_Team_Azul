@@ -92,6 +92,7 @@ console.log(req.url);
       let response=await personalInformationCombo.find();
        console.log(response);
       for(let i=0; i<response.length; i++){
+          if(response[i].Subscribed){
         let em=response[i].Email;
         console.log('fail');
   
@@ -121,7 +122,7 @@ console.log(req.url);
       });
       console.log("hi");
       }
-
+    }
   }
 
 
