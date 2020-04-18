@@ -152,6 +152,30 @@ else{
 const update = async (req, res) => {
     //TODO: Birthday is currently uneditable
 
+
+
+
+    let house='';
+    console.log(req);
+    if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
+    var arr=req.body.Birthday.split('-');
+    var arr2=req.body.TimeOfBirth.split(':');
+    console.log('10');
+    var julday= swisseph.swe_julday(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]), parseInt(arr2[0]), swisseph.SE_GREG_CAL )
+    console.log(julday);
+    console.log('30');
+    swisseph.swe_houses(julday, 30, -82, 'C', function(houses){
+     console.log(houses);   
+     house=houses.house[0];
+    });
+    console.log('40');
+   }
+    
+    req.body.House=house;
+    console.log(req.body);
+
+
+
     const person = new personalInformationCombo(req.body);
     personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
                                             Name:req.body.Name || Name,
@@ -160,7 +184,8 @@ const update = async (req, res) => {
                                             Email:req.body.Email || Email,
                                             Birthday:req.body.Birthday || Birthday,
                                             TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth,
-                                            House:req.body.House||House
+                                            House:req.body.House||House,
+                                            Subscribed:req.body.Subscribed
 
                                             }).then(data =>{
         
