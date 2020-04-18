@@ -1,5 +1,6 @@
 var swisseph=require('swisseph');
 //var UserProfile=require('../../client/src/views/SignUp/UserState');
+var horoscopeModel = require('../models/horoscopeSchema.js');
 
 //personalInformationCombo is the object we will create when making a new entry
 var personalInformationCombo = require( '../models/personalInformationSchema.js');
@@ -85,41 +86,60 @@ const read = async (req, res) => {
 
 console.log(req.url);
 
-
-    if(req.url==='/personal/Admin@admin.com2'){
+    if(req.url.indexOf('/personal/Admin@admin.com2')===0){
+    let moonphase=req.url.substring(26);
+        if(moonphase==='NewMoon')
+        moonphase='New Moon';
     console.log('fail');
     console.log(list());
       let response=await personalInformationCombo.find();
        console.log(response);
       for(let i=0; i<response.length; i++){
+          if(response[i].Subscribed!==undefined && response[i].House!==undefined)
           if(response[i].Subscribed){
         let em=response[i].Email;
         console.log('fail');
-  
-  
+  let b=null;
+        horoscopeModel.findOne({ 'house': '1st', 'moonphase':'NewMoon','sign':'Aquarius'}).then(data =>{
+            if(data!=null){
+                var transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                      user: 'jimmyderobotics@gmail.com',
+                      pass: 'm00nfl0w'
+                    }
+                  });
+                  
+                  var mailOptions = {
+                    from: 'jimmyderobotics@gmail.com',
+                    to: em,
+                    subject: 'Your Moon Change Update',
+                    text: 'Hello '+response[i].Name+' your update is:\nHouse: '+response[i].House+'\nSign:'+response[i].Sign+'\n'+data.description
+                  };
+                  
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
+                console.log(b);
+                res.header('Access-Control-Allow-Origin', '*');
+                res.status(200).json(data);
+            }else{
+                //res.header('Access-Control-Allow-Origin', '*');
+               // res.status(404).send({error: 'Doc not found: ' + req.body.house + " " + req.body.moonphase});
+            }
+        }).catch(err => {
+            console.log('10');
+            //res.header('Access-Control-Allow-Origin', '*');
+           // res.status(500).send({
+             //   message: err.message || "Read failed: " + req.body.house + " " + req.body.moonphase
+            //})
+        });
         
-      var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'jimmyderobotics@gmail.com',
-          pass: 'm00nfl0w'
-        }
-      });
-      
-      var mailOptions = {
-        from: 'jimmyderobotics@gmail.com',
-        to: em,
-        subject: 'Your Moon Change Update',
-        text: 'Hello '+response[i].Name+' your update is:\nHouse: '+response[i].House+'\nSign:'+response[i].Sign
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
+
       console.log("hi");
       }
     }
