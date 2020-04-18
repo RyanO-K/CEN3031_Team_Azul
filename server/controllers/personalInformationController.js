@@ -3,6 +3,11 @@ var swisseph=require('swisseph');
 
 //personalInformationCombo is the object we will create when making a new entry
 var personalInformationCombo = require( '../models/personalInformationSchema.js');
+//var axiosRequests=require('../../client/src/axiosRequests');
+
+var nodemailer = require('nodemailer');
+
+
 
 //create a horoscope combo
 const create = async (req, res) => {
@@ -47,10 +52,81 @@ console.log(person);
         });
     });
 
+
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'jimmyderobotics@gmail.com',
+          pass: 'm00nfl0w'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'jimmyderobotics@gmail.com',
+        to: req.body.Email,
+        subject: 'Welcome to Moonflow',
+        text: 'Hello '+req.body.Name+' you have now signed up for moonflow'
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      console.log("hi");
+
 };
 
 //show a horoscope listing
 const read = async (req, res) => {
+
+console.log(req.url);
+
+
+    if(req.url==='/personal/Admin@admin.com2'){
+    console.log('fail');
+    console.log(list());
+      let response=await personalInformationCombo.find();
+       console.log(response);
+      for(let i=0; i<response.length; i++){
+        let em=response[i].Email;
+        console.log('fail');
+  
+  
+        
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'jimmyderobotics@gmail.com',
+          pass: 'm00nfl0w'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'jimmyderobotics@gmail.com',
+        to: em,
+        subject: 'Your Moon Change Update',
+        text: 'Hello '+response[i].Name+' your update is:\nHouse: '+response[i].House+'\nSign:'+response[i].Sign
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      console.log("hi");
+      }
+
+  }
+
+
+else{
+
     //TODO
     
     personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data =>{
@@ -69,7 +145,7 @@ const read = async (req, res) => {
     });
 
 
-
+}
 };
 
 //update a horoscope listing
