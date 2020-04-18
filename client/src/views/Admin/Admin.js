@@ -69,7 +69,7 @@ const Admin = () =>{
         event.preventDefault();
         try{
             console.log("submit")
-            let result = await axiosPath.makeGetRequest('personl/Admin@admin.com2'+currMoonPhase,{
+            let result = await axiosPath.makeGetRequest('personal/Admin@admin.com2'+currMoonPhase,{
             // //     "house": house,
             // //     "sign": sign,
             // //     "moonphase": moonphase,
@@ -321,11 +321,11 @@ const classes = useStyles();
         <div className="Email-card">
             <div>
                 <input type="image" id="NewMoon" src="https://i.imgur.com/DCrZonl.png" onClick={(e) => changeMoonPhase(e)}/>
-                New Moon
+                NewMoon
             </div>
             <div>
                 <input type="image" id="WaxingCrescent" src="https://i.imgur.com/PWhVPg5.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waxing Crescent
+                WaxingCrescent
             </div>
             <div>
                 <input type="image" id="FirstQuarter" src="https://i.imgur.com/nAQ95qN.png" onClick={(e) => changeMoonPhase(e)}/>
