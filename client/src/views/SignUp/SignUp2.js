@@ -163,6 +163,7 @@ function SignUp2(props) {
                         UserProfile.setBirthplace(newUser.pob);
                         UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthTime(newUser.tob);
+                        UserProfile.setSubscribed(true);
 
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageEmail();
@@ -170,6 +171,7 @@ function SignUp2(props) {
                         UserProfile.setLocalStorageName();
                         UserProfile.setLocalStorageBPlace();
                         UserProfile.setLocalStorageBDay();
+                        UserProfile.setLocalStorageSubscribed();
 
                         const axiosUser = {
                             Name: newUser.name,
@@ -178,7 +180,8 @@ function SignUp2(props) {
                             TimeOfBirth: newUser.tob,
                             LocationOfBirth: newUser.pob,
                             Email: newUser.email,
-                            Password: newUser.password
+                            House:'',
+                            Subscribed:true
                         }
                         axiosPath.makeCreateRequest('personal/', axiosUser)
                     }
