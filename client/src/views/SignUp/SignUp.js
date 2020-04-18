@@ -108,6 +108,7 @@ console.log("why");
        UserProfile.setBirthday(this.state.dob);
        UserProfile.setBirthplace(this.state.pob);
        UserProfile.setBirthTime(this.state.tob);
+       UserProfile.setSubscribed(true);
        
        UserProfile.loggedIn=true;
        UserProfile.setLocalStorageBTime();
@@ -117,6 +118,7 @@ console.log("why");
        UserProfile.setLocalStorageName();
        UserProfile.setLocalStorageisLoggedIn();
        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+       UserProfile.setLocalStorageSubscribed();
        
        
       
@@ -127,7 +129,8 @@ console.log("why");
         TimeOfBirth: this.state.tob,
         LocationOfBirth: this.state.pob,
         Email: this.state.email,
-        House:''
+        House:'',
+        Subscribed:true
     }
     console.log("MADE IT");
     await axiosPath.makeCreateRequest('personal/', axiosUser);
