@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
+import { Flex, Box, Heading, Text } from 'rebass';
 import { Label, Input } from '@rebass/forms'
-import { Flex, Box, Heading, Text, Link } from 'rebass';
 import firebase from './config2';
 import UserProfile from './UserState';
 import axiosPath from '../../axiosRequests';
-import LoginWithGoogle from './LoginWithGoogle';
-import { Route, Switch, Redirect  } from 'react-router-dom';
-import User from './User';
-import background from '../../assets/moonbackground.jpg';
-import "./Login.css";
-import Button from "@material-ui/core/Button";
+import SignUpWithGoogle from './SignUpWithGoogle';
 import logo from '../../assets/logo.svg';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import './SignUp.css';
+import Button from "@material-ui/core/Button"
+import background from '../../assets/moonbackground.jpg';
+import { useForm } from 'react-hook-form';
 
 
 const ColorButton = withStyles(theme => ({
@@ -34,162 +34,238 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-class Login extends Component {
-    constructor(){
-    super();
-
-    UserProfile.name='';
-    UserProfile.email=null;
-    UserProfile.isLoggedIn=false;
-    this.state = {name:'', email:null, loggedIn:false, loggedInWithGoogle:false, nextPage:''};
+class SignUp extends Component {
+    constructor() {
+        super();
+        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:''};
     }
-handleInputChange = (event) => {
-   this.setState({ [event.target.name]: event.target.value });
- };
 
 
- async log2(){
-        const a= (await axiosPath.makeGetRequest('personal/'+this.state.email));
-console.log(a);
-return a;
+    async log2(){
+        let a= '';
+        try{
+            a=await axiosPath.makeGetRequest('personal/'+this.state.email)}
+            catch{
+                a=undefined;
+            };
+            const b=a;
+console.log(b);
+return b;
        };
 
 
-toSignUpPage=()=>{
-  console.log("clickety click");
-  this.props.history.push('/SignUp');
-}
+       LoginPage=()=>{
+         console.log("click clack");
+        this.props.history.push('/Login');
+      }
 
+      
+handleInputChange = (event) => {
+   this.setState({ [event.target.name]: event.target.value });
+ };
 handleSubmit = async (event) => {
    event.preventDefault();
+   if(!(UserProfile.getLocalStorageEmail()==='' ||UserProfile.getLocalStorageEmail()==='null' || UserProfile.getLocalStorageEmail()===null || UserProfile.getLocalStorageEmail()===undefined || UserProfile.getLocalStorageEmail()==='undefined'))
+              alert("You are already logged in with email "+UserProfile.getLocalStorageEmail()+".  Please log out before creating a new account");
+   else{
+              if(this.state.email.length===0)
+   alert("Please provide an email");
+   else{
+   const obj=await this.log2();
+   if(obj!==undefined){
+   alert("Already a user with this email");
+   return (<Redirect to={{pathname: '/Login'}}></Redirect>);
+   }
+   else{
    const { email, password } = this.state;
+   if(password===undefined || password.length<6)
+   alert("Please use a password of 6 or more characters");
+   else{
+     if(this.state.name===undefined || this.state.name.length===0)
+     alert("Please provide a name");
+     else{
+       if(this.state.dob===undefined ||this.state.dob.length!==10)
+       alert("Please provide a valid birth date");
+       else{
+         if(this.state.email==='Admin@admin.com2')
+         alert("Please provide a valid email");
+         else{
+console.log(this.state.pob);
 firebase
      .auth()
-     .signInWithEmailAndPassword(email, password)
-     .then(async(user) => {
-       this.setState({name:this.state.name, email:this.state.email, loggedIn:this.state.loggedIn, loggedInWithGoogle:false, nextPage:this.state.nextPage});
-       const obj=await this.log2();
- console.log(obj);
- UserProfile.setEmail(this.state.email);
-        UserProfile.loggingInWithoutGoogle();
-        UserProfile.setLocalStorageisLoggedInWithGoogle();
-        UserProfile.setLocalStorageisLoggedIn();
-        UserProfile.setLocalStorageEmail();
-        console.log(UserProfile.getLocalStorageEmail());
-        this.state.nextPage='/User';
-        console.log(this.state.nextPage);
-        console.log(UserProfile.getLocalStorageEmail());
-        this.state.loggedInWithGoogle=false;
+     .createUserWithEmailAndPassword(email, password)
+     .then(async (user) => {
+      
+    this.state.loggedIn=true;
+    
+      
+console.log("why");
 
 
-       if(obj!==undefined && obj.Email===this.state.email){
-   
-        this.bool=true;
-        console.log(this.bool);
-        
-        
-                //response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-                //console.log(GoogleLogin.BasicProfile);
-            //if(this.state.email!=null &&this.state.email===this.state.email)
-              //  alert("you are already logged in with email " +this.state.email+".  Please log out if you would like to login with another account.");
-            //else{
-            UserProfile.loggingInWithoutGoogle();
-            //console.log(UserProfile.isLoggedIn());
-            
-            this.setState({name:this.state.name, email:this.state.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-            UserProfile.setEmail(this.state.email); 
-            UserProfile.loggedIn=true;
-            this.setState({name:this.state.name, email:this.state.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-            UserProfile.setLocalStorageName();
-            UserProfile.setLocalStorageEmail();
-            console.log(UserProfile.getLocalStorageEmail());
-            UserProfile.setLocalStorageisLoggedInWithGoogle();
-            UserProfile.setLocalStorageisLoggedIn();
-            this.setState({name:this.state.name, email:this.state.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-            //console.log(this.state.name);
-            this.setState({name:this.state.name, email:this.state.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-            //console.log(this.state.name);
-           // console.log(this.state.email);
-           UserProfile.loggedIn=true;
-           this.state.loggedIn=true;
-           this.nextPage='/User';
-        
-           console.log(this.state.nextPage);window.location.reload();  
-           if(this.state.email==='Admin@admin.com')
-           this.props.history.push('/Admin');
-          else
-           return <Redirect to={{pathname: '/User',state:{user: {name:this.state.name, email:this.state.email, dob:this.state.dob, pob:this.state.pob, tob:this.state.tob}, g:false}}}></Redirect>
-         
-         }
+ UserProfile.loggingInWithoutGoogle();
+       UserProfile.setName(this.state.name);
+       UserProfile.setEmail(this.state.email);
+       UserProfile.setBirthday(this.state.dob);
+       UserProfile.setBirthplace(this.state.pob);
+       UserProfile.setBirthTime(this.state.tob);
+       UserProfile.setSubscribed(true);
+       
+       UserProfile.loggedIn=true;
+       UserProfile.setLocalStorageBTime();
+       UserProfile.setLocalStorageBDay();
+       UserProfile.setLocalStorageBPlace();
+       UserProfile.setLocalStorageEmail();
+       UserProfile.setLocalStorageName();
+       UserProfile.setLocalStorageisLoggedIn();
+       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
+       UserProfile.setLocalStorageSubscribed();
+       
+       
+      
+       const axiosUser = {
+        Name: this.state.name,
+        Sign: "Scorpio",
+        Birthday: this.state.dob,
+        TimeOfBirth: this.state.tob,
+        LocationOfBirth: this.state.pob,
+        Email: this.state.email,
+        House:'',
+        Subscribed:true
+    }
+    console.log("MADE IT");
+    await axiosPath.makeCreateRequest('personal/', axiosUser);
+    console.log("SUccess");
+    if(this.state.email==='Admin@admin.com')
+      this.props.history.push('/Admin');
+    else
+      this.props.history.push('/User');
+     //  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}/>);
+
+
+
      })
      .catch((error) => {
        this.setState({ error: error });
-       this.setState({name:this.state.name, email:this.state.email, loggedIn:false, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-        UserProfile.loggedIn=false; 
-        this.state.loggedIn=false;
-        alert('Invalid Username or Password');
-        UserProfile.loggingOut();
-        UserProfile.setLocalStorageisLoggedIn();
-        UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-        this.state.nextPage='/Login';
-         console.log("Faile");
-         return <Redirect to="/Login"/>
-
-       
      });
+    }
+  }
+  }
+}
+}
+}
+   }
  };
+
+
+ componentDidUpdate(){
+   console.log(30);
+   console.log(this.state.loggedIn);
+  if(this.state.loggedIn)
+  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}></Redirect>);
+
+}
+
  render() {
-    console.log(UserProfile.getLocalStorageEmail());
-    if(UserProfile.getLocalStorageEmail()!=='' && UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='null')
-    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com')
-    return <Redirect to='/Admin'/>
-    else
-    return <Redirect to='/User'/>
-   const { email, password, error } = this.state;
+   const { email, password, error , name, dob, tob, pob} = this.state;
+console.log(10);
    return (
-     <div className="Login">
-       <header className="Login-header" style={{backgroundImage: `url(${background})` }}>
-                <h1 className="login-title">
-                    Welcome to MoonFlow
+       <div className="SignIn">
+            <header className="SignIn-header" style={{backgroundImage: `url(${background})` }}>
+                <h1 className="signin-title">
+                    User Information
                 </h1>
-                
+               
        
-      
-       <div className="Login-card">
-                    <p style={{marginBottom:5}}>Login</p>
-                    
-           <form on onSubmit={this.handleSubmit}>
-             <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
-             <div style={{marginBottom:7,marginTop:1}}>   <input
+                  <div className="Signin-card">  <p></p> 
+
+           <form onSubmit={this.handleSubmit}>
+
+           <div>
+            <input
+               type="text"
+               name="name"
+               placeholder="name"
+
+               value={name}
+               onChange={this.handleInputChange}
+             />
+             </div>
+
+<div>
+           <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
+           </div>
+             <div>
+             <input
                type="password"
                name="password"
                placeholder="Password"
+
                value={password}
                onChange={this.handleInputChange}
              />
              </div>
-             <div>
-             <ColorButton children="Login" variant="outlined"size="large" className={useStyles.margin} onClick={this.handleSubmit}/>
-           </div>
-           </form>
-<div style={{fontSize:15}}>
-       Forgot Password?
-       <Link href='/PasswordReset'><br></br>Reset Password</Link>
-</div>
 
-       <p style={{marginTop: 10, marginBottom: 15, fontSize:25}}>or</p>
-       <LoginWithGoogle></LoginWithGoogle>
-       </div>
-       <div>
-                    <br></br><br></br>
-                    <p style={{marginBottom:5}}>
-                        Don't have an account?
-                    </p>
-                    <ColorButton onClickCapture={this.toSignUpPage}className={useStyles.margin} size="large" variant="outlined" >Sign Up Here</ColorButton>
+
+             <div>
+            <input
+               type="text"
+               name="pob"
+               placeholder="place of birth"
+
+               value={pob}
+               onChange={this.handleInputChange}
+             />
+             </div>
+
+             <div>
+            <input
+               type="time"
+               name="tob"
+               placeholder="time of birth"
+                      
+               value={tob}
+               onChange={this.handleInputChange}
+             />
+             </div>
+
+             <div>
+            <input
+               type="date"
+               name="dob"
+               placeholder="date of birth"
+               value={dob}
+               onChange={this.handleInputChange}
+             />
+             </div>
+
+
+             <p style={{marginBottom:-15}}></p>
+             <div>
+             <ColorButton children="Register" className={useStyles.margin} size="large" onClick={this.handleSubmit}/>
 </div>
-       </header>
-     </div>
+           </form>
+<p style={{marginTop: 5, marginBottom: 10, fontSize:25}}>or</p>
+       <SignUpWithGoogle></SignUpWithGoogle>
+           </div>
+           
+       
+       
+       <p style={{marginBottom:5}}>
+                    <br></br><br></br>
+                    Already a User?
+                </p>
+                <div>
+                <ColorButton onClickCapture={this.LoginPage}className={useStyles.margin} size="large" variant="outlined" >GO LOGIN NOW</ColorButton>
+                        </div>
+</header>
+       </div>
+
+       
+                
    );
+   console.log(this.state.email);
+
+
  }
 }
-export default withRouter(Login);
+export default withRouter(SignUp);
