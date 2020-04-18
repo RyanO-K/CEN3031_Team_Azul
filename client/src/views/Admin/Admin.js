@@ -329,26 +329,26 @@ const classes = useStyles();
             </div>
             <div>
                 <input type="image" id="FirstQuarter" src="https://i.imgur.com/nAQ95qN.png" onClick={(e) => changeMoonPhase(e)}/>
-                First Quarter
+                FirstQuarter
             </div><div>
                 <input type="image" id="WaxingGibbous" src="https://i.imgur.com/d7C4UrE.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waxing Gibbous
+                WaxingGibbous
             </div>
             <div>
                 <input type="image" id="FullMoon" src="https://i.imgur.com/zWy3vSU.png" onClick={(e) => changeMoonPhase(e)}/>
-                Full Moon
+                FullMoon
             </div>
             <div>
                 <input type="image" id="WaningGibbous" src="https://i.imgur.com/vOqxYrM.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waning Gibbous
+                WaningGibbous
             </div>
             <div>
                 <input type="image" id="LastQuarter" src="https://i.imgur.com/kxIicxI.png" onClick={(e) => changeMoonPhase(e)}/>
-                Last Quarter
+                LastQuarter
             </div>
             <div>
                 <input type="image" id="WaningCrescent" src="https://i.imgur.com/xwZUmoR.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waning Crescent
+                WaningCrescent
             </div>
             <ColorButton onClick={sendEmail}>Submit</ColorButton>
          </div>
