@@ -141,7 +141,7 @@ firebase
  render() {
     console.log(UserProfile.getLocalStorageEmail());
     if(UserProfile.getLocalStorageEmail()!=='' && UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='null')
-    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com')
+    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com' || UserProfile.getLocalStorageEmail()==='admin')
     return <Redirect to='/Admin'/>
     else
     return <Redirect to='/User'/>
