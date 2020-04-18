@@ -41,9 +41,8 @@ function Home() {
     //console.log(UserProfile.loggedIn);
 
     useEffect(()=>{
-        console.log(UserProfile.getLocalStorageEmail());
     if(UserProfile.getLocalStorageEmail()!=='null' && UserProfile.getLocalStorageEmail()!==null &&UserProfile.getLocalStorageEmail()!==''){
-    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com' || UserProfile.getLocalStorageEmail()==='admin'){
+    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com'){
         setHome('Admin');
     sessionStorage.setItem('hi','Admin');
     }
