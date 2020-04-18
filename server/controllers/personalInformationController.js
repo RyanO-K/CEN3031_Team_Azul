@@ -88,9 +88,8 @@ console.log(req.url);
 
     if(req.url.indexOf('/personal/Admin@admin.com2')===0){
     let moonphase=req.url.substring(26);
-        if(moonphase==='NewMoon')
-        moonphase='New Moon';
-    console.log('fail');
+
+    console.log(console.log(moonphase));
     console.log(list());
       let response=await personalInformationCombo.find();
        console.log(response);
@@ -100,7 +99,7 @@ console.log(req.url);
         let em=response[i].Email;
         console.log('fail');
   let b=null;
-        horoscopeModel.findOne({ 'house': '1st', 'moonphase':'NewMoon','sign':'Aquarius'}).then(data =>{
+        horoscopeModel.findOne({ 'house': '1st', 'moonphase':moonphase,'sign':response[i].Sign}).then(data =>{
             if(data!=null){
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
