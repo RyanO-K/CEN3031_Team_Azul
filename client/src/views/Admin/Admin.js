@@ -65,16 +65,16 @@ const Admin = () =>{
         console.log(currMoonPhase)
     }, [currMoonPhase]);
 
-    const sendEmail = (event) => {
+    const sendEmail = async(event) => {
         event.preventDefault();
         try{
             console.log("submit")
-            // let result = await axiosPath.makeUpdateRequest('horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign,{
-            //     "house": house,
-            //     "sign": sign,
-            //     "moonphase": moonphase,
-            //     "description": description
-            //     });
+            let result = await axiosPath.makeGetRequest('personl/Admin@admin.com2'+currMoonPhase,{
+            // //     "house": house,
+            // //     "sign": sign,
+            // //     "moonphase": moonphase,
+            // //     "description": description
+            });
         }catch(err){
         }
     }
