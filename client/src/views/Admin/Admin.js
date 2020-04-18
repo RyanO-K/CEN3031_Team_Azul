@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import axiosPath from '../../axiosRequests';
 import background from '../../assets/moonbackground.jpg';
 import './Admin.css';
-import butterflies from '../../assets/butterflies.png';
 import img from '../../components/Moon/moon.png'
 import { Link } from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
