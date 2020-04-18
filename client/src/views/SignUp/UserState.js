@@ -13,6 +13,7 @@ var UserProfile = (function() {
     var tempEmail='';
     var tempName='';
     var House='';
+    var subscribed=true;
 
     var getName = function() {
       return full_name;    // Or pull this from cookie/localStorage
@@ -143,6 +144,19 @@ var setTempName=function(nam){
             }
 
 
+            var setSubscribed=function(subs){
+                subscribed=subs;
+            }
+            
+            var setLocalStorageSubscribed=()=>{
+                localStorage.setItem('abcdefgh', subscribed);
+               }
+               
+                var getLocalStorageSubscribed=()=>{
+                    return localStorage.getItem('abcdefgh');
+                }
+    
+
 
             
         var setLocalStorageBDay=()=>{
@@ -260,7 +274,10 @@ var setTempName=function(nam){
       getLocalStorageTempName:getLocalStorageTempName,
       getLocalStorageHouse:getLocalStorageHouse,
       setLocalStorageHouse:setLocalStorageHouse,
-      setHouse:setHouse
+      setHouse:setHouse,
+      setSubscribed:setSubscribed,
+      getLocalStorageSubscribed:getLocalStorageSubscribed,
+      setLocalStorageSubscribed:setLocalStorageSubscribed
     }
   
   })();
