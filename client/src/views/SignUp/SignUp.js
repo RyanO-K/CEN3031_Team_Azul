@@ -87,9 +87,9 @@ handleSubmit = async (event) => {
        if(this.state.dob===undefined ||this.state.dob.length!==10)
        alert("Please provide a valid birth date");
        else{
-         if(this.state.email==='Admin@admin.com2')
-         alert("Please provide a valid email");
-         else{
+       //  if(this.state.email.indexOf('Admin@admin.com2'))
+         //alert("Please provide a valid email");
+        // else{
 console.log(this.state.pob);
 firebase
      .auth()
@@ -147,7 +147,7 @@ console.log("why");
      .catch((error) => {
        this.setState({ error: error });
      });
-    }
+    //}
   }
   }
 }
