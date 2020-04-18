@@ -99,6 +99,7 @@ function User(props){
       if(p1 !== null){
         const result = await axiosPath.makeGetRequest("personal/" + p1);
         setData(result);
+        console.log(result);
       };
     }
       fetchData();
@@ -211,6 +212,7 @@ const renderTable = () => {
       var time='';
       var bday='';
       var location='';
+      var subscribed='';
       console.log(data.TimeOfBirth);
       if(data.Name!==undefined && data.name!=='undefined')
       name=data.Name;
@@ -224,6 +226,10 @@ const renderTable = () => {
       bday = data.Birthday;
       if(data.LocationOfBirth!==undefined && data.LocationOfBirth!=='undefined')
       location = data.LocationOfBirth;
+      if(data.Subscribed!==undefined && data.Subscribed)
+      subscribed = 'yes';
+      else
+      subscribed='no';
 
       return(
       //<h1>{str}</h1>
@@ -234,6 +240,7 @@ const renderTable = () => {
           <p>Birth Time: {time}</p>
           <p>Sign: {sign}</p>
           <p>House: {house}</p>
+          <p>Subscriber: {subscribed}</p>
       </div>
       
       )
