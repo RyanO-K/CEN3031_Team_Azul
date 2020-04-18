@@ -5,7 +5,7 @@ var cors = require('cors');
 //create a horoscope combo
 const create = async (req, res) => {
     const horoscope = new horoscopeModel(req.body);
-    
+    console.log(req);
     horoscope.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(horoscope);
@@ -18,14 +18,17 @@ const create = async (req, res) => {
         }else{
             res.header('Access-Control-Allow-Origin', '*');
             res.status(500).send({
-                message: err.message || "Error on create"
+                message: err.message || "Error on create: " + req.body.sign + "." + req.body.house + "." + req.body.moonphase
             });
         }
     });
 
 };
 
-//show a horoscope listing
+/*
+show a horoscope listing. req must contain a query in the url with the 3 relevant pieces of data
+responds with a the same queries, but also the description
+*/
 const read = async (req, res) => {
     horoscopeModel.findOne({ 'house': req.query.house, 'moonphase':req.query.moonphase,'sign':req.query.sign}).then(data =>{
         if(data!=null){
@@ -46,50 +49,50 @@ const read = async (req, res) => {
 
 };
 
-//update a horoscope listing
+/*
+update a horoscope listing. req must contain a query in the url with the 3 relevant pieces of data
+changes the description to whatever comes through
+*/
 const update = async (req, res) => {
-  const horoscope = new horoscopeModel(req.body);
+  
+  horoscopeModel.findOneAndUpdate({ 'house': req.query.house, 'moonphase':req.query.moonphase,'sign':req.query.sign},
+    {
+        house:req.body.house || house,
+        sign: req.body.sign || sign,
+        moonphase:req.body.moonphase || moonphase,
+        description:req.body.description || description || ""
 
-  horoscopeModel.findByIdAndUpdate(req.params.horoscopeID,
-                {
-                    house:req.body.house || house || "",
-                    sign: req.body.sign || sign,
-                    moonphase:req.body.moonphase || moonphase,
-                    description:req.body.description || description || ""
-
-                }
-                                            
-                ).then(data =>{
-        
-            horoscopeModel.findOne({ '_id': req.params.horoscopeID}).then(data=>{
-            
+    }).then(data =>{
+        horoscopeModel.findOne({ 'house': data.house, 'moonphase':data.moonphase,'sign':data.sign}).then(data=>{
             if(data!=null){
                 res.header('Access-Control-Allow-Origin', '*');
                 res.status(200).json(data);
             }else{
                 console.log('Doc is lost');
                 res.header('Access-Control-Allow-Origin', '*');
-                res.status(404).send({error: 'Doc updated, but lost ' + req.params.horoscopeID});
+                res.status(404).send({error: 'Doc lost ' + req.query});
             }
 
         }).catch(err => {
             res.header('Access-Control-Allow-Origin', '*');
             res.status(500).send({
-                message: err.message || "Saved Doc not found: " + req.params.horoscopeID
+                message: err.message || "Saved Doc not found: " + req.query
             })
         });
 
     }).catch(err => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(404).send({
-            message: err.message || "Doc update failed: " + req.params.horoscopeID
+            message: err.message || "Doc update failed: " + req.query
         })
     });
 };
 
-//remove a horoscopeCombo
+/*
+remove a horoscope listing. req must contain a ID as a parameter
+returns the horoscope listing when it is done
+*/
 const remove = async (req, res) => {
-    console.log('should have header');
     horoscopeModel.findOneAndDelete({ '_id': req.params.horoscopeID}).then(data =>{
         if(data != null){
             res.header('Access-Control-Allow-Origin', '*');
@@ -107,7 +110,9 @@ const remove = async (req, res) => {
     });
 };
 
-//list all horoscopeCombos
+/*
+returns all possible horoscopes
+*/
 const list = async (req, res) => {
     //TODO
     console.log('listing')
@@ -123,7 +128,9 @@ const list = async (req, res) => {
         });
     });
 };
-
+/*
+this method is depreciated but provided if CORS adjustments need to be made
+*/
 const options = async (req, res) => {
     console.log('options')
     var corsOptions = {
