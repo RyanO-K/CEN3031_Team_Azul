@@ -58,9 +58,9 @@ const update = async (req, res) => {
                                             LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
                                             Email:req.body.Email || Email,
                                             Birthday:req.body.Birthday || Birthday,
-                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth,
-                                            House:req.body.House||House,
-                                            acceptsEmail:req.body.acceptsEmail || person.acceptsEmails
+                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth
+                                            //House:req.body.House||House,
+                                            //acceptsEmail:req.body.acceptsEmail || person.acceptsEmails
 
                                             }).then(data =>{
         
