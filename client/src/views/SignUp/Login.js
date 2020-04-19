@@ -172,12 +172,12 @@ firebase
              <ColorButton children="Login" variant="outlined"size="large" className={useStyles.margin} onClick={this.handleSubmit}/>
            </div>
            </form>
-<div style={{fontSize:15}}>
+<div style={{fontSize:15, marginTop:5}}>
        Forgot Password?
        <Link href='/PasswordReset'><br></br>Reset Password</Link>
 </div>
 
-       <p style={{marginTop: 10, marginBottom: 15, fontSize:25}}>or</p>
+       <p style={{marginTop: 6, marginBottom: 8, fontSize:25}}>or</p>
        <LoginWithGoogle></LoginWithGoogle>
        </div>
        <div>

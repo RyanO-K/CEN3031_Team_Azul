@@ -2,9 +2,26 @@ import { Redirect } from "react-router-dom";
 import React, {Component} from 'react';
 import { withRouter} from 'react-router-dom';
 import { Label, Input } from '@rebass/forms'
-import { Flex, Box, Button, Heading, Text, Link } from 'rebass';
+import { Flex, Box, Heading, Text, Link } from 'rebass';
 import UserProfile from './UserState';
 import axiosPath from '../../axiosRequests';
+import background from '../../assets/moonbackground.jpg';
+import "./Edit.css";
+import Button from "@material-ui/core/Button";
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+
+const ColorButton = withStyles(theme => ({
+    root: {
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
+        border: '1px solid',
+        backgroundColor: '#E28222',
+      '&:hover': {
+        backgroundColor: '#C6721D',
+      },
+    },
+  }))(Button);
 
 class Edit extends Component{
 constructor(){
@@ -80,23 +97,30 @@ render(){
         console.log(UserProfile.getLocalStorageEmail());
  const {name, bday, bplace, btime, subscribed, error } = this.state;
  return(
-    <div className="Signin-card">
-    <p></p>
-   
-    <form on onSubmit={this.handleSubmit}>
-             <Input type="text" name="name" placeholder="Name" value={name} onChange={this.handleInputChange} />
-             <Input type="date" name="bday" placeholder="Birth Date" value={bday} onChange={this.handleInputChange} />
-             <Input type="time" name="btime" placeholder="Birth Time" value={btime} onChange={this.handleInputChange} />
-             <Input type="text" name="bplace" placeholder="Birth Place" value={bplace} onChange={this.handleInputChange} />
-           <div>
-            <input type="checkbox" id="sendEmail" name="subscribed"  placeholder="subscribed" onChange={this.handleInputChange2}checked={!subscribed}/>
- <label for="sendEmail">Check this box to Unsubscribe {subscribed}</label>
-           </div>             <br></br>
-             <Button children="Log In" />
-           </form>
-    <div>
-    <Link href='/User'>Back to User Page</Link>
-        </div>
+    <div className="Edit">
+        <header className="Edit-header" style={{backgroundImage: `url(${background})` }}>
+            <div className="Edit-title">
+                    Edit Your Account Information Here
+            </div>
+            <div className="Edit-card">
+                <form onSubmit={this.handleSubmit}>
+                    <Input type="text" name="name" placeholder="Name" value={name} onChange={this.handleInputChange} />
+                    <Input type="date" name="bday" placeholder="Birth Date" value={bday} onChange={this.handleInputChange} />
+                    <Input type="time" name="btime" placeholder="Birth Time" value={btime} onChange={this.handleInputChange} />
+                    <Input type="text" name="bplace" placeholder="Birth Place" value={bplace} onChange={this.handleInputChange} />
+                <div>
+                    <input type="checkbox" id="sendEmail" name="subscribed"  placeholder="subscribed" onChange={this.handleInputChange2}checked={!subscribed}/>
+                    <label for="sendEmail">Check this box to unsubscribe {subscribed}</label>
+                </div>
+                <div className="submit-button">
+                    <ColorButton type="submit" children="Submit" />
+                </div>
+                </form>
+                <div>
+                <Link href='/User'>Back to User Page</Link>
+                </div>
+                </div>
+        </header>
     </div>
  );
 }
