@@ -53,9 +53,6 @@ console.log(person);
         });
     });
 
-console.log(process.env.EMAIL);
-console.log(process.env.PASSWORD);
-
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
