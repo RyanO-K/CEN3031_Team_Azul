@@ -53,18 +53,19 @@ console.log(person);
         });
     });
 
-
+console.log(process.env.EMAIL);
+console.log(process.env.PASSWORD);
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'jimmyderobotics@gmail.com',
-          pass: 'm00nfl0w'
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD
         }
       });
       
       var mailOptions = {
-        from: 'jimmyderobotics@gmail.com',
+        from: process.env.EMAIL,
         to: req.body.Email,
         subject: 'Welcome to Moonflow',
         text: 'Hello '+req.body.Name+' you have now signed up for moonflow'
@@ -104,13 +105,13 @@ console.log(req.url);
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                      user: 'jimmyderobotics@gmail.com',
-                      pass: 'm00nfl0w'
+                      user: process.env.EMAIL,
+                      pass: process.env.PASSWORD
                     }
                   });
                   
                   var mailOptions = {
-                    from: 'jimmyderobotics@gmail.com',
+                    from: process.env.EMAIL,
                     to: em,
                     subject: 'Your Moon Change Update',
                     text: 'Hello '+response[i].Name+' your update is:\nHouse: '+response[i].House+'\nSign:'+response[i].Sign+'\n'+data.description
