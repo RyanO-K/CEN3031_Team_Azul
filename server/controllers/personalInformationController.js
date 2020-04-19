@@ -39,12 +39,37 @@ console.log(person);
     person.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(person);
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD
+            }
+          });
+          
+          var mailOptions = {
+            from: process.env.EMAIL,
+            to: req.body.Email,
+            subject: 'Welcome to Moonflow',
+            text: 'Hello '+req.body.Name+' you have now signed up for moonflow'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+          console.log("hi");
     }).catch(err => {
         if(err.code == 11000){
             res.header('Access-Control-Allow-Origin', '*');
             res.status(409).send({
                 message: err.message || "Duplication error"
             });
+            return;
         }
         res.header('Access-Control-Allow-Origin', '*');
         console.log(person);
@@ -53,29 +78,7 @@ console.log(person);
         });
     });
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASSWORD
-        }
-      });
-      
-      var mailOptions = {
-        from: process.env.EMAIL,
-        to: req.body.Email,
-        subject: 'Welcome to Moonflow',
-        text: 'Hello '+req.body.Name+' you have now signed up for moonflow'
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-      console.log("hi");
+    
 
 };
 
