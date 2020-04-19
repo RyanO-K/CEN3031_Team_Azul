@@ -193,19 +193,17 @@ const update = async (req, res) => {
    }
     
     req.body.House=house;
-    console.log(req.body);
-
 
 
     const person = new personalInformationCombo(req.body);
     personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
                                             Name:req.body.Name || Name,
                                             Sign:req.body.Sign || Sign,
-                                            LocationOfBirth:req.body.LocationOfBirth || LocationOfBirth,
+                                            LocationOfBirth:req.body.LocationOfBirth,
                                             Email:req.body.Email || Email,
                                             Birthday:req.body.Birthday || Birthday,
-                                            TimeOfBirth:req.body.TimeOfBirth||TimeOfBirth,
-                                            House:req.body.House||House,
+                                            TimeOfBirth:req.body.TimeOfBirth,
+                                            House:req.body.House,
                                             Subscribed:req.body.Subscribed
 
                                             }).then(data =>{
