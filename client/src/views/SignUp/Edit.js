@@ -2,9 +2,31 @@ import { Redirect } from "react-router-dom";
 import React, {Component} from 'react';
 import { withRouter} from 'react-router-dom';
 import { Label, Input } from '@rebass/forms'
-import { Flex, Box, Button, Heading, Text, Link } from 'rebass';
+import { Flex, Box, Heading, Text, Link } from 'rebass';
 import UserProfile from './UserState';
 import axiosPath from '../../axiosRequests';
+import Button from "@material-ui/core/Button";
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import background from '../../assets/moonbackground.jpg';
+const ColorButton = withStyles(theme => ({
+    root: {
+        borderRadius: 20,
+        fontSize: 12,
+        padding: '3px 10px',
+        border: '1px solid',
+        backgroundColor: '#E28222',
+      '&:hover': {
+        backgroundColor: '#C6721D',
+      },
+    },
+  }))(Button);
+  
+  const useStyles = makeStyles(theme => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+  }));
+  
 
 class Edit extends Component{
 constructor(){
@@ -80,6 +102,7 @@ render(){
         console.log(UserProfile.getLocalStorageEmail());
  const {name, bday, bplace, btime, subscribed, error } = this.state;
  return(
+         <header className="SignIn-header" style={{backgroundImage: `url(${background})` }}>
     <div className="Signin-card">
     <p></p>
    
@@ -92,12 +115,13 @@ render(){
             <input type="checkbox" id="sendEmail" name="subscribed"  placeholder="subscribed" onChange={this.handleInputChange2}checked={!subscribed}/>
  <label for="sendEmail">Check this box to Unsubscribe {subscribed}</label>
            </div>             <br></br>
-             <Button children="Log In" />
+             <ColorButton children="Save"  className={useStyles.margin} size="large" onClick={this.handle}/>
            </form>
     <div>
     <Link href='/User'>Back to User Page</Link>
         </div>
     </div>
+    </header>
  );
 }
 }
