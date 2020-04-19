@@ -22,6 +22,13 @@ const ColorButton = withStyles(theme => ({
       },
     },
   }))(Button);
+  
+  const useStyles = makeStyles(theme => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+  }));
+  
 
 class Edit extends Component{
 constructor(){
@@ -29,6 +36,10 @@ constructor(){
     this.state={name:UserProfile.getLocalStorageName(), bday:UserProfile.getLocalStorageBDay(), bplace: UserProfile.getLocalStorageBPlace(), btime: UserProfile.getLocalStorageBTime(), subscribed:UserProfile.getLocalStorageSubscribed()};
 console.log(this.state.subscribed);
 let change=this.state.subscribed;
+if(this.state.bplace===undefined)
+this.state.bplace='';
+if(this.state.btime===undefined)
+this.state.btime='';
 }
 
 
@@ -119,10 +130,10 @@ render(){
                 <div>
                 <Link href='/User'>Back to User Page</Link>
                 </div>
-                </div>
+            </div>
         </header>
     </div>
- );
+);
 }
 }
 

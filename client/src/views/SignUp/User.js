@@ -511,7 +511,8 @@ UserProfile.loggedIn=true;
 
                           <div>
 <br></br><br></br>
-<ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Edit'}}>Edit Information</ColorButton>
+<div style={{fontSize:20}}>Edit Information or Unsubsribe:</div>
+<ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Edit'}}>Edit</ColorButton>
 
 
                           </div>
