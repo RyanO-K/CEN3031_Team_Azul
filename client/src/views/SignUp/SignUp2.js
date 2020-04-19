@@ -128,7 +128,7 @@ function SignUp2(props) {
 
         if(bool){
             if(problem.dobP){
-                err+="No place of birth given\n";
+                err+="No date of birth given\n";
                 problem.dobP=false;
                 alert(err);
 

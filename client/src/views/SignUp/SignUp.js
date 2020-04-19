@@ -87,15 +87,27 @@ handleSubmit = async (event) => {
        if(this.state.dob===undefined ||this.state.dob.length!==10)
        alert("Please provide a valid birth date");
        else{
-       //  if(this.state.email.indexOf('Admin@admin.com2'))
-         //alert("Please provide a valid email");
-        // else{
+         if(this.state.email.indexOf('Admin@admin.com2')===0)
+         alert("Please provide a valid email");
+        else{
 console.log(this.state.pob);
 firebase
      .auth()
      .createUserWithEmailAndPassword(email, password)
      .then(async (user) => {
-      
+      try{console.log("trying");  
+      const axiosUser = {
+        Name: this.state.name,
+        Sign: "Scorpio",
+        Birthday: this.state.dob,
+        TimeOfBirth: this.state.tob,
+        LocationOfBirth: this.state.pob,
+        Email: this.state.email,
+        House:'',
+        Subscribed:true
+    } 
+         await axiosPath.makeCreateRequest('personal/', axiosUser);
+
     this.state.loggedIn=true;
     
       
@@ -122,18 +134,8 @@ console.log("why");
        
        
       
-       const axiosUser = {
-        Name: this.state.name,
-        Sign: "Scorpio",
-        Birthday: this.state.dob,
-        TimeOfBirth: this.state.tob,
-        LocationOfBirth: this.state.pob,
-        Email: this.state.email,
-        House:'',
-        Subscribed:true
-    }
+      
     console.log("MADE IT");
-    await axiosPath.makeCreateRequest('personal/', axiosUser);
     console.log("SUccess");
     if(this.state.email==='Admin@admin.com')
       this.props.history.push('/Admin');
@@ -142,12 +144,16 @@ console.log("why");
      //  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}/>);
 
 
-
+  }
+  catch{
+    console.log(10);
+    firebase.auth().currentUser.delete();
+    }
      })
      .catch((error) => {
        this.setState({ error: error });
      });
-    //}
+    }
   }
   }
 }

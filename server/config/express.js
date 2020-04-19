@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var horoscopeRouter = require('../routes/horoscopeRoutes.js');
 var uri = require('./config.js');
 var cors = require('cors');
+require('dotenv').config();
 
 module.exports.init = () => {
     /* 
