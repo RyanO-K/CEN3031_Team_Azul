@@ -40,7 +40,7 @@ class SignUp extends Component {
   //constructor sets the states
     constructor() {
         super();
-        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:''};
+        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:'', password2:''};
     }
 
 //this method checks if there exists such a user already in our database
@@ -84,7 +84,7 @@ handleSubmit = async (event) => {
    return (<Redirect to={{pathname: '/Login'}}></Redirect>);
    }
    else{
-   const { email, password } = this.state;
+   const { email, password,password2 } = this.state;
    //if no password given or password is too short, give error message
    if(password===undefined || password.length<6)
    alert("Please use a password of 6 or more characters");
@@ -105,6 +105,9 @@ handleSubmit = async (event) => {
           if(this.state.pob==='undefined')
             alert("Please provide a valid location of birth (or leave it blank)");
             else{
+              if(password!==password2)
+                alert("Passwords do not match");
+                else{
 //now, no more errors, so now let firebase create a corresponding user in its database
 firebase
      .auth()
@@ -173,6 +176,7 @@ firebase
 }
 }
 }
+}
    }
  };
 
@@ -184,7 +188,7 @@ firebase
 }
 
  render() {
-   const { email, password, error , name, dob, tob, pob} = this.state;
+   const { email, password, error , name, dob, tob, pob, password2} = this.state;
 
 //show the input boxes, styling with background, button for sign up, button for google sign up, and button for going to login page
    return (
@@ -226,6 +230,18 @@ firebase
 
 
              <div>
+             <input
+               type="password"
+               name="password2"
+               placeholder="Confirm Password"
+              onChange={this.handleInputChange}
+               value={password2}
+               
+             />
+             </div>
+
+
+             <div>
             <input
                type="text"
                name="pob"
@@ -235,6 +251,7 @@ firebase
                onChange={this.handleInputChange}
              />
              </div>
+             
 
              <div>
             <input
