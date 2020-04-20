@@ -84,6 +84,7 @@ handleSubmit = async (event) => {
    return (<Redirect to={{pathname: '/Login'}}></Redirect>);
    }
    else{
+    
    const { email, password,password2 } = this.state;
    //if no password given or password is too short, give error message
    if(password===undefined || password.length<6)
@@ -108,16 +109,15 @@ handleSubmit = async (event) => {
               if(password!==password2)
                 alert("Passwords do not match");
                 else{
+
+                  
 //now, no more errors, so now let firebase create a corresponding user in its database
-firebase
-     .auth()
-     .createUserWithEmailAndPassword(email, password)
-     .then(async (user) => {
+firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user) => {
       try{
+        
         //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
-        
         Sign: "Scorpio",
         Birthday: this.state.dob,
         TimeOfBirth: this.state.tob,
@@ -127,8 +127,9 @@ firebase
         Subscribed:true
     } 
     //create a user in the db
+    console.log('sending axios')
          await axiosPath.makeCreateRequest('personal/', axiosUser);
-
+          console.log('sent axios')
     this.state.loggedIn=true;
     
       

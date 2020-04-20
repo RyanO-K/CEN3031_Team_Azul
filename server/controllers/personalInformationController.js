@@ -12,7 +12,7 @@ var nodemailer = require('nodemailer');
 
 //create a horoscope combo
 const create = async (req, res) => {
-    if(req.headers.authorization == (process.env.key||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
+    if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
     let house='';
     if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
     var arr=req.body.Birthday.split('-');
@@ -72,18 +72,19 @@ const create = async (req, res) => {
             message: err.message || "Error on create"
         });
     });
-}else{
-        res.status(401).send({
-            message: "Auth Failed"
-        })
-    }
+    }else{
+        console.log("Auth Failed")
+            res.status(401).send({
+                message: "Auth Failed"
+            })
+        }
     
 
 };
 
 //show a horoscope listing
 const read = async (req, res) => {
-    if(req.headers.authorization == (process.env.key||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
+    if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
         
 
             if(req.url.indexOf('/personal/Admin@admin.com2')===0){
@@ -166,6 +167,7 @@ const read = async (req, res) => {
 
         }
     }else{
+        console.log("Auth Failed")
         res.status(401).send({
             message: "auth failed"
         })
@@ -179,7 +181,7 @@ const update = async (req, res) => {
     //TODO: Birthday is currently uneditable
 
 
-    if(req.headers.authorization == (process.env.key||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
+    if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
 
         let house='';
         
@@ -237,6 +239,7 @@ const update = async (req, res) => {
             })
         });
     }else{
+        console.log("Auth Failed")
         res.status(401).send({
             message: "Auth Failed"
         })
@@ -246,7 +249,7 @@ const update = async (req, res) => {
 //remove a horoscopeCombo
 const remove = async (req, res) => {
     //TODO
-    if(req.headers.authorization == (process.env.key||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){    
+    if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){    
         personalInformationCombo.findOneAndDelete({ '_id': req.params.Email}).then(data =>{
             if(data != null){
                 res.header('Access-Control-Allow-Origin', '*');
@@ -263,6 +266,7 @@ const remove = async (req, res) => {
             });
         });
     }else{
+        console.log("Auth Failed")
         res.status(401).send({
             message: "Auth Failed"
         })
@@ -272,7 +276,7 @@ const remove = async (req, res) => {
 //list a horoscopeCombo
 const list = async (req, res) => {
     //TODO
-
+    if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){ 
     personalInformationCombo.find().sort().then(data =>{
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json(data);
@@ -283,6 +287,12 @@ const list = async (req, res) => {
             message: err.message||"List failed"
         });
     });
+    }else{
+        console.log("Auth Failed")
+        res.status(401).send({
+            message: "Auth Failed"
+        })
+    }
 };
 
 const options = async (req, res) => {

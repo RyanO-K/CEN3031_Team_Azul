@@ -9,7 +9,7 @@ let axiosRequests = {
 
  async makeGetRequest(url) {
   
-  let res = await axios.get('/api/' + url,{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' }).then(function (response){ 
+  let res = await axios.get('/api/' + url,{ headers: {'Authorization':process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g'}}).then(function (response){ 
   return response.data;
   });
   return res;
@@ -18,7 +18,7 @@ let axiosRequests = {
 
 async makeDeleteRequest(url) {
   
-  let res = await axios.delete('/api/' + url,{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' }).then(function (response){
+  let res = await axios.delete('/api/' + url,{ headers: {'Authorization':process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g'}}).then(function (response){
     
     return response.data;
   });
@@ -27,13 +27,13 @@ async makeDeleteRequest(url) {
 
 //needs to accept a horoscopeSchema as its Body
 async makeUpdateRequest(url, bodyInfo) {
-  let res = await axios.put('/api/' + url,bodyInfo,{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' });
+  let res = await axios.put('/api/' + url,bodyInfo,{ headers: {'Authorization':process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g'} });
   return res;
 },
 
 async makeCreateRequest(url, bodyInfo) {
   
-  let res = await axios.post('/api/' + url,bodyInfo,{headers:process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g'});
+  let res = await axios.post('/api/' + url,bodyInfo,{ headers: {'Authorization':process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g'}});
   return res;
 }
 
