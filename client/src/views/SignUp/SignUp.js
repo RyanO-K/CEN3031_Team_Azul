@@ -109,7 +109,9 @@ handleSubmit = async (event) => {
               if(password!==password2)
                 alert("Passwords do not match");
                 else{
-
+                  if(password.indexOf("0")===-1 && password.indexOf("1")===-1 && password.indexOf("2")===-1 && password.indexOf("3")===-1 && password.indexOf("4")===-1 && password.indexOf("5")===-1 && password.indexOf("6")===-1 && password.indexOf("7")===-1 && password.indexOf("8")===-1 && password.indexOf("9")===-1)
+                  alert("Password must include at least 1 numeric value (0-9)");
+                  else{
                   
 //now, no more errors, so now let firebase create a corresponding user in its database
 firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user) => {
@@ -118,7 +120,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
         //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
-        Sign: 'Scorpio',
+        Sign: '',
         Birthday: this.state.dob,
         TimeOfBirth: this.state.tob,
         LocationOfBirth: this.state.pob,
@@ -173,6 +175,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
      });
     }
   }
+}
   }
 }
 }
