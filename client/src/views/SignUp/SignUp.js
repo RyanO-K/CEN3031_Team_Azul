@@ -99,9 +99,9 @@ handleSubmit = async (event) => {
        alert("Please provide a valid birth date");
        else{
          //we restrict this email usage because when this email appears on the backend get request, emails are sent to users
-         /*if(this.state.email.indexOf('Admin@admin.com2')>=0)
+         if(this.state.email.indexOf('Admin@admin.com2')>=0)
          alert("Please provide a valid email");
-        else{*/
+        else{
           //if user chooses undefined as location of birth, alert them that they cannot do that
           if(this.state.pob==='undefined')
             alert("Please provide a valid location of birth (or leave it blank)");
@@ -179,7 +179,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
 }
 }
 }
-   //}
+   }
  };
 
 //if user is logged in, send them to user page
