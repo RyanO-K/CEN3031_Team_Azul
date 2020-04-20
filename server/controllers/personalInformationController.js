@@ -12,6 +12,7 @@ var nodemailer = require('nodemailer');
 
 //create a horoscope combo
 const create = async (req, res) => {
+    
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
     let house='';
     if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
@@ -30,10 +31,11 @@ const create = async (req, res) => {
     const person = new personalInformationCombo(req.body);
 
     
-
+    console.log('saving person')
     person.save().then(data => {
+        console.log('sending data back')
         res.header('Access-Control-Allow-Origin', '*');
-        res.status(200).send(person);
+        res.status(200).send(data);
 
         var transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -67,7 +69,7 @@ const create = async (req, res) => {
             return;
         }
         res.header('Access-Control-Allow-Origin', '*');
-        
+        console.log(err.message)
         res.status(500).send({
             message: err.message || "Error on create"
         });
