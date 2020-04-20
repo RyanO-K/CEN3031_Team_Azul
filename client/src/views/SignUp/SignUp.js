@@ -101,6 +101,10 @@ handleSubmit = async (event) => {
          if(this.state.email.indexOf('Admin@admin.com2')>=0)
          alert("Please provide a valid email");
         else{
+          //if user chooses undefined as location of birth, alert them that they cannot do that
+          if(this.state.pob==='undefined')
+            alert("Please provide a valid location of birth (or leave it blank)");
+            else{
 //now, no more errors, so now let firebase create a corresponding user in its database
 firebase
      .auth()
@@ -165,6 +169,7 @@ firebase
     }
   }
   }
+}
 }
 }
 }
