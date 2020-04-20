@@ -131,6 +131,8 @@ function SignUp2(props) {
                         UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthTime(newUser.tob);
                         UserProfile.setSubscribed(true);
+                        UserProfile.setSign('');
+                        UserProfile.setHouse('');
 
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageEmail();
@@ -139,7 +141,8 @@ function SignUp2(props) {
                         UserProfile.setLocalStorageBPlace();
                         UserProfile.setLocalStorageBDay();
                         UserProfile.setLocalStorageSubscribed();
-
+                        UserProfile.setLocalStorageHouse();
+                        
                         const axiosUser = {
                             Name: newUser.name,
                             Sign: '',
