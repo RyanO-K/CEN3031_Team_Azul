@@ -49,7 +49,7 @@ and log out.
 
 */
 function User(props){
-
+console.log(props);
 
 //creating states
   const classes = useStyles();
@@ -140,6 +140,7 @@ const [st, newStat]=useState(0);
     p9=UserProfile.getLocalStorageHouse();
     p10=UserProfile.getLocalStorageSign();
 
+
     //if user email is a valid one, they must actually be logged in, so set logged in to true so they can remain on this page
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
@@ -177,6 +178,7 @@ const [st, newStat]=useState(0);
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
     UserProfile.setLocalStorageSign();
+    window.location.reload();
 
     }
   else
