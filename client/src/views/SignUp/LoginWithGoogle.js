@@ -6,9 +6,10 @@ import {Redirect} from 'react-router-dom';
 import axiosPath from '../../axiosRequests';
 
 
+//class for login with google on front end
 class LoginWithGoogle extends Component {
-    //be able to also store the birthday and birthplace as states, but this relies on the axios
-  
+   
+  //constructor sets state variables
     constructor() {
          
         super();let bool=false;
@@ -16,51 +17,26 @@ class LoginWithGoogle extends Component {
         UserProfile.email=null;
         UserProfile.isLoggedIn=false;
         this.state = {name:'', email:null, loggedIn:false, loggedInWithGoogle:false, nextPage:''};
-   // console.log(UserProfile.getLocalStorageisLoggedIn());
-     //  console.log(GoogleLogin.BasicProfile);
-       //this.fun();
-       //this.li();
+
 
 
     }
-    /*
-signOut2=()=>{
-    console.log("HAHA");
-    console.log(UserProfile.getLocalStorageisLoggedIn());
-    UserProfile.loggingOut();
-    this.setState({name:'', email:'', loggedIn:false, loggedInWithGoogle:false});
-    UserProfile.setLocalStorageisLoggedIn();
-    this.setState({name:'', email:'', loggedIn:false, loggedInWithGoogle:false});
-    UserProfile.setLocalStorageisLoggedInWithGoogle();
-    this.setState({name:'', email:'', loggedIn:false,loggedInWithGoogle:false});
-    UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-    this.setState({name:'', email:'', loggedIn:false,loggedInWithGoogle:false});
-    UserProfile.setName('');
-    this.setState({name:'', email:'', loggedIn:false, loggedInWithGoogle:false});
-    UserProfile.setEmail('');
-    this.setState({name:'', email:'', loggedIn:false, loggedInWithGoogle:false});
-    UserProfile.setLocalStorageName();
-    this.setState({name:'', email:'', loggedIn:false, loggedInWithGoogle:false});
-    UserProfile.setLocalStorageEmail();
-    this.setState({name:'', email:'', loggedIn:false, loggedInWithGoogle:false});
-    console.log(UserProfile.getLocalStorageisLoggedIn());
-}
 
 
-*/
+    //this method tries to find the authenticated user in the database.  If it does, they log in.  Else, they do not log in
  async log2(){
         
     return (await axiosPath.makeGetRequest('personal/'+ this.state.email).then(res=>{
+        //set user session data such as email and also set the next page to go to (user)
         UserProfile.setEmail(this.state.email);
         UserProfile.loggingInWithGoogle();
         UserProfile.setLocalStorageisLoggedInWithGoogle();
         UserProfile.setLocalStorageisLoggedIn();
         UserProfile.setLocalStorageEmail();
-        console.log(UserProfile.getLocalStorageEmail());
         this.state.nextPage='/User';
-        console.log(this.state.nextPage);
         this.state.loggedInWithGoogle=true;
     }).catch(res2=>{
+        //if unsuccessful login, alert the user, and ensure they remain logged out for now
         alert('Not a registered email');
         UserProfile.loggingOut();
         UserProfile.setLocalStorageisLoggedIn();
@@ -71,42 +47,26 @@ signOut2=()=>{
        };
 
        
-/*
-li=()=>{
-    console.log("yep");
-    UserProfile.setName(UserProfile.getLocalStorageName());
-    UserProfile.setEmail(UserProfile.getLocalStorageEmail());
-    UserProfile.loggingInWithGoogle();
-    this.setState({name:UserProfile.getLocalStorageName(), email:UserProfile.getLocalStorageEmail(), loggedIn:UserProfile.getLocalStorageisLoggedIn()}); 
-    
-    console.log(this.state);
-}
-*/
 
 
-
-
-
+//responds according to the response given by google
     googleResponse = async(response) => {
+        //sets this state
         this.setState({name:this.state.name, email:response.profileObj.email, loggedIn:this.state.loggedIn, loggedInWithGoogle:false, nextPage:this.state.nextPage});
-        //check if the login credentials were valid.  If they were, continue.  Else, throw an error message of sorts.  
-        console.log(10);
+
+        //try to find user in db
         const obj=await this.log2();
-        console.log(this.state.nextPage);
-        console.log(obj);
+//if user found
  if(obj!==undefined && obj.Email===response.profileObj.email && obj.Password===undefined){
 
-this.bool=true;
-console.log(this.bool);
+
+    //log user in and set their email and name state from what is given by google.  Then route user to user page
+
+    this.bool=true;
 
 
-        //response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-        //console.log(GoogleLogin.BasicProfile);
-    //if(this.state.email!=null &&this.state.email===response.profileObj.email)
-      //  alert("you are already logged in with email " +this.state.email+".  Please log out if you would like to login with another account.");
-    //else{
+
     UserProfile.loggingInWithGoogle();
-    //console.log(UserProfile.isLoggedIn());
     UserProfile.setName(response.profileObj.name);
     
     this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
@@ -117,57 +77,33 @@ console.log(this.bool);
     UserProfile.setLocalStorageisLoggedInWithGoogle();
     UserProfile.setLocalStorageisLoggedIn();
     this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-    //console.log(response.profileObj.name);
     this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:true, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
-    //console.log(this.state.name);
-   // console.log(this.state.email);
    UserProfile.loggedIn=true;
    this.state.loggedIn=true;
    this.nextPage='/User';
 
-   console.log(UserProfile.getLocalStorageName());
+
    
  }
 
-
+//if not in the db, user cannot log in
  else{
 this.setState({name:response.profileObj.name, email:response.profileObj.email, loggedIn:false, loggedInWithGoogle:this.state.loggedInWithGoogle, nextPage:this.nextPage});
 UserProfile.loggedIn=false; 
 this.state.loggedIn=false;
 }
           
-    //  }
   };
 
 
 handle=async()=>{
     this.setState(null);
-
 }
 
-  /*
-  getLocalStorageisLoggedIn2=()=>{
-      console.log(UserProfile.getLocalStorageisLoggedIn());
-      if(UserProfile.getLocalStorageisLoggedIn())
-      return 'true';
-      else
-      return 'false';
-  }
-  f2=()=>{
-      if(this.state.loggedIn)
-        return true;
-        return false;
-  }
-  */
-
-   /*fun=()=>{
-    console.log(GoogleLogin.BasicProfile);
-    console.log(UserProfile.getLocalStorageName());
-  };*/
+//render the state
     render() {
-       //send to user page here; choose user based upon value of this.state.email
      
-        
+//if user isn't logged in with google, show the google login button
  if(!this.state.loggedInWithGoogle){
 return(
     <div className="LoginWithGoogle">
@@ -176,16 +112,9 @@ return(
                     <GoogleLogin
                         theme="dark"
 
-                       // isSignedIn={this.li}
                         clientId={config.GOOGLE_CLIENT_ID}
                         buttonText="Login"
                         onSuccess={this.googleResponse}
-                        //cookiePolicy={'none'}
-                       // onFailure={this.onFailure}
-                      //  disabled={this.state.loggedIn}
-                       
-                       // cookiePolicy={document.cookie = 'same-site-cookie=http://localhost:3000; SameSite=Lax'}
-                     //  cookiePolicy={"http://localhost:3000"}
                     />
                     
                   
@@ -198,23 +127,18 @@ return(
 
     }
 
-else {//rather than loggedIn, in the future, change this to if credentials are valid
-    console.log("USer pf "+this.state.loggedInWithGoogle);
-    console.log("USer pf "+this.state.loggedIn);
-    console.log(UserProfile.isLoggedInWithGoogle());
+    //otherwise if logged in send the user to the user page
+
+else {
 this.handle();
     if(!this.bool){
-        console.log(this.bool);
         UserProfile.loggedIn=true;
         this.state.loggedIn=false;
         if(UserProfile.abc===undefined){UserProfile.abc='abc';
-        console.log(this.state.loggedIn);
-        
         }
     }
     else{
     UserProfile.loggedIn=true;
-    console.log(UserProfile.loggedIn);
     }
     return( <Redirect to={{pathname:'/User', state:{user:this.state, g:true}
     }}/>
