@@ -8,6 +8,8 @@ var personalInformationCombo = require( '../models/personalInformationSchema.js'
 
 var nodemailer = require('nodemailer');
 
+var axios = require('axios');
+
 
 
 //create a horoscope combo
@@ -20,10 +22,10 @@ const create = async (req, res) => {
     var arr2=req.body.TimeOfBirth.split(':');
     console.log('10');
     var julday= swisseph.swe_julday(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]), parseInt(arr2[0]), swisseph.SE_GREG_CAL )
-    console.log(julday);
+    //console.log(julday);
     console.log('30');
-    swisseph.swe_houses(julday, 30, -82, 'C', function(houses){
-     console.log(houses);   
+    swisseph.swe_houses(julday, 30, -82, 'W', function(houses){
+     //console.log(houses);   
      house=houses.house[0];
     });
     console.log('40');
@@ -81,6 +83,8 @@ console.log(person);
     
 
 };
+
+
 
 //show a horoscope listing
 const read = async (req, res) => {
