@@ -72,12 +72,7 @@ const Admin = () =>{
         event.preventDefault();
         try{
             console.log("submit")
-            let result = await axiosPath.makeGetRequest('personal/Admin@admin.com2'+currMoonPhase,{
-            // //     "house": house,
-            // //     "sign": sign,
-            // //     "moonphase": moonphase,
-            // //     "description": description
-            });
+            let result = await axiosPath.makeGetRequest('personal/Admin@admin.com2'+currMoonPhase);
         }catch(err){
         }
     }
@@ -100,6 +95,7 @@ const classes = useStyles();
     const createInterpretation = async (moonphase, house, sign, description) => {
         try{
             let result = await axiosPath.makeUpdateRequest('horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign,{
+                headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g',
                 "house": house,
                 "sign": sign,
                 "moonphase": moonphase,
@@ -107,6 +103,7 @@ const classes = useStyles();
                 });
         }catch(err){
             let result = await axiosPath.makeCreateRequest('horoscopeInfo/',{
+            headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g',
             "house": house,
             "sign": sign,
             "moonphase": moonphase,

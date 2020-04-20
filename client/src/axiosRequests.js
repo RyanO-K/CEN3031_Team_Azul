@@ -9,7 +9,7 @@ let axiosRequests = {
 
  async makeGetRequest(url) {
   
-  let res = await axios.get('/api/' + url).then(function (response){ 
+  let res = await axios.get('/api/' + url,{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' }).then(function (response){ 
   return response.data;
   });
   return res;
@@ -18,7 +18,7 @@ let axiosRequests = {
 
 async makeDeleteRequest(url) {
   
-  let res = await axios.delete('/api/' + url).then(function (response){
+  let res = await axios.delete('/api/' + url,{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' }).then(function (response){
     
     return response.data;
   });
