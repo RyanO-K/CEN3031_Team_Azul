@@ -146,7 +146,7 @@ firebase
        
        
       //if the user is admin, send to admin page
-    if(this.state.email==='Admin@admin.com')
+    if(this.state.email==='heavenlymoonflow@gmail.com')
       this.props.history.push('/Admin');
     else
     //else send to user page
