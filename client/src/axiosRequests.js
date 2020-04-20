@@ -27,13 +27,13 @@ async makeDeleteRequest(url) {
 
 //needs to accept a horoscopeSchema as its Body
 async makeUpdateRequest(url, bodyInfo) {
-  let res = await axios.put('/api/' + url,bodyInfo);
+  let res = await axios.put('/api/' + url,bodyInfo,{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' });
   return res;
 },
 
 async makeCreateRequest(url, bodyInfo) {
   
-  let res = await axios.post('/api/' + url,bodyInfo);
+  let res = await axios.post('/api/' + url,bodyInfo,{headers:process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g'});
   return res;
 }
 

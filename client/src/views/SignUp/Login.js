@@ -54,7 +54,7 @@ handleInputChange = (event) => {
 
 //get request made to the database to find the user's information so it may be displayed on the user page
  async log2(){
-        const a= (await axiosPath.makeGetRequest('personal/'+this.state.email),{ headers: process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g' });
+        const a= (await axiosPath.makeGetRequest('personal/'+this.state.email));
 return a;
        };
 

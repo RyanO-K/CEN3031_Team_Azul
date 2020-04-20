@@ -117,6 +117,7 @@ firebase
         //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
+        
         Sign: "Scorpio",
         Birthday: this.state.dob,
         TimeOfBirth: this.state.tob,

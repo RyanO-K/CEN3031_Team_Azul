@@ -50,7 +50,6 @@ this.state.btime='';
 async log2(){
     const axiosUser = {
         Name: this.state.name,
-        header:process.env.KEY || 'Bearer 2h589hg9unfd0sfyg72458ugn540983g',
         Sign: "Scorpio",
         Birthday: this.state.bday,
         TimeOfBirth: this.state.btime,
