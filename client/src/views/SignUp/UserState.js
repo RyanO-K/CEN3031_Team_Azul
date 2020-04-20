@@ -59,6 +59,8 @@ var UserProfile = (function() {
 
     var subscribed=true; //session var to determine if a user is subscribed or not
 
+    var sign='';     //session var to store user's sign
+
 
     
     var getName = function() {
@@ -230,6 +232,23 @@ var setTempName=function(nam){
             }
 
 
+
+
+            var setLocalStorageSign=()=>{
+                localStorage.setItem('itsasign', sign);
+               }
+               
+                var getLocalStorageSign=()=>{
+                    return localStorage.getItem('itsasign');
+                }
+    
+                var setSign=(sig)=>{
+                    sign=sig;
+                }
+
+
+
+
         //this method is a bit different, but it carries the same meaning as a setLoggedInWithGoogle(true) method call would.  
       var loggingInWithGoogle=function(){
           loggedInWithGoogle=true;
@@ -331,7 +350,10 @@ var setTempName=function(nam){
       setHouse:setHouse,
       setSubscribed:setSubscribed,
       getLocalStorageSubscribed:getLocalStorageSubscribed,
-      setLocalStorageSubscribed:setLocalStorageSubscribed
+      setLocalStorageSubscribed:setLocalStorageSubscribed,
+      setLocalStorageSign:setLocalStorageSign,
+      setSign:setSign,
+      getLocalStorageSign:getLocalStorageSign
     }
   
   })();
