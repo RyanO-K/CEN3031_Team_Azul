@@ -50,7 +50,7 @@ this.state.btime='';
 async log2(){
     const axiosUser = {
         Name: this.state.name,
-        Sign: "Scorpio",
+        Sign: UserProfile.getLocalStorageSign(),
         Birthday: this.state.bday,
         TimeOfBirth: this.state.btime,
         LocationOfBirth: this.state.bplace,
