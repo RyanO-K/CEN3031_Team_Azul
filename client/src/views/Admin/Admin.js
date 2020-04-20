@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 const Admin = () =>{
 
-  if(UserProfile.getLocalStorageEmail()==='Admin@admin.com'){
+  if(UserProfile.getLocalStorageEmail()==='heavenlymoonflow@gmail.com'){
     UserProfile.loggingInWithoutGoogle();
     UserProfile.setLocalStorageisLoggedIn();
     UserProfile.setEmail('admin');
