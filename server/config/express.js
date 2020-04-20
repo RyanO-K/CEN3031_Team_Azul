@@ -13,7 +13,7 @@ module.exports.init = () => {
         connect to database
         - reference README for db uri
     */
-    mongoose.connect(String(uri.test_db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
+    mongoose.connect(String(uri.db.uri),{useNewUrlParser: true,useUnifiedTopology: true});
     mongoose.set('useCreateIndex', true);
     mongoose.set('useFindAndModify', false);
 

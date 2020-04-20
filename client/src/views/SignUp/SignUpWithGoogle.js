@@ -70,7 +70,6 @@ class LoginWithGoogle extends Component {
   
                         clientId={config.GOOGLE_CLIENT_ID}
                         buttonText="Sign Up"
-                        disabled={!(UserProfile.getLocalStorageisLoggedIn)}
                         onSuccess={this.googleResponse}
                         onFailure={this.onFailure}
                         cookiePolicy={'single_host_origin'}
