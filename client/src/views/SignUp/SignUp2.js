@@ -12,7 +12,7 @@ import UserProfile from './UserState';
 import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
 
-
+//button styling
 const ColorButton = withStyles(theme => ({
     root: {
         borderRadius: 20,
@@ -32,9 +32,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
+//this file is for signing a user up if they chose to sign up with google
 function SignUp2(props) {
     const classes = useStyles();
-    console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
         name: null,
@@ -45,24 +46,26 @@ function SignUp2(props) {
         house:''
 
     });
+    //use variables to represent if there were invalid input fields for any inputs
     const [problem, setProblem] = useState({
         pobP: false,
         dobP: false,
         tobP: false
     });
+
+    //start with the next page being set to this page
     const [destination,d]=useState("/SignUp2");
 
-    useEffect(() => {
-        console.log(newUser)
-    }, [newUser]);
-    
+    //if the user was not supposed to be here (they didn't enter a valid google email from sign up page) send them back to home page
     if(props.location.state===undefined)
     return <Redirect to='/Home'/>;
 
+    //if the user refreshed this page, we get the user information back from our temporary user session data
     if(props.location.state.email===undefined){
         newUser.name=UserProfile.getLocalStorageTempName();
         newUser.email=UserProfile.getLocalStorageTempEmail();
     }
+    //otherwise, this is our first time on this page, so set user temporary session data to what we got from the previous page
     else{
     newUser.name=props.location.state.name;
     newUser.email=props.location.state.email;
@@ -71,61 +74,30 @@ function SignUp2(props) {
     UserProfile.setLocalStorageTempEmail();
     UserProfile.setLocalStorageTempName();
     }
-    console.log(newUser);
-
-    const onSubmit = (data,e) => {
-        const user = {
-            name:newUser.name,
-            pob: data.pob,
-            dob: data.dob,
-            email:newUser.email,
-            tob:newUser.tob,
-            house:newUser.house
-        }
-        console.log("User"+data);
-        // {...newUser,
-        //     name: data.name,
-        //     pob: data.pob,
-        //     dob: data.dob,
-        //     email: data.email,
-        //     password: data.password
-        // }
-        setNewUser(user);
-        e.target.reset();
-        console.log(user);
-
-        //send it here?
-    };
 
 
+
+
+    //when a user submits, this method is called
     async function handle(){
         let bool=false;
         let l="";
 
-       // console.log(newUser.dob);
-        //if(newUser.dob.length!==10){
-          //  problem.dobP=true;
-           //bool=true;
-           //console.log("dob err");
-        //}
 
 
+//if invalid date of birth, we set an error
         if(newUser.dob===undefined || newUser.dob.length!==10){
             problem.dobP=true;
             bool=true;
-            console.log("dob err");
+
         }
 
-     //   if(newUser.tob.length===0){
-       //     problem.tobP=true;
-         //   bool=true;
-           // console.log("tob err");
-        //}
+
 
 
 
         let err="";
-
+//and then if the date of birth was invalid, we alert the user of the error
         if(bool){
             if(problem.dobP){
                 err+="No date of birth given\n";
@@ -134,20 +106,7 @@ function SignUp2(props) {
 
             }
 
-           // if(problem.dobP){
-             //   err+="No date of birth given\n";
-              //  problem.dobP=false;
 
-            //}
-
-           // if(problem.tobP){
-             //   err+="No time of birth given\n";
-               // problem.tobP=false;
-
-            //}
-
-
-          //  alert(err);
 
                     }
                     else{
@@ -155,7 +114,7 @@ function SignUp2(props) {
                        
                        
 
-                        
+                        //otherwise, there are no problems, so we set user session variables so user may be logged in
                         UserProfile.loggedIn=true;
                         UserProfile.setName(newUser.name);
                         UserProfile.setEmail(newUser.email);
@@ -183,13 +142,16 @@ function SignUp2(props) {
                             House:'',
                             Subscribed:true
                         }
+                        //we then create a corresponding user in our database
                         axiosPath.makeCreateRequest('personal/', axiosUser)
                     }
 
     }
 
-
+//when a user puts in a birth date, this method handles it
    const func=(a)=>{
+
+//if valid birth date, make the next page the user page.  Else, keep it this page
     if(a.length===10)
     d('/User');
 else
@@ -206,8 +168,10 @@ else
     setNewUser(user);
     };
 
+
+//this method handles birth place 
     const func2=(b)=>{
-console.log(newUser);
+        //if valid birth date, make the next page the user page.  Else, keep it this page
         if(newUser.dob.length===10)
         d('/User');
     else
@@ -224,7 +188,9 @@ console.log(newUser);
         setNewUser(user);
         };
 
+        //this method handles time of birth
         const func6=(efg)=>{
+            //if valid birth date, make the next page the user page.  Else, keep it this page
             if(newUser.dob.length===10)
 d('/User');
 else
@@ -244,6 +210,7 @@ d('/SignUp2');
             };
     
 
+            //here we have our styling (background, text boxes, and button for submitting)
     return (
 
         <div className="SignIn2">
@@ -251,14 +218,8 @@ d('/SignUp2');
                 <h1 className="signin2-title">
                     Additional User Information
                 </h1>
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
-                {/* <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                </a> */}
+                {}
+                {}
 
             <div className="Signin2-card">
                 <div style={{marginTop:'20px'}}>
