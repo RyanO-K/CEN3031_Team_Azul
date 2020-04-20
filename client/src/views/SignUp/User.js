@@ -13,10 +13,10 @@ import UserProfile from './UserState';
 import  {GoogleLogin, GoogleLogout}  from 'react-google-login';
 import config from './config.json';
 import axiosPath from "../../axiosRequests";
-
 import firebase from 'firebase';
 
 
+//button styling
 const ColorButton = withStyles(theme => ({
     root: {
       borderRadius: 20,
@@ -34,12 +34,24 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
 }));
+
+/*
+
+this function (and file) are responsible for the user page.  Generally speaking, this function will take in props
+which, if not null means they were passed directly from another page via a redirect (sign up or log in).  Then, we
+must set our session variables to those in local storage to these. 
+
+Otherwise, a page refresh occurred and we use the values already in local storage and via get requests to the db.  
+
+
+Other than that, we display these values with our render table function and provide buttons to route to different pages
+and log out.  
+
+*/
 function User(props){
-  console.log(UserProfile.getLocalStorageEmail());
 
 
-
-
+//creating states
   const classes = useStyles();
   const [newUser, setNewUser] = useState({
     name: '',
@@ -60,6 +72,8 @@ function User(props){
   let p8='';
   let p9='';
     
+
+  //if b is true, the user is logging out, so we reset the user session as described in userState.js
       useEffect(()=>{
     if(newUser.b){
 
@@ -88,25 +102,29 @@ function User(props){
 
   });
 
+
+
   let ret=false;
     
   const url = 'personal/'
 
   const [data, setData] = useState([])
 
+
+  //here a get request is made to the db to display our data on the user page and the data is set to be displayed
   useEffect(() => {
     const fetchData = async () => {
       if(p1 !== null){
         const result = await axiosPath.makeGetRequest("personal/" + p1);
         setData(result);
-        console.log(result);
       };
     }
       fetchData();
 }, [])
 const [st, newStat]=useState(0);
     
-  console.log(props);
+
+//if the user didn't get here via a redirect from log in or sign up, set the state variables equal to those in the user session
   if(props===undefined || props.location.state===undefined || props.location.state===null || props.location.state.user.email===undefined){
     p1=UserProfile.getLocalStorageEmail();
     p2=UserProfile.getLocalStorageName();
@@ -117,14 +135,16 @@ const [st, newStat]=useState(0);
     p7=UserProfile.getLocalStorageisLoggedInWithGoogle();
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
     p9=UserProfile.getLocalStorageHouse();
-    console.log(UserProfile.getLocalStorageEmail());
+
+    //if user email is a valid one, they must actually be logged in, so set logged in to true so they can remain on this page
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
-    console.log("Make it true");
     }
     else
     ret=true;
   }
+
+  //if the user got to this page via log in or sign up redirect, then props must have relevant sign in information, so we use it to set our state vars and those in user session
   else{
     p1=props.location.state.user.email;
     p2=props.location.state.user.name;
@@ -171,7 +191,6 @@ UserProfile.loggedIn=true;
   UserProfile.setLocalStorageName();
     p7=props.location.state.g;
     p8=!p7;
-    console.log(newUser.email);
   }
 
 
@@ -184,8 +203,8 @@ UserProfile.loggedIn=true;
   newUser.tob=p4;
   newUser.pob=p5;
   newUser.house=p9;
-  console.log(p5);
 
+//get the user's data from the db to be displayed
   useEffect(() => {
     const fetchData = async () => {
       if(p1 !== null){
@@ -196,15 +215,14 @@ UserProfile.loggedIn=true;
       fetchData();
 }, [])
  
-
+//if user never logged in, ret was set to true, so redirect the user to home page
 if(ret)
 return <Redirect to='/Home'/>
 
 
-
+//this is how user info is displayed.  If fields not undefined, we display them
 const renderTable = () => {
   if(data){
-      console.log(data);
       var email=data.Email;
       var name='';
       var sign='';
@@ -213,7 +231,6 @@ const renderTable = () => {
       var bday='';
       var location='';
       var subscribed='';
-      console.log(data.TimeOfBirth);
       if(data.Name!==undefined && data.name!=='undefined')
       name=data.Name;
       if(data.Sign!==undefined && data.Sign!=='undefined')
@@ -232,7 +249,6 @@ const renderTable = () => {
       subscribed='no';
 
       return(
-      //<h1>{str}</h1>
       <div>
           <p style={{marginTop:20}}>Email: {email}</p>
           <p>Birthday: {bday}</p>
@@ -244,14 +260,6 @@ const renderTable = () => {
       </div>
       
       )
-  // return data.map(user => {
-  // return (
-  //     <tr key = {user._id}>
-  //         <td>{user.Name}</td>
-  //         <td>{user.Email}</td>
-  //     </tr>
-  // )
-  // })
       }
 }
 const renderName = () => {
@@ -260,27 +268,17 @@ const renderName = () => {
       var name=data.Name;
 
       return(
-      //<h1>{str}</h1>
       <div>
         <p style={{fontSize:'45px'}}>Hi, Welcome {name}</p>
       </div>
       
       )
-  // return data.map(user => {
-  // return (
-  //     <tr key = {user._id}>
-  //         <td>{user.Name}</td>
-  //         <td>{user.Email}</td>
-  //     </tr>
-  // )
-  // })
       }
 }
 
-console.log(data);
+//if the user was sent to this page on redirect, but information is still invalid, send them back to home
   if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
     return(<Redirect to="/Home"/>);
-    console.log(UserProfile.getLocalStorageName());
 
     if(p7===false)
       UserProfile.loggingInWithoutGoogle();
@@ -303,23 +301,20 @@ UserProfile.loggedIn=true;
     UserProfile.setLocalStorageName();
 
       
-    //if(newUser.name!==null && newUser.name.length===0)
-      //  window.location.reload();
-      console.log(st);
 
-
+//this function handles log out of google
   function handle2(){
     UserProfile.loggedIn=false;
       const auth2 = window.gapi.auth2.getAuthInstance();
       if (auth2 !== null) {
       
-      
+      //log out of google
         auth2.signOut().then(
           auth2.disconnect().then(GoogleLogout.onLogoutSuccess)
         )
       }
-      console.log(auth2);
-        
+
+      //set session variable storage to the reset versions (as described in userstate.js)
       UserProfile.loggedIn=false;
 
   
@@ -367,9 +362,12 @@ UserProfile.loggedIn=true;
         
     }
 
+    //this function handles standard log out
   function handle(){
+    //firebase log out
     firebase.auth().signOut();
-        console.log("Hi");
+
+    //reset variables in storage to that described in userstate.js
         UserProfile.setEmail(null);
         UserProfile.setName('');
         UserProfile.loggingOut();
@@ -411,10 +409,9 @@ UserProfile.loggedIn=true;
             b:true
             };
             setNewUser(r);
-            console.log(UserProfile.getLocalStorageisLoggedIn())
 
     }
-    console.log(newUser.b);console.log(GoogleLogin.BasicProfile);
+    //if user is now logged out, send them back to home page
     if(newUser.b && GoogleLogin.BasicProfile===undefined){
       UserProfile.loggedIn=false;
       UserProfile.abc='hi';
@@ -422,6 +419,8 @@ UserProfile.loggedIn=true;
 }}/>
 );
     }
+
+    //set the storage data
     UserProfile.setName(data.Name);
     UserProfile.setBirthplace(data.LocationOfBirth);
     UserProfile.setBirthTime(data.TimeOfBirth);
@@ -434,10 +433,8 @@ UserProfile.loggedIn=true;
     UserProfile.setLocalStorageisLoggedInWithoutGoogle();
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
-    console.log(UserProfile.getLocalStorageName());
 
-    if(p7){//google login
-        console.log("Google");
+    if(p7){//google login => display background image and user info via render table as well as google logout and edit user information button
     return(
 
       <div className="User">
@@ -456,7 +453,8 @@ UserProfile.loggedIn=true;
          />              </div>
           <div>
 <br></br><br></br>
-<ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Edit'}}>Edit Information</ColorButton>
+<div style={{fontSize:20}}>Edit Information or Unsubsribe:</div>
+<ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Edit'}}>Edit</ColorButton>
 
 
                           </div>
@@ -467,8 +465,9 @@ UserProfile.loggedIn=true;
     );
    
                    } 
-                   else if(!p7) {//regular login
+                   else if(!p7) {//regular login => display background image and user info via render table as well as regular logout and edit user information button
                   if(newUser.name===""&& newUser.email===""){
+                    //reset vars as specified in userstate.js if not a user
       UserProfile.setEmail(null);
       UserProfile.setHouse('');
       UserProfile.setName('');
@@ -494,9 +493,7 @@ UserProfile.loggedIn=true;
       UserProfile.setLocalStorageisLoggedIn();
       UserProfile.setLocalStorageisLoggedInWithGoogle();
       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-      //return(<Redirect to="/Home"/>);
       }
-      console.log(UserProfile.getLocalStorageName());
                        return(
                         <div className="User">
                           <header className="User-header" style={{backgroundImage: `url(${background})` }}>
@@ -520,7 +517,7 @@ UserProfile.loggedIn=true;
                           </div>
                         ); }
                         else{
-                          console.log('hi');
+                          
                             return <p>{newUser.name}</p>;
                         }
 }

@@ -11,12 +11,34 @@ var nodemailer = require('nodemailer');
 var axios = require('axios');
 
 
-
 //create a horoscope combo
 const create = async (req, res) => {
-
-    let house='';
-    console.log(req);
+    let lat ='';
+    let long = '';
+    let location = '';
+    location = req.body.LocationOfBirth;
+    //console.log(location)
+    await axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+            address: location,
+            key: 'AIzaSyCebNZEhXnVyKoMr_YRqjkgj1o2HQF8pE0'
+        }
+    })
+    .then(function(response){
+         console.log(response.data.results[0])
+         lat = response.data.results[0].geometry.location.lat;
+         long = response.data.results[0].geometry.location.lng;
+         //console.log(lat)
+     })
+     .catch(function(error){
+         lat = 29.6516;
+         long = 82.3248;
+     });
+     //console.log(lat)
+    let house='1st';
+    let sign='Aries'
+    let ascendant=0.0;
+    //console.log(req);
     if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
     var arr=req.body.Birthday.split('-');
     var arr2=req.body.TimeOfBirth.split(':');
@@ -24,15 +46,63 @@ const create = async (req, res) => {
     var julday= swisseph.swe_julday(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]), parseInt(arr2[0]), swisseph.SE_GREG_CAL )
     //console.log(julday);
     console.log('30');
-    swisseph.swe_houses(julday, 30, -82, 'W', function(houses){
-     //console.log(houses);   
-     house=houses.house[0];
+    swisseph.swe_houses(julday, parseFloat(lat), parseFloat(long), 'W', function(houses){
+     console.log(houses);   
+     ascendant=houses.ascendant;
     });
+    let num = Math.round(ascendant/30);
+    if(num == 1){
+        req.body.Sign = 'Aries';
+        req.body.House = '1st';
+    }
+    else if(num == 2){
+        req.body.Sign = 'Taurus';
+        req.body.House = '2nd';
+    }
+    else if(num == 3){
+        req.body.Sign = 'Gemini';
+        req.body.House = '3rd';
+    }
+    else if(num == 4){
+        req.body.Sign = 'Cancer';
+        req.body.House = '4th';
+    }
+    else if(num == 5){
+        req.body.Sign = 'Leo';
+        req.body.House = '5th';
+    }
+    else if(num == 6){
+        req.body.Sign = 'Virgo';
+        req.body.House = '6th';
+    }
+    else if(num == 7){
+        req.body.Sign = 'Libra';
+        req.body.House = '7th';
+    }
+    else if(num == 8){
+        req.body.Sign = 'Scorpio';
+        req.body.House = '8th';
+    }
+    else if(num == 9){
+        req.body.Sign = 'Sagittarius';
+        req.body.House = '9th';
+    }
+    else if(num == 10){
+        req.body.Sign = 'Capricorn';
+        req.body.House = '10th';
+    }
+    else if(num == 11){
+        req.body.Sign = 'Aquarius';
+        req.body.House = '11th';
+    }
+    else if(num == 12){
+        req.body.Sign = 'Pisces';
+        req.body.House = '12th';
+    }
+    
     console.log('40');
    }
-    
-    req.body.House=house;
-    console.log(req.body);
+    //console.log(req.body);
 
     const person = new personalInformationCombo(req.body);
 
@@ -84,8 +154,6 @@ console.log(person);
 
 };
 
-
-
 //show a horoscope listing
 const read = async (req, res) => {
 
@@ -95,7 +163,7 @@ console.log(req.url);
     let moonphase=req.url.substring(26);
 
     console.log(console.log(moonphase));
-    console.log(list());
+    //console.log(list());
       let response=await personalInformationCombo.find();
        console.log(response);
       for(let i=0; i<response.length; i++){
@@ -103,7 +171,7 @@ console.log(req.url);
           if(response[i].Subscribed){
         let em=response[i].Email;
         console.log('fail');
-  let b=null;
+        let b=null;
         horoscopeModel.findOne({ 'house': '1st', 'moonphase':moonphase,'sign':response[i].Sign}).then(data =>{
             if(data!=null){
                 var transporter = nodemailer.createTransport({
@@ -152,7 +220,21 @@ console.log(req.url);
 
 else{
 
+    //key: AIzaSyCebNZEhXnVyKoMr_YRqjkgj1o2HQF8pE0
     //TODO
+    // let location = 'mountain view, ca';
+    // axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+    //     params:{
+    //         address: location,
+    //         key: 'AIzaSyCebNZEhXnVyKoMr_YRqjkgj1o2HQF8pE0'
+    //     }
+    // })
+    //  .then(function(response){
+    //      console.log(response.data.results[0].geometry.location.lat)
+    //  })
+    //  .catch(function(error){
+    //      console.log('error time')
+    //  });
     
     personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data =>{
         if(data!=null){

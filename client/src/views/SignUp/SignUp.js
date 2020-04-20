@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button"
 import background from '../../assets/moonbackground.jpg';
 import { useForm } from 'react-hook-form';
 
-
+//button styling
 const ColorButton = withStyles(theme => ({
   root: {
       borderRadius: 20,
@@ -34,13 +34,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+//sign up class is responsible for front end sign up page and functionality
 class SignUp extends Component {
+  //constructor sets the states
     constructor() {
         super();
         this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:''};
     }
 
-
+//this method checks if there exists such a user already in our database
     async log2(){
         let a= '';
         try{
@@ -49,53 +52,62 @@ class SignUp extends Component {
                 a=undefined;
             };
             const b=a;
-console.log(b);
 return b;
        };
 
-
+//responsible for the to login page button
        LoginPage=()=>{
-         console.log("click clack");
         this.props.history.push('/Login');
       }
 
-      
+//on the change of an input box, this method changes the state of the corresponding variables
 handleInputChange = (event) => {
    this.setState({ [event.target.name]: event.target.value });
  };
+
+ //called when a user submits their information (for regular sign up)
 handleSubmit = async (event) => {
    event.preventDefault();
+
+   //if the user is already logged in, give an error message
    if(!(UserProfile.getLocalStorageEmail()==='' ||UserProfile.getLocalStorageEmail()==='null' || UserProfile.getLocalStorageEmail()===null || UserProfile.getLocalStorageEmail()===undefined || UserProfile.getLocalStorageEmail()==='undefined'))
               alert("You are already logged in with email "+UserProfile.getLocalStorageEmail()+".  Please log out before creating a new account");
    else{
+     //if the user did not provide an email, give an error message
               if(this.state.email.length===0)
    alert("Please provide an email");
    else{
-   const obj=await this.log2();
+   const obj=await this.log2(); // try to find this email in our database
    if(obj!==undefined){
+     //if the email is already in our database, give an error message and redirect to login page
    alert("Already a user with this email");
    return (<Redirect to={{pathname: '/Login'}}></Redirect>);
    }
    else{
    const { email, password } = this.state;
+   //if no password given or password is too short, give error message
    if(password===undefined || password.length<6)
    alert("Please use a password of 6 or more characters");
    else{
+     //if no name given, give error message
      if(this.state.name===undefined || this.state.name.length===0)
      alert("Please provide a name");
      else{
+       //if no date of birth or date of birth not valid, give error message
        if(this.state.dob===undefined ||this.state.dob.length!==10)
        alert("Please provide a valid birth date");
        else{
-         if(this.state.email.indexOf('Admin@admin.com2')===0)
+         //we restrict this email usage because when this email appears on the backend get request, emails are sent to users
+         if(this.state.email.indexOf('Admin@admin.com2')>=0)
          alert("Please provide a valid email");
         else{
-console.log(this.state.pob);
+//now, no more errors, so now let firebase create a corresponding user in its database
 firebase
      .auth()
      .createUserWithEmailAndPassword(email, password)
      .then(async (user) => {
-      try{console.log("trying");  
+      try{
+        //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
         Sign: "Scorpio",
@@ -106,14 +118,14 @@ firebase
         House:'',
         Subscribed:true
     } 
+    //create a user in the db
          await axiosPath.makeCreateRequest('personal/', axiosUser);
 
     this.state.loggedIn=true;
     
       
-console.log("why");
 
-
+//set user session states
  UserProfile.loggingInWithoutGoogle();
        UserProfile.setName(this.state.name);
        UserProfile.setEmail(this.state.email);
@@ -133,20 +145,17 @@ console.log("why");
        UserProfile.setLocalStorageSubscribed();
        
        
-      
-      
-    console.log("MADE IT");
-    console.log("SUccess");
-    if(this.state.email==='Admin@admin.com')
+      //if the user is admin, send to admin page
+    if(this.state.email==='heavenlymoonflow@gmail.com')
       this.props.history.push('/Admin');
     else
+    //else send to user page
       this.props.history.push('/User');
-     //  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}/>);
 
 
   }
+  //if login in db was unsuccessful but in firebase was successful rollback by deleting user from firebase
   catch{
-    console.log(10);
     firebase.auth().currentUser.delete();
     }
      })
@@ -162,10 +171,8 @@ console.log("why");
    }
  };
 
-
+//if user is logged in, send them to user page
  componentDidUpdate(){
-   console.log(30);
-   console.log(this.state.loggedIn);
   if(this.state.loggedIn)
   return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}></Redirect>);
 
@@ -173,7 +180,8 @@ console.log("why");
 
  render() {
    const { email, password, error , name, dob, tob, pob} = this.state;
-console.log(10);
+
+//show the input boxes, styling with background, button for sign up, button for google sign up, and button for going to login page
    return (
        <div className="SignIn">
             <header className="SignIn-header" style={{backgroundImage: `url(${background})` }}>
@@ -269,7 +277,6 @@ console.log(10);
        
                 
    );
-   console.log(this.state.email);
 
 
  }
