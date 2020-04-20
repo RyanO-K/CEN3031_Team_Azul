@@ -42,7 +42,7 @@ function Home() {
 
     useEffect(()=>{
     if(UserProfile.getLocalStorageEmail()!=='null' && UserProfile.getLocalStorageEmail()!==null &&UserProfile.getLocalStorageEmail()!==''){
-    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com'){
+    if(UserProfile.getLocalStorageEmail()==='heavenlymoonflow@gmail.com'){
         setHome('Admin');
     sessionStorage.setItem('hi','Admin');
     }
