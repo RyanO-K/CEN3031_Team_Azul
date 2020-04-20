@@ -113,7 +113,7 @@ firebase
            this.nextPage='/User';
         
            window.location.reload();  
-           if(this.state.email==='Admin@admin.com')
+           if(this.state.email==='heavenlymoonflow@gmail.com')
            this.props.history.push('/Admin');
           else
            return <Redirect to={{pathname: '/User',state:{user: {name:this.state.name, email:this.state.email, dob:this.state.dob, pob:this.state.pob, tob:this.state.tob}, g:false}}}></Redirect>
@@ -138,7 +138,7 @@ firebase
  render() {
    //if user is set and is the admin, send to admin page.  Else, send to User page
     if(UserProfile.getLocalStorageEmail()!=='' && UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='null')
-    if(UserProfile.getLocalStorageEmail()==='Admin@admin.com' || UserProfile.getLocalStorageEmail()==='admin')
+    if(UserProfile.getLocalStorageEmail()==='heavenlymoonflow@gmail.com' || UserProfile.getLocalStorageEmail()==='admin')
     return <Redirect to='/Admin'/>
     else
     return <Redirect to='/User'/>
