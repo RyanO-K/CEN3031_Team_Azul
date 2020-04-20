@@ -15,7 +15,6 @@ import config from './config.json';
 import axiosPath from "../../axiosRequests";
 import firebase from 'firebase';
 
-
 //button styling
 const ColorButton = withStyles(theme => ({
     root: {
@@ -178,11 +177,13 @@ const [st, newStat]=useState(0);
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
     UserProfile.setLocalStorageSign();
-    window.location.reload();
-
     }
-  else
+  else{
+    console.log(props.location);
     UserProfile.loggingInWithGoogle();
+    if(props.location.state.user.name!==undefined && UserProfile.getLocalStorageSign()==='')
+    window.location.reload();
+  }
 UserProfile.loggedIn=true;
   UserProfile.setEmail(p1);
   UserProfile.setName(p2);
