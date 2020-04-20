@@ -60,7 +60,8 @@ function User(props){
     email: null,
     tob: '',
     house:'',
-    b:false
+    b:false,
+    sign:''
 });
   let p1=null;
   let p2='';
@@ -71,6 +72,7 @@ function User(props){
   let p7='';
   let p8='';
   let p9='';
+  let p10='';
     
 
   //if b is true, the user is logging out, so we reset the user session as described in userState.js
@@ -82,6 +84,7 @@ function User(props){
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
       UserProfile.setHouse('');
+      UserProfile.setSign('');
       UserProfile.setLocalStorageHouse();
       UserProfile.setBirthplace('');
       UserProfile.setBirthTime('');
@@ -93,7 +96,7 @@ function User(props){
       UserProfile.setLocalStorageisLoggedIn();
       UserProfile.setLocalStorageisLoggedInWithGoogle();
       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
-
+      UserProfile.setLocalStorageSign();
       
 
 
@@ -135,6 +138,7 @@ const [st, newStat]=useState(0);
     p7=UserProfile.getLocalStorageisLoggedInWithGoogle();
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
     p9=UserProfile.getLocalStorageHouse();
+    p10=UserProfile.getLocalStorageSign();
 
     //if user email is a valid one, they must actually be logged in, so set logged in to true so they can remain on this page
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
@@ -152,6 +156,7 @@ const [st, newStat]=useState(0);
     p4=props.location.state.user.tob;
     p5=props.location.state.user.pob;
     p9=props.location.state.house;
+    p10=props.location.state.sign;
     p6=true;
     UserProfile.loggedIn=true;
     if(p7===false){
@@ -162,6 +167,7 @@ const [st, newStat]=useState(0);
     UserProfile.setBirthTime(p4);
     UserProfile.setBirthday(p3);
     UserProfile.setHouse(p9);
+    UserProfile.setSign(p10);
     UserProfile.setLocalStorageHouse();
     UserProfile.setLocalStorageBDay();
     UserProfile.setLocalStorageBPlace();
@@ -170,6 +176,7 @@ const [st, newStat]=useState(0);
     UserProfile.setLocalStorageisLoggedInWithoutGoogle();
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
+    UserProfile.setLocalStorageSign();
 
     }
   else
@@ -181,6 +188,7 @@ UserProfile.loggedIn=true;
   UserProfile.setBirthTime(p4);
   UserProfile.setBirthday(p3);
   UserProfile.setHouse(p9);
+  UserProfile.setSign(p10);
   UserProfile.setLocalStorageHouse();
   UserProfile.setLocalStorageBDay();
   UserProfile.setLocalStorageBPlace();
@@ -189,6 +197,7 @@ UserProfile.loggedIn=true;
   UserProfile.setLocalStorageisLoggedInWithoutGoogle();
   UserProfile.setLocalStorageBTime();
   UserProfile.setLocalStorageName();
+  UserProfile.setLocalStorageSign();
     p7=props.location.state.g;
     p8=!p7;
   }
@@ -203,6 +212,7 @@ UserProfile.loggedIn=true;
   newUser.tob=p4;
   newUser.pob=p5;
   newUser.house=p9;
+  newUser.sign=p10;
 
 //get the user's data from the db to be displayed
   useEffect(() => {
@@ -291,6 +301,7 @@ UserProfile.loggedIn=true;
     UserProfile.setBirthTime(p4);
     UserProfile.setBirthday(p3);
     UserProfile.setHouse(p9);
+    UserProfile.setSign(p10);
     UserProfile.setLocalStorageHouse();
     UserProfile.setLocalStorageBDay();
     UserProfile.setLocalStorageBPlace();
@@ -299,6 +310,7 @@ UserProfile.loggedIn=true;
     UserProfile.setLocalStorageisLoggedInWithoutGoogle();
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
+    UserProfile.setLocalStorageSign();
 
       
 
@@ -325,6 +337,7 @@ UserProfile.loggedIn=true;
       UserProfile.setBirthplace('');
       UserProfile.setBirthTime('');
       UserProfile.setHouse('');
+      UserProfile.setSign('');
       let a={
           name: '',
           pob: '',
@@ -332,13 +345,15 @@ UserProfile.loggedIn=true;
           email: null,
           tob:'',
           house:'',
-          b:true
+          b:true,
+          sign:''
           };
           setNewUser(a);
           newStat(3);
           UserProfile.loggedIn=false;
       UserProfile.setLocalStorageBTime();
       UserProfile.setLocalStorageHouse();
+      UserProfile.setLocalStorageSign();
       UserProfile.setLocalStorageBDay();
       UserProfile.setLocalStorageBPlace();
       UserProfile.setLocalStorageEmail();
@@ -355,7 +370,8 @@ UserProfile.loggedIn=true;
           email: null,
           tob:'',
           house:'',
-          b:true
+          b:true,
+          sign:''
           };
           setNewUser(r);
           UserProfile.loggedIn=false;
@@ -375,6 +391,7 @@ UserProfile.loggedIn=true;
         UserProfile.setBirthplace('');
         UserProfile.setBirthTime('');
         UserProfile.setHouse('');
+        UserProfile.setSign('');
         let a={
             name: '',
             pob: '',
@@ -382,7 +399,8 @@ UserProfile.loggedIn=true;
             email: null,
             tob:'',
             house:'',
-            b:true
+            b:true,
+            sign:''
             };
             setNewUser(a);
             newStat(3);
@@ -390,6 +408,7 @@ UserProfile.loggedIn=true;
             UserProfile.loggedIn=false;
         UserProfile.setLocalStorageBTime();
         UserProfile.setLocalStorageBDay();
+        UserProfile.setLocalStorageSign();
         UserProfile.setLocalStorageBPlace();
         UserProfile.setLocalStorageHouse();
         UserProfile.setLocalStorageEmail();
@@ -406,7 +425,8 @@ UserProfile.loggedIn=true;
             email: null,
             tob:'',
             house:'',
-            b:true
+            b:true,
+            sign:''
             };
             setNewUser(r);
 
@@ -426,6 +446,7 @@ UserProfile.loggedIn=true;
     UserProfile.setBirthTime(data.TimeOfBirth);
     UserProfile.setBirthday(data.Birthday);
     UserProfile.setHouse(p9);
+    UserProfile.setSign(p10);
     UserProfile.setLocalStorageHouse();
     UserProfile.setLocalStorageBDay();
     UserProfile.setLocalStorageBPlace();
@@ -433,6 +454,7 @@ UserProfile.loggedIn=true;
     UserProfile.setLocalStorageisLoggedInWithoutGoogle();
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
+    UserProfile.setLocalStorageSign();
 
     if(p7){//google login => display background image and user info via render table as well as google logout and edit user information button
     return(
@@ -470,6 +492,7 @@ UserProfile.loggedIn=true;
                     //reset vars as specified in userstate.js if not a user
       UserProfile.setEmail(null);
       UserProfile.setHouse('');
+      UserProfile.setSign('');
       UserProfile.setName('');
       UserProfile.loggingOut();
       UserProfile.setBirthday('');
@@ -484,6 +507,7 @@ UserProfile.loggedIn=true;
       UserProfile.loggedIn=false;
       else
       UserProfile.loggedIn=false;
+      UserProfile.setLocalStorageSign();
       UserProfile.setLocalStorageHouse();
       UserProfile.setLocalStorageBTime();
       UserProfile.setLocalStorageBDay();
