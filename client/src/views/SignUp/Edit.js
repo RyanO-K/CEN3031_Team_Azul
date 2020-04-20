@@ -88,6 +88,8 @@ handleSubmit = async (event) => {
         alert("Name field cannot be empty");
     else if(bday.length!==10)
         alert("Must have valid birth date");
+    else if(bplace==='undefined')
+        alert("Please enter a valid location of birth (or leave it blank)");
     else{
         await this.log2(); //save user to db
 

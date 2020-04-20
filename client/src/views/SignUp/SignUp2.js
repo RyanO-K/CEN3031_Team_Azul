@@ -92,6 +92,13 @@ function SignUp2(props) {
 
         }
 
+        //if no errors so far and user chooses undefined as birth location, alert them not to do that
+        if(!bool)
+        if(newUser.pob==='undefined'){
+            bool=true;
+            alert('Please enter a valid location of birth (or leave it blank)');
+        }
+
 
 
 
@@ -152,7 +159,7 @@ function SignUp2(props) {
    const func=(a)=>{
 
 //if valid birth date, make the next page the user page.  Else, keep it this page
-    if(a.length===10)
+    if(a.length===10 && newUser.pob!=='undefined')
     d('/User');
 else
     d('/SignUp2');
@@ -172,7 +179,7 @@ else
 //this method handles birth place 
     const func2=(b)=>{
         //if valid birth date, make the next page the user page.  Else, keep it this page
-        if(newUser.dob.length===10)
+        if(newUser.dob.length===10 && b!=='undefined')
         d('/User');
     else
         d('/SignUp2');
@@ -191,7 +198,7 @@ else
         //this method handles time of birth
         const func6=(efg)=>{
             //if valid birth date, make the next page the user page.  Else, keep it this page
-            if(newUser.dob.length===10)
+            if(newUser.dob.length===10 && newUser.pob!=='undefined')
 d('/User');
 else
 d('/SignUp2');
@@ -234,7 +241,7 @@ d('/SignUp2');
                     </div>
 
                     <div>
-                    <ColorButton onClickCapture={handle}  onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
                 </div>

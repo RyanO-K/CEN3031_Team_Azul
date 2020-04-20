@@ -301,13 +301,13 @@ const classes = useStyles();
                             <div className="flot1">
                                 <div className="button-section">
                                     <div className="image-button">
-                                        <input type="image" id="1st" src="https://i.imgur.com/SjXwuSW.png" onClick={(e) => dispHouses(e)}/>
+                                        <input type="image" id="1st" src="https://i.imgur.com/pK7VaCD.png" onClick={(e) => dispHouses(e)}/>
                                     </div>
                                     <div className="button-text">1st</div>
                                 </div>
                                 <div className="button-section">
                                     <div className="image-button">
-                                        <input type="image" id="1st" src="https://i.imgur.com/pK7VaCD.png" onClick={(e) => dispHouses(e)}/>
+                                        <input type="image" id="1st" src="https://i.imgur.com/SjXwuSW.png" onClick={(e) => dispHouses(e)}/>
                                     </div>
                                     <div className="button-text">1st</div>
                                 </div>
