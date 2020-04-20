@@ -9,8 +9,9 @@ import './Home.css';
 import LoginWithGoogle from '../SignUp/LoginWithGoogle';
 import UserProfile from '../SignUp/UserState';
 import Moon from '../../components/Moon/Moon'
-//import Moon from '../../components/Moon/Moon'
 
+
+//button styling
 const ColorButton = withStyles(theme => ({
     root: {
         borderRadius: 20,
@@ -28,21 +29,30 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
     },
 }));
+
+//These session storage calls are responsible for determining which page to display on the buttons (admin, user, or log in).  
+//hi is for which button to be seen.  It is set depending upon what our local storage userstate.js file determines.  
+//if a valid email equal to that of the admin, next page is admin page.  Else, if valid, next page is user page.  Else next page is 
+//log in page.  
+//This is actually implemented by sending users in all 3 cases to the log in page, where the log in page then determines based upon
+//local storage get email whether to keep the user on the log in page or otherwise where to put the user.  
+
 sessionStorage.setItem('J', true);
-//console.log(sessionStorage.getItem('hi'));
-//UserProfile.abc=localStorage.getItem('hi');
 if(sessionStorage.getItem('hi')===null)
 sessionStorage.setItem('hi', 'Log In');
+
+
+
+//This file and function are for the home page as seen on the front end.  
 function Home() {
-    //console.log(UserProfile.abc);
     const[home, setHome]=useState(sessionStorage.getItem('hi'));
 
     let arr=['Log In', 'User'];
-    //console.log(UserProfile.loggedIn);
 
+    //on rendering, determine the next page of the user and whether they are logged in or not
     useEffect(()=>{
     if(UserProfile.getLocalStorageEmail()!=='null' && UserProfile.getLocalStorageEmail()!==null &&UserProfile.getLocalStorageEmail()!==''){
-    if(UserProfile.getLocalStorageEmail()==='heavenlymoonflow@gmail.com'){
+    if(UserProfile.getLocalStorageEmail()==='heavenlymoonflow@gmail.com' || UserProfile.getLocalStorageEmail()==='admin'){
         setHome('Admin');
     sessionStorage.setItem('hi','Admin');
     }
@@ -60,16 +70,10 @@ function Home() {
     });
     
     sessionStorage.setItem('J', false);
-    /*
-    window.beforeunload = (e) => {console.log(home);
-        sessionStorage.setItem('hi', home);
-      };
-  
-    window.afterunload = (e) => {console.log(home);
-        home=sessionStorage.getItem('hi');
-      };
-    
-*/const classes = useStyles();
+    const classes = useStyles();
+
+    //this is responsible for rendering.  it has background image, moon from react-spring, a message, and finally, 2 buttons, one whose 
+    //value of what it says is determined above via use of session storage and one which will always route users to sign up page.  
     return (
 
         <div className="App">
@@ -80,17 +84,11 @@ function Home() {
                 <h1 className="MoonFlow">
                     Moon Flow
                     </h1>
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                {}
                 <p>
                     Because you are the skies in ecstatic motion
                 </p>
-                {/* <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                </a> */}
+                {}
                 <div>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/SignUp'> Sign Up </ColorButton>
                     <ColorButton className={classes.margin} component={Link} size="large" variant="outlined" to='/Login'> {home}</ColorButton>
