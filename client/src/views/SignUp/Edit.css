@@ -3,24 +3,34 @@
     font-family: montreg;
 }
 
-.User {
+.Edit {
     font-family: montreg;
     text-align: center;
     background: #282c34;
 }
 
-.User-card{
+.Edit-card{
     font-family: montreg;
     color: black;
-    height: 260px;
+    height: 315px;
     width: 275px;
     background-color: #0AC98F;
     border-radius: 10px;
     box-shadow: 5px 5px 10px black;
-    font-size: 15px;
+    font-size: 18px;
 }
 
-.User-header {
+.Edit-title{
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.submit-button{
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.Edit-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -35,6 +45,6 @@
     font-family: mont;
 }
 
-.User-link {
+.App-link {
     color: #09d3ac;
 }

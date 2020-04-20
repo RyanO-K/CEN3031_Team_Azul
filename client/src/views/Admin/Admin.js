@@ -5,7 +5,9 @@ import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UserProfile from '../SignUp/UserState';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import SendIcon from '@material-ui/icons/Send';
 import axiosPath from '../../axiosRequests';
 import background from '../../assets/moonbackground.jpg';
 import './Admin.css';
@@ -16,7 +18,8 @@ import { grey } from '@material-ui/core/colors';
 
 const ColorButton = withStyles(theme => ({
     root: {
-        padding: '6px 12px',
+        borderRadius: 20,
+        padding: '3px 10px',
         border: '1px solid',
         backgroundColor: '#E28222',
       '&:hover': {
@@ -34,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 const Admin = () =>{
 
-  if(UserProfile.getLocalStorageEmail()==='Admin@admin.com'){
+  if(UserProfile.getLocalStorageEmail()==='heavenlymoonflow@gmail.com'){
     UserProfile.loggingInWithoutGoogle();
     UserProfile.setLocalStorageisLoggedIn();
     UserProfile.setEmail('admin');
@@ -47,15 +50,15 @@ const Admin = () =>{
     }))(TextField);
 
     const [data, setData] = useState({
-        sun: '',
-        moon: '',
-        house: '',
+        sun: 'Not Selected',
+        moon: 'Not Selected',
+        house: 'Not Selected',
         interpretation: 'No Info',
     });
 
     const [info, setInfo] = useState('');
 
-    const [currMoonPhase, setCurrMoonPhase] = useState('');
+    const [currMoonPhase, setCurrMoonPhase] = useState('No Selection');
 
     const changeMoonPhase = (event) => {
         setCurrMoonPhase(event.target.id)
@@ -65,16 +68,16 @@ const Admin = () =>{
         console.log(currMoonPhase)
     }, [currMoonPhase]);
 
-    const sendEmail = (event) => {
+    const sendEmail = async(event) => {
         event.preventDefault();
         try{
             console.log("submit")
-            // let result = await axiosPath.makeUpdateRequest('horoscopeInfo/?moonphase='+moonphase+'&house='+house+'&sign='+sign,{
-            //     "house": house,
-            //     "sign": sign,
-            //     "moonphase": moonphase,
-            //     "description": description
-            //     });
+            let result = await axiosPath.makeGetRequest('personal/Admin@admin.com2'+currMoonPhase,{
+            // //     "house": house,
+            // //     "sign": sign,
+            // //     "moonphase": moonphase,
+            // //     "description": description
+            });
         }catch(err){
         }
     }
@@ -161,201 +164,256 @@ const classes = useStyles();
         
     }
     return (
+        <header className="Header" style={{backgroundImage: `url(${background})` }}>
+            <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
+            <p style={{marginTop:5,fontSize:25}}>Change horoscope information and send emails here:</p>
+            <div>
+                <div className="Admin-card">
+                    <div className="Admin-title">Horoscope Database</div>
+                    <div style={{marginLeft:40}}className='column1' >
+                        <div>
+                            <div className="flot1">
+                                <div className="button-section">   
+                                    <div className="image-button">
+                                        <input type="image" id="Aries" src="https://i.imgur.com/GFHkqQh.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div> 
+                                    <div className="button-text">
+                                        Aries
+                                    </div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Taurus" src="https://i.imgur.com/SN80p6D.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Taurus</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Gemini" src="https://i.imgur.com/oJhfUdd.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Gemini</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Cancer" src="https://i.imgur.com/sLAaEPn.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Cancer</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Leo" src="https://i.imgur.com/L3TT7gU.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Leo</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Virgo" src="https://i.imgur.com/wlTVYaO.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Virgo</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Libra" src="https://i.imgur.com/opW4Dy3.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Libra</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Scorpio" src="https://i.imgur.com/KCL5fGl.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Scorpio</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Sagittarius" src="https://i.imgur.com/dRf2qkv.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Sagittarius</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Capricorn" src="https://i.imgur.com/XY7an6R.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Capricorn</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Aquarius" src="https://i.imgur.com/ZfBKBQv.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Aquarius</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="Pisces" src="https://i.imgur.com/CY6XGPM.png" onClick={(e) => dispSunSign(e)}/>
+                                    </div>
+                                    <div className="button-text">Pisces</div>
+                                </div>
+                            </div>
+                            <div className="flot1">
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="NewMoon" src="https://i.imgur.com/DCrZonl.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">New Moon</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="WaxingCrescent" src="https://i.imgur.com/PWhVPg5.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">Waxing Crescent</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="FirstQuarter" src="https://i.imgur.com/nAQ95qN.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">First Quarter</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="WaxingGibbous" src="https://i.imgur.com/d7C4UrE.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">Waxing Gibbous</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="FullMoon" src="https://i.imgur.com/zWy3vSU.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">Full Moon</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="WaningGibbous" src="https://i.imgur.com/vOqxYrM.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">Waning Gibbous</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="LastQuarter" src="https://i.imgur.com/kxIicxI.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">Last Quarter</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="WaningCrescent" src="https://i.imgur.com/xwZUmoR.png" onClick={(e) => dispMoonPhase(e)}/>
+                                    </div>
+                                    <div className="button-text">Waning Crescent</div>
+                                </div>
+                            </div>
+                            <div className="flot1">
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="1st" src="https://i.imgur.com/pK7VaCD.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">1st</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="1st" src="https://i.imgur.com/pK7VaCD.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">1st</div>
+                                </div>
+                            </div>
 
-<header className="Header" style={{backgroundImage: `url(${background})` }}>
-    <h1 style={{marginBottom:5}}>Welcome, Admin!</h1>
-    <p style={{marginTop:5,fontSize:25}}>You can make changes to the horoscope data here:</p>
-    <div>
-        <div className="Admin-card">
-            <p style={{marginLeft:40}}className='column1' >
-                <div>
-                    <div className="flot1">
-                        <DropdownButton id="dropdown-basic-button" title="Sun Signs">
-                            <div>
-                                <Dropdown.Item as="button" id="Aquarius" onClick={(e) => dispSunSign(e)}>Aquarius</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Aries" onClick={(e) => dispSunSign(e)}>Aries</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Taurus" onClick={(e) => dispSunSign(e)}>Taurus</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Gemini" onClick={(e) => dispSunSign(e)}>Gemini</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Cancer" onClick={(e) => dispSunSign(e)}>Cancer</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Leo" onClick={(e) => dispSunSign(e)}>Leo</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Virgo" onClick={(e) => dispSunSign(e)}>Virgo</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Libra" onClick={(e) => dispSunSign(e)}>Libra</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Scorpio" onClick={(e) => dispSunSign(e)}>Scorpio</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Sagittarius" onClick={(e) => dispSunSign(e)}>Sagitarrius</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Capricorn" onClick={(e) => dispSunSign(e)}>Capricon</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="Pisces" onClick={(e) => dispSunSign(e)}>Pisces</Dropdown.Item>
-                            </div>
+                        </div>
+                    </div>
+                    <div className="column2">
 
-                        </DropdownButton>
-                    </div>
-                    <div className="flot1">
-                        <DropdownButton id="dropdown-basic-button" title="Lunar Phase">
-                            <div>
-                                <Dropdown.Item as="button" id="NewMoon" onClick={(e) => dispMoonPhase(e)}>New Moon</Dropdown.Item>
+                        <div style={{marginBottom:5}}>Sun: 
+                            <div style={{fontSize:17}}>
+                                {data.sun}
                             </div>
-                            <div>
-                                <Dropdown.Item as="button" id="WaxingCrescent" onClick={(e) => dispMoonPhase(e)}>Waxing Crescent</Dropdown.Item>
+                        </div>
+                        <div style={{marginBottom:5}}>Moon: 
+                            <div style={{fontSize:17}}>
+                                {data.moon}
                             </div>
-                            <div>
-                                <Dropdown.Item as="button" id="FirstQuarter" onClick={(e) => dispMoonPhase(e)}>First Quarter</Dropdown.Item>
+                        </div>
+                        <div style={{marginBottom:5}}>House: 
+                            <div style={{fontSize:17}}>
+                                {data.house}
                             </div>
-                            <div>
-                                <Dropdown.Item as="button" id="WaxingGibbous" onClick={(e) => dispMoonPhase(e)}>Waxing Gibbous</Dropdown.Item>
+                        </div>
+                        <div style={{marginBottom:5}}>Interpretation: 
+                            <div className="interpretation">
+                                {data.interpretation}
                             </div>
-                            <div>
-                                <Dropdown.Item as="button" id="FullMoon" onClick={(e) => dispMoonPhase(e)}>Full Moon</Dropdown.Item>
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                            <div style={{marginTop:5}}>
+                                <TextField
+                                    id="standard-multiline-static"
+                                    onChange={handleChange}
+                                    label="Enter Interpretation:"
+                                    multiline
+                                    rows="4"
+                                />
                             </div>
-                            <div>
-                                <Dropdown.Item as="button" id="WaningGibbous" onClick={(e) => dispMoonPhase(e)}>Waning Gibbous</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="LastQuarter" onClick={(e) => dispMoonPhase(e)}>Last Quarter</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="WaningCrescent" onClick={(e) => dispMoonPhase(e)}>Waning Crescent</Dropdown.Item>
-                            </div>
-                        </DropdownButton>
-                    </div>
-                    <div className="flot1">
-                        <DropdownButton id="dropdown-basic-button" title="Houses">
-                            <div>
-                                <Dropdown.Item as="button" id="1st" onClick={(e) => dispHouses(e)}>1st</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="2nd" onClick={(e) => dispHouses(e)}>2nd</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="3rd" onClick={(e) => dispHouses(e)}>3rd</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="4th" onClick={(e) => dispHouses(e)}>4th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="5th" onClick={(e) => dispHouses(e)}>5th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="6th" onClick={(e) => dispHouses(e)}>6th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="7th" onClick={(e) => dispHouses(e)}>7th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="8th" onClick={(e) => dispHouses(e)}>8th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="9th" onClick={(e) => dispHouses(e)}>9th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="10th" onClick={(e) => dispHouses(e)}>10th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="11th" onClick={(e) => dispHouses(e)}>11th</Dropdown.Item>
-                            </div>
-                            <div>
-                                <Dropdown.Item as="button" id="12th" onClick={(e) => dispHouses(e)}>12th</Dropdown.Item>
-                            </div>
-                        </DropdownButton>
+                            <input type="submit" value="Submit" />
+                        </form>
                     </div>
                 </div>
-            </p>
+                <div className="Email-card">
+                <div className="Admin">
+                <div className="Email-title">Send Emails</div>
+                <div className="button-section" style={{marginLeft:12}}>
+                    <div className="currMoonPhase">Today's Moon Phase:&nbsp;</div>
+                    <div className="currMoonPhase">{" " + currMoonPhase}</div>
+                </div>
 
-            <p className="column2">
-
-                <div style={{marginBottom:5}}>Sun: 
-                    <div style={{fontSize:17}}>
-                        {data.sun}
+                    <div className="button-section">
+                        <div className="image-button">
+                            <input type="image" id="NewMoon" src="https://i.imgur.com/DCrZonl.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">New Moon</div>
                     </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                                <input type="image" id="WaxingCrescent" src="https://i.imgur.com/PWhVPg5.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">Waxing Crescent</div>
+                    </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                                <input type="image" id="FirstQuarter" src="https://i.imgur.com/nAQ95qN.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">First Quarter</div>
+                    </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                            <input type="image" id="WaxingGibbous" src="https://i.imgur.com/d7C4UrE.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">Waxing Gibbous</div>
+                    </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                            <input type="image" id="FullMoon" src="https://i.imgur.com/zWy3vSU.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">Full Moon</div>
+                    </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                            <input type="image" id="WaningGibbous" src="https://i.imgur.com/vOqxYrM.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">Waning Gibbous</div>
+                    </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                            <input type="image" id="LastQuarter" src="https://i.imgur.com/kxIicxI.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                        <div className="button-text">Last Quarter</div>
+                    </div>
+                    <div className="button-section">
+                        <div className="image-button">
+                            <input type="image" id="WaningCrescent" src="https://i.imgur.com/xwZUmoR.png" onClick={(e) => changeMoonPhase(e)}/>
+                        </div>
+                    <div className="button-text">Waning Crescent</div>
                 </div>
-                <div style={{marginBottom:5}}>Moon: 
-                    <div style={{fontSize:17}}>
-                        {data.moon}
-                    </div>
+                    <ColorButton endIcon={<SendIcon />} onClick={sendEmail}>Send</ColorButton>
                 </div>
-                <div style={{marginBottom:5}}>House: 
-                    <div style={{fontSize:17}}>
-                        {data.house}
-                    </div>
                 </div>
-                <div style={{marginBottom:5}}>Interpretation: 
-                    <div style={{fontSize:17}}>
-                        {data.interpretation}
-                    </div>
+                <div className="logout">
+                    <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div style={{marginTop:20}}>
-                        <TextField
-                            id="standard-multiline-static"
-                            onChange={handleChange}
-                            label="Interpretation"
-                            multiline
-                            rows="4"
-                        />
-                    </div>
-                    <input type="submit" value="Submit" />
-                </form>
-
-            </p>
-        </div>
-        <div className="Email-card">
-            <div>
-                <input type="image" id="NewMoon" src="https://i.imgur.com/DCrZonl.png" onClick={(e) => changeMoonPhase(e)}/>
-                New Moon
             </div>
-            <div>
-                <input type="image" id="WaxingCrescent" src="https://i.imgur.com/PWhVPg5.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waxing Crescent
-            </div>
-            <div>
-                <input type="image" id="FirstQuarter" src="https://i.imgur.com/nAQ95qN.png" onClick={(e) => changeMoonPhase(e)}/>
-                First Quarter
-            </div><div>
-                <input type="image" id="WaxingGibbous" src="https://i.imgur.com/d7C4UrE.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waxing Gibbous
-            </div>
-            <div>
-                <input type="image" id="FullMoon" src="https://i.imgur.com/zWy3vSU.png" onClick={(e) => changeMoonPhase(e)}/>
-                Full Moon
-            </div>
-            <div>
-                <input type="image" id="WaningGibbous" src="https://i.imgur.com/vOqxYrM.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waning Gibbous
-            </div>
-            <div>
-                <input type="image" id="LastQuarter" src="https://i.imgur.com/kxIicxI.png" onClick={(e) => changeMoonPhase(e)}/>
-                Last Quarter
-            </div>
-            <div>
-                <input type="image" id="WaningCrescent" src="https://i.imgur.com/xwZUmoR.png" onClick={(e) => changeMoonPhase(e)}/>
-                Waning Crescent
-            </div>
-            <ColorButton onClick={sendEmail}>Submit</ColorButton>
-         </div>
-         <div>
-         <ColorButton onClick={signOff} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname: '/Home'}}>Log Out</ColorButton>
-         </div>
-         </div>
         </header>
 
 

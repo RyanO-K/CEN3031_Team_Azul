@@ -15,14 +15,26 @@ body {
 .Admin-card{
     font-family: montreg;
     color: black;
-    height: 500px;
-    width: 700px;
+    height: 570px;
+    width: 800px;
     background-color: #0AC98F;
     border-radius: 10px;
     box-shadow: 5px 5px 10px black;
     float: left;
-    padding: 10px;
-    margin-right: 5px;
+    padding: 1px;
+    margin-right: 40px;
+    overflow: scroll;
+}
+
+.Admin-title{
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.Email-title{
+    margin-bottom: 8px;
+    font-size: 24px;
 }
 
 .Email-card{
@@ -30,6 +42,30 @@ body {
     background-color: #0AC98F;
     border-radius: 10px;
     float: left;
+    text-align: left;
+    padding: 20px;
+    font-size: 12px;
+    color: black;
+    padding-top: 8px;
+    width: 300px;
+}
+
+.button-section{
+    margin-top: 7px;
+    margin-bottom: 10px;
+    height: 32px;
+    margin-right: 20px;
+}
+
+.image-button{
+    float: left;
+}
+
+.button-text{
+    margin-top: 8px;
+    float: left;
+    margin-left: 3px;
+    text-align: left;
 }
 
 .Header{
@@ -50,24 +86,44 @@ body {
     text-align: center;
 }
 
+.currMoonPhase{
+    float: left;
+    font-size: 14px;
+}
+
 
 /* ##### Columns ##### */
 .column1 {
 	float: left;
 	width: 50%;
-	padding: 10px;
+	padding: 1px;
 }
 .column2 {
 	float: left;
 	width: 30%;
-    padding: 20px;
-    /* color: black;
-    background-color: lightgray; */
-	
+    padding: 10px;
+    /* color: black;*/
+    height: 425px;
+    border-radius: 10px;
+    background-color: lightgray;
+	overflow: scroll;
+}
+
+.interpretation{
+    font-size: 14px;
+    overflow: scroll;
+    height: 75px;
 }
 
 
 .flot1 {
     float: left;
     width: 100;
+    text-align: left;
+    font-size: 12px;
 }
+
+.logout{
+    margin-top: 510px;
+}
+

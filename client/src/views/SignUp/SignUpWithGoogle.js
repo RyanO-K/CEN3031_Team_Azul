@@ -5,14 +5,16 @@ import config from './config.json';
 import UserProfile from './UserState.js';
 import axiosPath from '../../axiosRequests';
 
+//this is the sign up with google class 
 class LoginWithGoogle extends Component {
-   
+   //set state variables in constructor
     constructor() {
         super();
         this.state = {name:'', email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false};
     }
 
 
+    //check if this email exists already in the database
     async log2(){
         
         return (await axiosPath.makeGetRequest('personal/'+ this.state.email));
@@ -20,44 +22,45 @@ class LoginWithGoogle extends Component {
            };
 
 
-    
+    //this method is called if a user logged in with google
     googleResponse =async (response) => {
+        //set user states to those given by google sign up
         this.setState({name:this.state.name, email:response.profileObj.email, pob:this.state.pob, dob:this.state.dob, tob:this.state.tob, loggedIn:this.state.loggedIn, loggedInWithGoogle:true, nextPage:this.state.nextPage});
-        //check if the login credentials were valid.  If they were, continue.  Else, throw an error message of sorts.  
+
         let obj='';
         try{
             obj=await this.log2();
         }
         catch(e){
-            console.log(10);
             obj="10";
         }
-        console.log('l');
+        //if already a user, alert the user of the error
  if(obj.Email===response.profileObj.email){
      alert("This email is already registered");
  }
  else{
-     console.log(obj.Email);
-        //if response.profileObj.email already exists in database, then don't allow them to sign up because theyve done it before
-        //Other than that, requests only need to be worried about for google sign up in the signup2.js file
+
+      //if there is already a user session ongoing, inform the user they are already signed in with some account  
     if(UserProfile.getLocalStorageisLoggedIn())
-        alert("you are already logged in with email " +UserProfile.getEmail()+".  Please log out if you would like to login with another account.");
+        alert("you are already logged in with email " +UserProfile.getLocalStorageEmail()+".  Please log out if you would like to login with another account.");
+   
+    //otherwise, sign up the user by setting loggedIn to true so they can be sent to the sign up 2 page
     else{
 
     this.setState({name:response.profileObj.name, email:response.profileObj.email, pob:'', dob:'', tob:'', loggedIn:true})
     this.state.loggedIn=true;
-    console.log(this.state.name);
-    console.log(this.state.email);
     }
 }
   };
 
     render() {
+        //if logged in, send user to sign up 2 page
         if (this.state.loggedIn) {
             return( <Redirect to={{pathname:'/SignUp2', state:{name:this.state.name, email:this.state.email}
             }}/>
             );
           }
+          //otherwise, just show the google sign up button
        let content=
                 <div>
                    
@@ -67,7 +70,6 @@ class LoginWithGoogle extends Component {
   
                         clientId={config.GOOGLE_CLIENT_ID}
                         buttonText="Sign Up"
-                        disabled={!(UserProfile.getLocalStorageisLoggedIn)}
                         onSuccess={this.googleResponse}
                         onFailure={this.onFailure}
                         cookiePolicy={'single_host_origin'}

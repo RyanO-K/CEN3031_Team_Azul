@@ -7,12 +7,12 @@ const personalInformationData = new mongoose.Schema({
 
   Name: {type: String, required:true},
   Sign: {type: String,required:true},
-  Birthday:{type: String,required:true},
+  Birthday:{type: String, required:true},
   TimeOfBirth:{type: String},
   LocationOfBirth:{type: String},
-  Email:{type:String,required:true,unique:true}
-  //House:{type:String},
-  //acceptsEmail:{type:Boolean,required:true}
+  Email:{type:String,required:true,unique:true},
+  House:{type:String},
+  Subscribed:{type:Boolean}
   },{
     collection: 'Users'
   });

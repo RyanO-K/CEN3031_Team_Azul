@@ -2,10 +2,8 @@ var mongoose = require('mongoose');
 
 
 /*
-
 A combination of horoscope information, such as hosue sign and moonphase.
 Used in horoscopeController
-
 */
 const horoscopeData = new mongoose.Schema({
 

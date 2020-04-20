@@ -12,7 +12,7 @@ import UserProfile from './UserState';
 import background from '../../assets/moonbackground.jpg';
 import axiosPath from '../../axiosRequests';
 
-
+//button styling
 const ColorButton = withStyles(theme => ({
     root: {
         borderRadius: 20,
@@ -32,36 +32,40 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
+//this file is for signing a user up if they chose to sign up with google
 function SignUp2(props) {
     const classes = useStyles();
-    console.log(UserProfile.getName());
     const { register, handleSubmit, errors } = useForm();
     const [newUser, setNewUser] = useState({
         name: null,
         pob: '',
         dob: '',
         tob:'',
-        email: null
+        email: null,
+        house:''
 
     });
+    //use variables to represent if there were invalid input fields for any inputs
     const [problem, setProblem] = useState({
         pobP: false,
         dobP: false,
         tobP: false
     });
+
+    //start with the next page being set to this page
     const [destination,d]=useState("/SignUp2");
 
-    useEffect(() => {
-        console.log(newUser)
-    }, [newUser]);
-    
+    //if the user was not supposed to be here (they didn't enter a valid google email from sign up page) send them back to home page
     if(props.location.state===undefined)
     return <Redirect to='/Home'/>;
 
+    //if the user refreshed this page, we get the user information back from our temporary user session data
     if(props.location.state.email===undefined){
         newUser.name=UserProfile.getLocalStorageTempName();
         newUser.email=UserProfile.getLocalStorageTempEmail();
     }
+    //otherwise, this is our first time on this page, so set user temporary session data to what we got from the previous page
     else{
     newUser.name=props.location.state.name;
     newUser.email=props.location.state.email;
@@ -70,89 +74,54 @@ function SignUp2(props) {
     UserProfile.setLocalStorageTempEmail();
     UserProfile.setLocalStorageTempName();
     }
-    console.log(newUser);
-
-    const onSubmit = (data,e) => {
-        const user = {
-            name:newUser.name,
-            pob: data.pob,
-            dob: data.dob,
-            email:newUser.email,
-            tob:newUser.tob
-        }
-        console.log("User"+data);
-        // {...newUser,
-        //     name: data.name,
-        //     pob: data.pob,
-        //     dob: data.dob,
-        //     email: data.email,
-        //     password: data.password
-        // }
-        setNewUser(user);
-        e.target.reset();
-        console.log(user);
-
-        //send it here?
-    };
 
 
+
+
+    //when a user submits, this method is called
     async function handle(){
         let bool=false;
         let l="";
 
-       // console.log(newUser.dob);
-        //if(newUser.dob.length!==10){
-          //  problem.dobP=true;
-           //bool=true;
-           //console.log("dob err");
-        //}
 
 
-        if(newUser.pob===undefined || newUser.pob.length===0){
-            problem.pobP=true;
+//if invalid date of birth, we set an error
+        if(newUser.dob===undefined || newUser.dob.length!==10){
+            problem.dobP=true;
             bool=true;
-            console.log("pob err");
-        }
-        else if(newUser.pob!==undefined && newUser.pob==='undefined'){
-            bool=true;
-            alert('undefined is an invalid place of birth');
+
         }
 
-     //   if(newUser.tob.length===0){
-       //     problem.tobP=true;
-         //   bool=true;
-           // console.log("tob err");
-        //}
+        //if no errors so far and user chooses undefined as birth location, alert them not to do that
+        if(!bool)
+        if(newUser.pob==='undefined'){
+            bool=true;
+            alert('Please enter a valid location of birth (or leave it blank)');
+        }
+
+
 
 
 
         let err="";
-
+//and then if the date of birth was invalid, we alert the user of the error
         if(bool){
-            if(problem.pobP){
-                err+="No place of birth given\n";
-                problem.pobP=false;
+            if(problem.dobP){
+                err+="No date of birth given\n";
+                problem.dobP=false;
                 alert(err);
 
             }
 
-           // if(problem.dobP){
-             //   err+="No date of birth given\n";
-              //  problem.dobP=false;
 
-            //}
-
-           // if(problem.tobP){
-             //   err+="No time of birth given\n";
-               // problem.tobP=false;
-
-            //}
-
-
-          //  alert(err);
 
                     }
                     else{
+
+                       
+                       
+
+                        //otherwise, there are no problems, so we set user session variables so user may be logged in
                         UserProfile.loggedIn=true;
                         UserProfile.setName(newUser.name);
                         UserProfile.setEmail(newUser.email);
@@ -160,12 +129,15 @@ function SignUp2(props) {
                         UserProfile.setBirthplace(newUser.pob);
                         UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthTime(newUser.tob);
+                        UserProfile.setSubscribed(true);
+
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageEmail();
                         UserProfile.setLocalStorageisLoggedInWithGoogle();
                         UserProfile.setLocalStorageName();
                         UserProfile.setLocalStorageBPlace();
                         UserProfile.setLocalStorageBDay();
+                        UserProfile.setLocalStorageSubscribed();
 
                         const axiosUser = {
                             Name: newUser.name,
@@ -174,16 +146,20 @@ function SignUp2(props) {
                             TimeOfBirth: newUser.tob,
                             LocationOfBirth: newUser.pob,
                             Email: newUser.email,
-                            Password: newUser.password
+                            House:'',
+                            Subscribed:true
                         }
+                        //we then create a corresponding user in our database
                         axiosPath.makeCreateRequest('personal/', axiosUser)
                     }
 
     }
 
-
+//when a user puts in a birth date, this method handles it
    const func=(a)=>{
-    if(newUser.pob.length>0)
+
+//if valid birth date, make the next page the user page.  Else, keep it this page
+    if(a.length===10 && newUser.pob!=='undefined')
     d('/User');
 else
     d('/SignUp2');
@@ -192,15 +168,18 @@ else
         pob: newUser.pob,
         dob: a,
         email:newUser.email,
-        tob: newUser.tob
+        tob: newUser.tob,
+        house:newUser.house
     }
     UserProfile.setBirthday(a);
     setNewUser(user);
     };
 
+
+//this method handles birth place 
     const func2=(b)=>{
-console.log(newUser);
-        if(b.length>0)
+        //if valid birth date, make the next page the user page.  Else, keep it this page
+        if(newUser.dob.length===10 && b!=='undefined')
         d('/User');
     else
         d('/SignUp2');
@@ -209,14 +188,17 @@ console.log(newUser);
             pob: b,
             dob: newUser.dob,
             email:newUser.email,
-            tob:newUser.tob
+            tob:newUser.tob,
+            house:newUser.house
         }
         UserProfile.setBirthplace(b);
         setNewUser(user);
         };
 
+        //this method handles time of birth
         const func6=(efg)=>{
-            if(newUser.pob.length>0)
+            //if valid birth date, make the next page the user page.  Else, keep it this page
+            if(newUser.dob.length===10 && newUser.pob!=='undefined')
 d('/User');
 else
 d('/SignUp2');
@@ -226,7 +208,8 @@ d('/SignUp2');
                 dob: newUser.dob,
                 email:newUser.email,
                 password:newUser.password,
-                tob:efg
+                tob:efg,
+                house:newUser.house
             }
             if(UserProfile.getLocalStorageisLoggedIn()===true)
 d('/SignUp2');
@@ -234,6 +217,7 @@ d('/SignUp2');
             };
     
 
+            //here we have our styling (background, text boxes, and button for submitting)
     return (
 
         <div className="SignIn2">
@@ -241,14 +225,8 @@ d('/SignUp2');
                 <h1 className="signin2-title">
                     Additional User Information
                 </h1>
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
-                {/* <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                </a> */}
+                {}
+                {}
 
             <div className="Signin2-card">
                 <div style={{marginTop:'20px'}}>
@@ -259,11 +237,11 @@ d('/SignUp2');
                     </div>
 
                     <div>
-                        <input type="text" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
+                        <input type="time" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>
 
                     <div>
-                    <ColorButton onClickCapture={handle}  onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
+                    <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
                 </div>
