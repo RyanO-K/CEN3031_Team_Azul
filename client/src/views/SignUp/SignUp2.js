@@ -43,7 +43,8 @@ function SignUp2(props) {
         dob: '',
         tob:'',
         email: null,
-        house:''
+        house:'',
+        sign:''
 
     });
     //use variables to represent if there were invalid input fields for any inputs
@@ -141,7 +142,7 @@ function SignUp2(props) {
 
                         const axiosUser = {
                             Name: newUser.name,
-                            Sign: "Scorpio",
+                            Sign: '',
                             Birthday: newUser.dob,
                             TimeOfBirth: newUser.tob,
                             LocationOfBirth: newUser.pob,
@@ -169,7 +170,8 @@ else
         dob: a,
         email:newUser.email,
         tob: newUser.tob,
-        house:newUser.house
+        house:newUser.house,
+        sign:newUser.sign
     }
     UserProfile.setBirthday(a);
     setNewUser(user);
@@ -189,7 +191,8 @@ else
             dob: newUser.dob,
             email:newUser.email,
             tob:newUser.tob,
-            house:newUser.house
+            house:newUser.house,
+            sign:newUser.sign
         }
         UserProfile.setBirthplace(b);
         setNewUser(user);
@@ -209,7 +212,8 @@ d('/SignUp2');
                 email:newUser.email,
                 password:newUser.password,
                 tob:efg,
-                house:newUser.house
+                house:newUser.house,
+                sign:newUser.sign
             }
             if(UserProfile.getLocalStorageisLoggedIn()===true)
 d('/SignUp2');
