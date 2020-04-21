@@ -48,15 +48,15 @@ Features include:
    
    - Sign up: Users are directed to sign up for the email list to get individual horoscopes, and access to a personalized user page
    
-   - - A. Standard Sign In: Users input information about themselves and sign up with username and password which go to the database
+   -   A. Standard Sign In: Users input information about themselves and sign up with username and password which go to the database
 		
-   - - B. Google Sign In: Users have a username and password verified by Google’s API, and this web app uses its user profile information to help construct a user by getting user name, e-mail upon sign-up.
+   -   B. Google Sign In: Users have a username and password verified by Google’s API, and this web app uses its user profile information to help construct a user by getting user name, e-mail upon sign-up.
 
    - Log In: User login allows returning users to visit the user information page
    
-  -  - A. Standard Login: User inputs the username and password
+   -   A. Standard Login: User inputs the username and password
 		
-   - - B. Google Login: The database finds a corresponding e-mail to the one authenticated by Google to verify users. 
+   -  B. Google Login: The database finds a corresponding e-mail to the one authenticated by Google to verify users. 
 		
 •Upon login, the user credentials are fetched via Axios from the database to authenticate the user and get their personal information to display on their user page.  Upon successful authentication, a user session begins that allows a user to remain authenticated until they log out or close the page.  
 
