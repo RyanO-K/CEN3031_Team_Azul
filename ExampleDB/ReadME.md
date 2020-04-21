@@ -19,7 +19,7 @@ Features include:
      -A consistent color palette and background implemented on each page the users and administrator visit
      -A moon and cloud mouse parallax displayed on the home page using the React Spring library
      -The login and sign up page forms are simple and easy to follow along with the ability to sign in or sign up with Google
-##     
+###     
   •Admin Page: Fully functional and dynamic page to handle the administrator’s interactions with saving their horoscope interpretations to the database
      -Viewing interpretations: Whenever a button is pressed to change the horoscope combination a GET request is sent asynchronously to the server using Axios. If the horoscope is valid, the interpretation state variable is updated to match the returned description.            -Editing interpretations: Whenever the submit button is pressed an update is called on the current horoscope combination. If the update fails, it is because that combination does not exist, so a new horoscope object is made and added to the database. Eventually, this will no longer create horoscope objects because all valid combinations have been made.
      
