@@ -85,3 +85,5 @@ Material-UI – Used for react styling and buttons
 React-Spring – Used for moon and cloud parallax displayed on the home page
 ​
 Google Sign-in – Used as an alternative way for users to sign up/in
+
+Axios HTTP Requests - Used to send information back and forth from the client to the server
