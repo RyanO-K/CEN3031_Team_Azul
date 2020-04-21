@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 function User(props){
-  console.log(UserProfile.getLocalStorageEmail());
+  UserProfile.getLocalStorageEmail();
 
 
 
@@ -102,14 +102,12 @@ function User(props){
       if(p1 !== null){
         const result = await axiosPath.makeGetRequest("personal/" + p1);
         setData(result);
-        console.log(result);
       };
     }
       fetchData();
 }, [])
 const [st, newStat]=useState(0);
     
-  console.log(props);
   if(props===undefined || props.location.state===undefined || props.location.state===null || props.location.state.user.email===undefined){
     p1=UserProfile.getLocalStorageEmail();
     p2=UserProfile.getLocalStorageName();
@@ -121,10 +119,9 @@ const [st, newStat]=useState(0);
     p8=UserProfile.getLocalStorageisLoggedInWithoutGoogle();
     p9=UserProfile.getLocalStorageHouse();
     p10=UserProfile.getLocalStorageSign();
-    console.log(UserProfile.getLocalStorageEmail());
+    UserProfile.getLocalStorageEmail();
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
-    console.log("Make it true");
     }
     else
     ret=true;
@@ -180,7 +177,6 @@ UserProfile.loggedIn=true;
   UserProfile.setLocalStorageName();
     p7=props.location.state.g;
     p8=!p7;
-    console.log(newUser.email);
   }
 
 
@@ -194,7 +190,6 @@ UserProfile.loggedIn=true;
   newUser.pob=p5;
   newUser.house=p9;
   newUser.sign=p10;
-  console.log(p5);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -214,7 +209,6 @@ return <Redirect to='/Home'/>
 
 const renderTable = () => {
   if(data){
-      console.log(data);
       var email=data.Email;
       var name='';
       var sign='';
@@ -223,7 +217,6 @@ const renderTable = () => {
       var bday='';
       var location='';
       var subscribed='';
-      console.log(data.TimeOfBirth);
       if(data.Name!==undefined && data.name!=='undefined')
       name=data.Name;
       if(data.Sign!==undefined && data.Sign!=='undefined')
@@ -286,11 +279,9 @@ const renderName = () => {
   // })
       }
 }
-
-console.log(data);
   if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
     return(<Redirect to="/Home"/>);
-    console.log(UserProfile.getLocalStorageName());
+   UserProfile.getLocalStorageName();
 
     if(p7===false)
       UserProfile.loggingInWithoutGoogle();
@@ -317,7 +308,6 @@ UserProfile.loggedIn=true;
       
     //if(newUser.name!==null && newUser.name.length===0)
       //  window.location.reload();
-      console.log(st);
 
 
   function handle2(){
@@ -330,7 +320,6 @@ UserProfile.loggedIn=true;
           auth2.disconnect().then(GoogleLogout.onLogoutSuccess)
         )
       }
-      console.log(auth2);
         
       UserProfile.loggedIn=false;
 
@@ -385,7 +374,6 @@ UserProfile.loggedIn=true;
 
   function handle(){
     firebase.auth().signOut();
-        console.log("Hi");
         UserProfile.setEmail(null);
         UserProfile.setName('');
         UserProfile.loggingOut();
@@ -430,10 +418,10 @@ UserProfile.loggedIn=true;
             b:true
             };
             setNewUser(r);
-            console.log(UserProfile.getLocalStorageisLoggedIn())
+            UserProfile.getLocalStorageisLoggedIn();
 
     }
-    console.log(newUser.b);console.log(GoogleLogin.BasicProfile);
+    
     if(newUser.b && GoogleLogin.BasicProfile===undefined){
       UserProfile.loggedIn=false;
       UserProfile.abc='hi';
@@ -455,10 +443,9 @@ UserProfile.loggedIn=true;
     UserProfile.setLocalStorageisLoggedInWithoutGoogle();
     UserProfile.setLocalStorageBTime();
     UserProfile.setLocalStorageName();
-    console.log(UserProfile.getLocalStorageName());
+    UserProfile.getLocalStorageName();
 
     if(p7){//google login
-        console.log("Google");
     return(
 
       <div className="User">
@@ -520,7 +507,7 @@ UserProfile.loggedIn=true;
       UserProfile.setLocalStorageisLoggedInWithoutGoogle();
       //return(<Redirect to="/Home"/>);
       }
-      console.log(UserProfile.getLocalStorageName());
+      UserProfile.getLocalStorageName();
                        return(
                         <div className="User">
                           <header className="User-header" style={{backgroundImage: `url(${background})` }}>
@@ -544,7 +531,6 @@ UserProfile.loggedIn=true;
                           </div>
                         ); }
                         else{
-                          console.log('hi');
                             return <p>{newUser.name}</p>;
                         }
 }
