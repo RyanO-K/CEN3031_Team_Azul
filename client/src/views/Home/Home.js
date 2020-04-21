@@ -84,7 +84,8 @@ function Home() {
                 <h1 className="MoonFlow">
                     Moon Flow
                     </h1>
-                {}
+                <div className="description">Sign Up to Receive Personalized Horoscopes Over</div>
+                <div className="description" style={{marginBottom: 24}}>Email Every Change of the Moonphase</div>
                 <p>
                     Because you are the skies in ecstatic motion
                 </p>
