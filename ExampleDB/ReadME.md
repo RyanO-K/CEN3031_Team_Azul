@@ -7,6 +7,12 @@ This web app allows users to sign up for an astrology service wherein users will
 
 This web app was created using the MERN stack. It features a home page which prompts a sign in or sign up for users. New users may choose to sign up by filling in the required information which will create a new user with authentication. New users will then receive their calculated sign and house information on the user page. Returning users may login to go to the same user page with their information. Admins may login with the specified admin login details which will redirect them to the admin page. This page will allow the admin to update interpretations based on sign, moon phase, and house and send these interpretations to users via email. 
 
+### Getting Started
+
+Setup the connection based on the environments below.
+- local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
+- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articl
+
 ### Features
 
 Features include:
