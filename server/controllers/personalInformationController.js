@@ -285,6 +285,7 @@ console.log(person);
 };
 //show a horoscope listing
 const read = async (req, res) => {
+    console.log(process.env.EMAIL);
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
         
 
