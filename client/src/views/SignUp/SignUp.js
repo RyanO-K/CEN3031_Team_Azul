@@ -40,7 +40,7 @@ class SignUp extends Component {
   //constructor sets the states
     constructor() {
         super();
-        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:'', password2:''};
+        this.state = {name:'',email:'',pob:'', dob:'', tob:'',loggedIn:false, loggedInWithGoogle:false, house:'', sign:'',password2:''};
     }
 
 //this method checks if there exists such a user already in our database
@@ -117,12 +117,12 @@ firebase
         //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
-        Sign: "Scorpio",
+        Sign: 'Aries',
         Birthday: this.state.dob,
         TimeOfBirth: this.state.tob,
         LocationOfBirth: this.state.pob,
         Email: this.state.email,
-        House:'',
+        House:'1st',
         Subscribed:true
     } 
     //create a user in the db
@@ -167,7 +167,7 @@ firebase
     }
      })
      .catch((error) => {
-       this.setState({ error: error });
+       alert(error);
      });
     }
   }
@@ -182,8 +182,19 @@ firebase
 
 //if user is logged in, send them to user page
  componentDidUpdate(){
+   const userw={
+     name:this.state.name,
+     email:this.state.email,
+     pob:this.state.pob,
+     dob:this.state.dob,
+     tob:this.state.tob,
+     house:this.state.house,
+     sign:this.state.sign,
+     loggedIn:this.state.loggedIn,
+     loggedInWithGoogle:this.state.loggedInWithGoogle
+   }
   if(this.state.loggedIn)
-  return (<Redirect to={{pathname: '/User',state:{user:this.state, g:false}}}></Redirect>);
+  return (<Redirect to={{pathname: '/User',state:{user:userw, g:false}}}></Redirect>);
 
 }
 
@@ -203,7 +214,8 @@ firebase
 
            <form onSubmit={this.handleSubmit}>
 
-           <div>
+           <div className="signup-box">
+             <div>Name:</div>
             <input
                type="text"
                name="name"
@@ -214,10 +226,12 @@ firebase
              />
              </div>
 
-<div>
+             <div className="signup-box">
+            <div>Email:</div>
            <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
            </div>
-             <div>
+           <div className="signup-box">
+             <div>Password:</div>
              <input
                type="password"
                name="password"
@@ -229,7 +243,8 @@ firebase
              </div>
 
 
-             <div>
+             <div className="signup-box">
+             <div>Confirm Password:</div>
              <input
                type="password"
                name="password2"
@@ -241,7 +256,8 @@ firebase
              </div>
 
 
-             <div>
+             <div className="signup-box">
+             <div>Place of Birth (City, State):</div>
             <input
                type="text"
                name="pob"
@@ -253,7 +269,8 @@ firebase
              </div>
              
 
-             <div>
+             <div className="signup-box">
+             <div>Birthtime (Optional):</div>
             <input
                type="time"
                name="tob"
@@ -264,7 +281,8 @@ firebase
              />
              </div>
 
-             <div>
+             <div className="signup-box">
+             <div>Date of Birth:</div>
             <input
                type="date"
                name="dob"
@@ -275,8 +293,8 @@ firebase
              </div>
 
 
-             <p style={{marginBottom:-15}}></p>
-             <div>
+             {/* <p style={{marginBottom:-15}}></p> */}
+             <div style={{marginTop:8}}>
              <ColorButton children="Register" className={useStyles.margin} size="large" onClick={this.handleSubmit}/>
 </div>
            </form>
