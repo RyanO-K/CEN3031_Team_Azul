@@ -14,8 +14,8 @@ Setup the connection based on the environments below.
 - production: Set the "DB_URI" environment variable in heroku to the specified database uri.
 
 Admin login details:
--username: heavenlymoonflow@gmail.com
--password: m00nfl0w
+- username: heavenlymoonflow@gmail.com
+- password: m00nfl0w
 
 ### Features
 
