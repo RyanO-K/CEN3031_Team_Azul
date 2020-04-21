@@ -120,12 +120,12 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
         //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
-        Sign: '',
+        Sign: 'Aries',
         Birthday: this.state.dob,
         TimeOfBirth: this.state.tob,
         LocationOfBirth: this.state.pob,
         Email: this.state.email,
-        House:'',
+        House:'1st',
         Subscribed:true
     } 
     //create a user in the db
