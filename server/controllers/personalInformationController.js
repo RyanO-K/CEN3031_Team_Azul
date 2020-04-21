@@ -314,7 +314,7 @@ const read = async (req, res) => {
                             from: process.env.EMAIL,
                             to: em,
                             subject: 'Your Moon Change Update',
-                            text: 'Hello '+response[i].Name+'! \nYour House: '+response[i].House+'\nYour Sign:'+response[i].Sign+'\n'+'Your Horoscope:\n' + data.description
+                            text: 'Hello '+response[i].Name+'! \nYour House: '+response[i].House+'\nYour Sign: '+response[i].Sign+'\n'+'Your Horoscope:\n' + data.description
                         };
                         
                         transporter.sendMail(mailOptions, function(error, info){
