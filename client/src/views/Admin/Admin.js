@@ -301,15 +301,75 @@ const classes = useStyles();
                             <div className="flot1">
                                 <div className="button-section">
                                     <div className="image-button">
-                                        <input type="image" id="1st" src="https://i.imgur.com/pK7VaCD.png" onClick={(e) => dispHouses(e)}/>
+                                        <input type="image" id="1st" src="https://i.imgur.com/6dqgUe4.png" onClick={(e) => dispHouses(e)}/>
                                     </div>
                                     <div className="button-text">1st</div>
                                 </div>
                                 <div className="button-section">
                                     <div className="image-button">
-                                        <input type="image" id="1st" src="https://i.imgur.com/SjXwuSW.png" onClick={(e) => dispHouses(e)}/>
+                                        <input type="image" id="2nd" src="https://i.imgur.com/SjXwuSW.png" onClick={(e) => dispHouses(e)}/>
                                     </div>
-                                    <div className="button-text">1st</div>
+                                    <div className="button-text">2nd</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="3rd" src="https://i.imgur.com/xaGbERT.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">3rd</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="4th" src="https://i.imgur.com/F4k9xGY.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">4th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="5th" src="https://i.imgur.com/btOSBtK.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">5th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="6th" src="https://i.imgur.com/5JjFIZM.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">6th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="7th" src="https://i.imgur.com/Dl9Y0fH.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">7th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="8th" src="https://i.imgur.com/IVTKph6.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">8th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="9th" src="https://i.imgur.com/wB4tGBc.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">9th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="10th" src="https://i.imgur.com/Sb0t6wG.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">10th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="11th" src="https://i.imgur.com/fYkmxCw.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">11th</div>
+                                </div>
+                                <div className="button-section">
+                                    <div className="image-button">
+                                        <input type="image" id="12th" src="https://i.imgur.com/RIt0sUi.png" onClick={(e) => dispHouses(e)}/>
+                                    </div>
+                                    <div className="button-text">12th</div>
                                 </div>
                             </div>
 
