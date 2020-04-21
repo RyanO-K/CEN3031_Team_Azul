@@ -1,74 +1,87 @@
-## _**PLEASE READ THIS TO COMPLETION BEFORE ASKING ANY QUESTIONS!**_
-
-### _**IMPORTANT NOTES**_ - 
-This project does not have a mongoDB connection setup. Setup the connection based on the environments below.
-- local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
-- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articles/config-vars) resource. Make sure you name the environement variable "DB_URI".
-
-This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
-
-## Getting Started
-This repository aims to assist you in beginning work on a MERN stack application for heroku deployment with a solid file structure as a foundation. To get started make a copy of this template repo for your project teams by clicking the green "Use this template" button above.
-
-Since this project will hold both the client application and the server application there will be node modules in two different places. First run `npm install` from the root. After this you will run `npm run-script install-all` from the root. From now on run this command anytime you want to install all modules again. This is a script we have defined in package.json. Alternatively your group may choose to simplify this process by using yarn workspaces as specified [here](https://yarnpkg.com/lang/en/docs/workspaces/).
-
-This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file. 
-
-
-## Available Scripts
-
-Please note that any time the server is run in these scripts `nodemon` is used in place of `node` for easier development. If you are interested in how this works follow the nodemon In the project directory, you can run:
-
-### `npm run-script dev`
-
-Runs both the client app and the server app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view the client in the browser.
-
-### `npm run-script client`
-
-Runs just the client app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view the client in the browser.
-
-
-### `npm run-script server`
-
-Runs just the server in development mode.<br>
-
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-If deploying to heroku this does not need to be run since it is handled by the heroku-postbuild script<br>
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
-## File structure
-#### `client` - Holds the client application
-- #### `public` - This holds all of our static files
-- #### `src`
-    - #### `assets` - This folder holds assets such as images, docs, and fonts
-    - #### `components` - This folder holds all of the different components that will make up our views
-    - #### `views` - These represent a unique page on the website i.e. Home or About. These are still normal react components
-    - #### `App.js` - This is what renders all of our browser routes and different views
-    - #### `index.js` - This is what renders the react app by rendering App.js, should not change
-- #### `package.json` - Defines npm behaviors and packages for the client
-#### `server` - Holds the server application
-- #### `config` - This holds our configuration files, like mongoDB uri
-- #### `controllers` - These hold all of the callback functions that each route will call
-- #### `models` - This holds all of our data models
-- #### `routes` - This holds all of our HTTP to URL path associations for each unique url
-- #### `tests` - This holds all of our server tests that we have defined
-- #### `server.js` - Defines npm behaviors and packages for the client
-#### `package.json` - Defines npm behaviors like the scripts defined in the next section of the README
-#### `.gitignore` - Tells git which files to ignore
-#### `README` - This file!
-
-## Learn More
-To learn how to setup a local MongoDB instance for testing, check out how to [connect to MongoDB](https://docs.mongodb.com/guides/server/drivers/).
-
-To learn how to deploy a full-stack web app to heroku, check out [this great guide](https://daveceddia.com/deploy-react-express-app-heroku/).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# MoonFlow
+​
+Welcome to the Moonflow web app. 
+This web app allows users to sign up for an astrology service wherein users will receive personalized interpretations based on their astrological ascendant and the current moon phase. 
+​
+## Information
+​
+This web app was created using the MERN stack. It features a home page which prompts a sign in or sign up for users. New users may choose to sign up by filling in the required information which will create a new user with authentication. New users will then receive their calculated sign and house information on the user page. Returning users may login to go to the same user page with their information. Admins may login with the specified admin login details which will redirect them to the admin page. This page will allow the admin to update interpretations based on sign, moon phase, and house and send these interpretations to users via email. 
+​
+### Getting Started
+​
+Setup the connection based on the environments below.
+- local development: create a config file which exports your db.uri connection. 
+- production: Set the "DB_URI" environment variable in heroku to the specified database uri.
+​
+# MoonFlow
+​
+Welcome to the Moonflow web app. 
+This web app allows users to sign up for an astrology service wherein users will receive personalized interpretations based on their astrological ascendant and the current moon phase. 
+​
+## Information
+​
+This web app was created using the MERN stack. It features a home page which prompts a sign in or sign up for users. New users may choose to sign up by filling in the required information which will create a new user with authentication. New users will then receive their calculated sign and house information on the user page. Returning users may login to go to the same user page with their information. Admins may login with the specified admin login details which will redirect them to the admin page. This page will allow the admin to update interpretations based on sign, moon phase, and house and send these interpretations to users via email. 
+​
+### Getting Started
+​
+Setup the connection based on the environments below.
+- local development: create a config file which exports your db.uri connection. 
+- production: Set the "DB_URI" environment variable in heroku to the specified database uri.
+​
+Admin login details:
+- username: heavenlymoonflow@gmail.com
+- password: m00nfl0w
+​
+### Features
+​
+Features include:
+​
+  •Horoscope Database:  Database of different horoscopes based on the combination of sun sign, lunar phase, and house that can be viewed and updated via an admin page. The database currently saves every combination of moon phase, house, and sign which will be accessed by the email sender and updated by the admin page
+  
+  •Axios: Fully functional CRUD capabilities that connect the front end of the website to the back end where the router and database exist. This allows creation and access to user information, horoscope data in order to push out information to your users.
+​
+  •UX/UI: A completely styled frontend with a consistent look across all pages for the user experience that provides an easy and clear user interaction
+  
+   - A consistent color palette and background implemented on each page the users and administrator visit
+     
+   - A moon and cloud mouse parallax displayed on the home page using the React Spring library
+     
+   - The login and sign up page forms are simple and easy to follow along with the ability to sign in or sign up with Google
+   
+  •Admin Page: Fully functional and dynamic page to handle the administrator’s interactions with saving their horoscope interpretations to the database
+  
+   - Viewing interpretations: Whenever a button is pressed to change the horoscope combination a GET request is sent asynchronously to the server using Axios. If the horoscope is valid, the interpretation state variable is updated to match the returned description. 
+     
+   - Editing interpretations: Whenever the submit button is pressed an update is called on the current horoscope combination. If the update fails, it is because that combination does not exist, so a new horoscope object is made and added to the database. Eventually, this will no longer create horoscope objects because all valid combinations have been made.
+     
+​
+  •User Page: A dynamic web page for the individual user information to be displayed
+   
+   - Uses an Axios GET call to receive the user information in order to display their individual data to the page.
+​
+   •User Authentication: Allowing users access to only the account to which they are logged in by allowing users (and admin) to log in and sign up with their choice of google login or standard login.  
+   
+   - Sign up: Users are directed to sign up for the email list to get individual horoscopes, and access to a personalized user page
+   
+   -   A. Standard Sign In: Users input information about themselves and sign up with username and password which go to the database
+		
+   -   B. Google Sign In: Users have a username and password verified by Google’s API, and this web app uses its user profile information to help construct a user by getting user name, e-mail upon sign-up.
+​
+   - Log In: User login allows returning users to visit the user information page
+   
+   -   A. Standard Login: User inputs the username and password
+		
+   -  B. Google Login: The database finds a corresponding e-mail to the one authenticated by Google to verify users. 
+		
+•Upon login, the user credentials are fetched via Axios from the database to authenticate the user and get their personal information to display on their user page.  Upon successful authentication, a user session begins that allows a user to remain authenticated until they log out or close the page.  
+​
+•Page Authentication: Users cannot go to user/admin pages without login. By keeping user sessions and user information, a user without the correct login credentials is restricted from pages by being rerouted back to home.
+​
+​
+### API's Used
+​
+Material-UI – Used for react styling and buttons
+​
+React-Spring – Used for moon and cloud parallax displayed on the home page
+​
+Google Sign-in – Used as an alternative way for users to sign up/in
