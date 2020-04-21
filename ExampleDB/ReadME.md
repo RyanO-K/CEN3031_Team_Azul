@@ -10,8 +10,12 @@ This web app was created using the MERN stack. It features a home page which pro
 ### Getting Started
 
 Setup the connection based on the environments below.
-- local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
-- production: Since the config file is not pushed when you deploy your app, you must specifiy your db uri in heorku. Set the uri in heroku as specified in [this](https://devcenter.heroku.com/articl
+- local development: create a config file which exports your db.uri connection. 
+- production: Set the "DB_URI" environment variable in heroku to the specified database uri.
+
+Admin login details:
+-username: heavenlymoonflow@gmail.com
+-password: m00nfl0w
 
 ### Features
 
