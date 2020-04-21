@@ -300,7 +300,7 @@ const read = async (req, res) => {
                 let em=response[i].Email;
                 
         let b=null;
-                horoscopeModel.findOne({ 'house': '1st', 'moonphase':moonphase,'sign':response[i].Sign}).then(data =>{
+                horoscopeModel.findOne({ 'house': response[i].House, 'moonphase':moonphase,'sign':response[i].Sign}).then(data =>{
                     if(data!=null){
                         var transporter = nodemailer.createTransport({
                             service: 'gmail',
