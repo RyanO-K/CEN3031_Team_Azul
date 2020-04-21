@@ -236,18 +236,18 @@ d('/SignUp2');
                 {}
 
             <div className="Signin2-card">
-                <div style={{marginTop:'20px'}}>
+                   <div className="signup2-box">
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
-                    <div>
+                    <div className="signup2-box">
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
                     </div>
 
-                    <div>
+                    <div className="signup2-box">
                         <input type="time" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>
 
-                    <div>
+            <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 
