@@ -311,7 +311,7 @@ const read = async (req, res) => {
                         });
                         
                         var mailOptions = {
-                            from: jimmyderobotics@gmail.com,
+                            from: 'jimmyderobotics@gmail.com',
                             to: em,
                             subject: 'Your Moon Change Update',
                             text: 'Hello '+response[i].Name+'! \nYour House: '+response[i].House+'\nYour Sign:'+response[i].Sign+'\n'+'Your Horoscope:\n' + data.description
