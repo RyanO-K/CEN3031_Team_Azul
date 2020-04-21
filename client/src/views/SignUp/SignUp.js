@@ -219,7 +219,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
 
            <form onSubmit={this.handleSubmit}>
 
-           <div>
+           <div className="signup-box">
+             <div>Name:</div>
             <input
                type="text"
                name="name"
@@ -230,10 +231,12 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              />
              </div>
 
-<div>
+             <div className="signup-box">
+            <div>Email:</div>
            <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
            </div>
-             <div>
+           <div className="signup-box">
+             <div>Password:</div>
              <input
                type="password"
                name="password"
@@ -245,7 +248,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
 
 
-             <div>
+             <div className="signup-box">
+             <div>Confirm Password:</div>
              <input
                type="password"
                name="password2"
@@ -257,7 +261,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
 
 
-             <div>
+             <div className="signup-box">
+             <div>Place of Birth (City, State):</div>
             <input
                type="text"
                name="pob"
@@ -269,7 +274,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
              
 
-             <div>
+             <div className="signup-box">
+             <div>Birthtime (Optional):</div>
             <input
                type="time"
                name="tob"
@@ -280,7 +286,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              />
              </div>
 
-             <div>
+             <div className="signup-box">
+             <div>Date of Birth:</div>
             <input
                type="date"
                name="dob"
@@ -291,8 +298,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
 
 
-             <p style={{marginBottom:-15}}></p>
-             <div>
+             {/* <p style={{marginBottom:-15}}></p> */}
+             <div style={{marginTop:8}}>
              <ColorButton children="Register" className={useStyles.margin} size="large" onClick={this.handleSubmit}/>
 </div>
            </form>
@@ -311,6 +318,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
                         </div>
 </header>
        </div>
+
 
        
                 
