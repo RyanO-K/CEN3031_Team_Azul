@@ -300,7 +300,7 @@ const read = async (req, res) => {
                 let em=response[i].Email;
                 
         let b=null;
-                horoscopeModel.findOne({ 'house': '1st', 'moonphase':moonphase,'sign':response[i].Sign}).then(data =>{
+                horoscopeModel.findOne({ 'house': response[i].House, 'moonphase':moonphase,'sign':response[i].Sign}).then(data =>{
                     if(data!=null){
                         var transporter = nodemailer.createTransport({
                             service: 'gmail',
@@ -314,7 +314,7 @@ const read = async (req, res) => {
                             from: process.env.EMAIL,
                             to: em,
                             subject: 'Your Moon Change Update',
-                            text: 'Hello '+response[i].Name+' your update is:\nHouse: '+response[i].House+'\nSign:'+response[i].Sign+'\n'+data.description
+                            text: 'Hello '+response[i].Name+'! \nYour House: '+response[i].House+'\nYour Sign:'+response[i].Sign+'\n'+'Your Horoscope:\n' + data.description
                         };
                         
                         transporter.sendMail(mailOptions, function(error, info){
