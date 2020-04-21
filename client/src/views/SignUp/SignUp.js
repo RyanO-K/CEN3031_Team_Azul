@@ -99,9 +99,9 @@ handleSubmit = async (event) => {
        alert("Please provide a valid birth date");
        else{
          //we restrict this email usage because when this email appears on the backend get request, emails are sent to users
-         if(this.state.email.indexOf('Admin@admin.com2')>=0)
-         alert("Please provide a valid email");
-        else{
+        // if(this.state.email.indexOf('Admin@admin.com2')>=0)
+         //alert("Please provide a valid email");
+        //else{
           //if user chooses undefined as location of birth, alert them that they cannot do that
           if(this.state.pob==='undefined')
             alert("Please provide a valid location of birth (or leave it blank)");
@@ -109,7 +109,9 @@ handleSubmit = async (event) => {
               if(password!==password2)
                 alert("Passwords do not match");
                 else{
-
+                  if(password.indexOf("0")===-1 && password.indexOf("1")===-1 && password.indexOf("2")===-1 && password.indexOf("3")===-1 && password.indexOf("4")===-1 && password.indexOf("5")===-1 && password.indexOf("6")===-1 && password.indexOf("7")===-1 && password.indexOf("8")===-1 && password.indexOf("9")===-1)
+                  alert("Password must include at least 1 numeric value (0-9)");
+                  else{
                   
 //now, no more errors, so now let firebase create a corresponding user in its database
 firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user) => {
@@ -118,12 +120,12 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
         //now we try to make a corresponding user in our database linked by email to that in firebase's database, but if unsuccessful, roll everything back
       const axiosUser = {
         Name: this.state.name,
-        Sign: 'Scorpio',
+        Sign: 'Aries',
         Birthday: this.state.dob,
         TimeOfBirth: this.state.tob,
         LocationOfBirth: this.state.pob,
         Email: this.state.email,
-        House:'',
+        House:'1st',
         Subscribed:true
     } 
     //create a user in the db
@@ -171,8 +173,9 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
      .catch((error) => {
        alert(error);
      });
-    }
+   // }
   }
+}
   }
 }
 }
@@ -216,7 +219,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
 
            <form onSubmit={this.handleSubmit}>
 
-           <div>
+           <div className="signup-box">
+             <div>Name:</div>
             <input
                type="text"
                name="name"
@@ -227,10 +231,12 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              />
              </div>
 
-<div>
+             <div className="signup-box">
+            <div>Email:</div>
            <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} />
            </div>
-             <div>
+           <div className="signup-box">
+             <div>Password:</div>
              <input
                type="password"
                name="password"
@@ -242,7 +248,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
 
 
-             <div>
+             <div className="signup-box">
+             <div>Confirm Password:</div>
              <input
                type="password"
                name="password2"
@@ -254,7 +261,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
 
 
-             <div>
+             <div className="signup-box">
+             <div>Place of Birth (City, State):</div>
             <input
                type="text"
                name="pob"
@@ -266,7 +274,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
              
 
-             <div>
+             <div className="signup-box">
+             <div>Birthtime (Optional):</div>
             <input
                type="time"
                name="tob"
@@ -277,7 +286,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              />
              </div>
 
-             <div>
+             <div className="signup-box">
+             <div>Date of Birth:</div>
             <input
                type="date"
                name="dob"
@@ -288,8 +298,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
              </div>
 
 
-             <p style={{marginBottom:-15}}></p>
-             <div>
+             {/* <p style={{marginBottom:-15}}></p> */}
+             <div style={{marginTop:8}}>
              <ColorButton children="Register" className={useStyles.margin} size="large" onClick={this.handleSubmit}/>
 </div>
            </form>
@@ -308,6 +318,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user
                         </div>
 </header>
        </div>
+
 
        
                 

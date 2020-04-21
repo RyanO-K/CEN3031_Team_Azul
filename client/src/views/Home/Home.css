@@ -12,6 +12,12 @@ body {
     margin: 0;
 }
 
+.description{
+    font-family: montreg;
+    font-size: 24px;
+    color: #0AC98F;
+}
+
 .button{
     backgroundColor: #007bff;
 

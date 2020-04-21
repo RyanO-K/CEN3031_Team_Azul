@@ -43,7 +43,8 @@ function SignUp2(props) {
         dob: '',
         tob:'',
         email: null,
-        house:''
+        house:'',
+        sign:''
 
     });
     //use variables to represent if there were invalid input fields for any inputs
@@ -130,6 +131,8 @@ function SignUp2(props) {
                         UserProfile.setBirthday(newUser.dob);
                         UserProfile.setBirthTime(newUser.tob);
                         UserProfile.setSubscribed(true);
+                        UserProfile.setSign('');
+                        UserProfile.setHouse('');
 
                         UserProfile.setLocalStorageBTime();
                         UserProfile.setLocalStorageEmail();
@@ -138,10 +141,11 @@ function SignUp2(props) {
                         UserProfile.setLocalStorageBPlace();
                         UserProfile.setLocalStorageBDay();
                         UserProfile.setLocalStorageSubscribed();
-
+                        UserProfile.setLocalStorageHouse();
+                        
                         const axiosUser = {
                             Name: newUser.name,
-                            Sign: "Scorpio",
+                            Sign: '',
                             Birthday: newUser.dob,
                             TimeOfBirth: newUser.tob,
                             LocationOfBirth: newUser.pob,
@@ -169,7 +173,8 @@ else
         dob: a,
         email:newUser.email,
         tob: newUser.tob,
-        house:newUser.house
+        house:newUser.house,
+        sign:newUser.sign
     }
     UserProfile.setBirthday(a);
     setNewUser(user);
@@ -189,7 +194,8 @@ else
             dob: newUser.dob,
             email:newUser.email,
             tob:newUser.tob,
-            house:newUser.house
+            house:newUser.house,
+            sign:newUser.sign
         }
         UserProfile.setBirthplace(b);
         setNewUser(user);
@@ -209,7 +215,8 @@ d('/SignUp2');
                 email:newUser.email,
                 password:newUser.password,
                 tob:efg,
-                house:newUser.house
+                house:newUser.house,
+                sign:newUser.sign
             }
             if(UserProfile.getLocalStorageisLoggedIn()===true)
 d('/SignUp2');
@@ -229,18 +236,18 @@ d('/SignUp2');
                 {}
 
             <div className="Signin2-card">
-                <div style={{marginTop:'20px'}}>
+                   <div className="signup2-box">
                         <input type="date" placeholder="Date of Birth" name="dob" ref={register} onChange={(e)=>func(e.target.value)} />
                     </div>
-                    <div>
+                    <div className="signup2-box">
                         <input type="text" placeholder="Place of Birth" name="pob" ref={register} onChange={(e)=>func2(e.target.value)}/>
                     </div>
 
-                    <div>
+                    <div className="signup2-box">
                         <input type="time" placeholder="Time of Birth" name="tob" ref={register} onChange={(e)=>func6(e.target.value)}/>
                     </div>
 
-                    <div>
+            <div>
                     <ColorButton onClick={handle} className={classes.margin} component={Link} size="large" variant="outlined" to={{pathname:destination, state:{user:newUser, g:true}}}> Submit</ColorButton>
 
 

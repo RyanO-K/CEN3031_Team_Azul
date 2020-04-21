@@ -16,11 +16,16 @@
     margin-top: 3px;
     font-family: montreg;
     color: black;
-    height: 390px;
+    height: 460px;
     width: 275px;
     background-color: #0AC98F;
     border-radius: 10px;
     box-shadow: 5px 5px 10px black;
+    font-size: 14px;
+}
+
+.signup-box{
+    margin-bottom: 7px;
 }
 
 .SignIn-header {
