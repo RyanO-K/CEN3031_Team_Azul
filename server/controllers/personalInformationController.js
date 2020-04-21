@@ -245,8 +245,8 @@ console.log(person);
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'process.env.EMAIL',
-              pass: 'process.env.PASSWORD'
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD
             }
           });
           
@@ -285,7 +285,6 @@ console.log(person);
 };
 //show a horoscope listing
 const read = async (req, res) => {
-    console.log(process.env.EMAIL);
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
         
 
@@ -306,13 +305,13 @@ const read = async (req, res) => {
                         var transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
-                                user: 'jimmyderobotics@gmail.com',
-                                pass: 'm00nfl0w'
+                                user: process.env.EMAIL,
+                                pass: process.env.PASSWORD
                             }
                         });
                         
                         var mailOptions = {
-                            from: 'jimmyderobotics@gmail.com',
+                            from: process.env.EMAIL,
                             to: em,
                             subject: 'Your Moon Change Update',
                             text: 'Hello '+response[i].Name+'! \nYour House: '+response[i].House+'\nYour Sign:'+response[i].Sign+'\n'+'Your Horoscope:\n' + data.description
