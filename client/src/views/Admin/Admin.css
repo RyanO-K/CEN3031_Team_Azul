@@ -23,7 +23,6 @@ body {
     float: left;
     padding: 1px;
     margin-right: 40px;
-    overflow: scroll;
 }
 
 .Admin-title{
@@ -106,12 +105,10 @@ body {
     height: 425px;
     border-radius: 10px;
     background-color: lightgray;
-	overflow: scroll;
 }
 
 .interpretation{
     font-size: 14px;
-    overflow: scroll;
     height: 75px;
 }
 
