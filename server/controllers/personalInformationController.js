@@ -245,8 +245,8 @@ console.log(person);
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'heavenlymoonflow@gmail.com',
-              pass: 'm00nfl0w'
+              user: 'process.env.EMAIL',
+              pass: 'process.env.PASSWORD'
             }
           });
           
@@ -305,8 +305,8 @@ const read = async (req, res) => {
                         var transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
-                                user: 'heavenlymoonflow@gmail.com',
-                                pass: 'm00nfl0w'
+                                user: 'process.env.PASSWORD',
+                                pass: 'process.env.PASSWORD'
                             }
                         });
                         
