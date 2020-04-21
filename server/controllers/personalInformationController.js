@@ -38,6 +38,137 @@ const create = async (req, res) => {
     let sign='Aries'
     let ascendant=0.0;
     //console.log(req);
+
+    if(req.body.TimeOfBirth == ''){
+        var arr=req.body.Birthday.split('-');
+        let month = arr[1];
+        let day = arr[2];
+        if(month == 3){
+            if(day >= 21){
+                req.body.Sign = "Aries"
+                req.body.House = "1st"
+            }
+            else{
+                req.body.Sign = "Pisces"
+                req.body.House = "12th"
+            }
+        }
+        else if(month == 4){
+            if(day <= 19){
+                req.body.Sign = "Aries"
+                req.body.House = "1st"
+            }
+            else{
+                req.body.Sign = "Taurus"
+                req.body.House = "2nd"
+            }
+        }
+        else if(month == 5){
+            if(day <= 20){
+                req.body.Sign = "Taurus"
+                req.body.House = "2nd"
+            }
+            else{
+                req.body.Sign = "Gemini"
+                req.body.House = "3rd"
+            }
+        }
+        else if(month == 6){
+            if(day <= 20){
+                req.body.Sign = "Gemini"
+                req.body.House = "3rd"
+            }
+            else{
+                req.body.Sign = "Cancer"
+                req.body.House = "4th"
+            }
+        }
+        else if(month == 7){
+            if(day <= 22){
+                req.body.Sign = "Cancer"
+                req.body.House = "4th"
+            }
+            else{
+                req.body.Sign = "Leo"
+                req.body.House = "5th"
+            }
+        }
+        else if(month == 8){
+            if(day <= 22){
+                req.body.Sign = "Leo"
+                req.body.House = "5th"
+            }
+            else{
+                req.body.Sign = "Virgo"
+                req.body.House = "6th"
+            }
+        }
+        else if(month == 9){
+            if(day <= 22){
+                req.body.Sign = "Virgo"
+                req.body.House = "6th"
+            }
+            else{
+                req.body.Sign = "Libra"
+                req.body.House = "7th"
+            }
+        }
+        else if(month == 10){
+            if(day <= 22){
+                req.body.Sign = "Libra"
+                req.body.House = "7th"
+            }
+            else{
+                req.body.Sign = "Scorpio"
+                req.body.House = "8th"
+            }
+        }
+        else if(month == 11){
+            if(day <= 21){
+                req.body.Sign = "Scorpio"
+                req.body.House = "8th"
+            }
+            else{
+                req.body.Sign = "Sagittarius"
+                req.body.House = "9th"
+            }
+        }
+        else if(month == 12){
+            if(day <= 21){
+                req.body.Sign = "Sagittarius"
+                req.body.House = "9th"
+            }
+            else{
+                req.body.Sign = "Capricorn"
+                req.body.House = "10th"
+            }
+        }
+        else if(month == 1){
+            if(day <= 19){
+                req.body.Sign = "Capricorn"
+                req.body.House = "10th"
+            }
+            else{
+                req.body.Sign = "Aquarius"
+                req.body.House = "11th"
+            }
+        }
+        else if(month == 2){
+            if(day <= 18){
+                req.body.Sign = "Aquarius"
+                req.body.House = "11th"
+            }
+            else{
+                req.body.Sign = "Pisces"
+                req.body.House = "12th"
+            }
+        }
+        else{
+            req.body.Sign = "Unable to Calculate"
+            req.body.House = "1st"
+        }
+        
+   }
     if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
     var arr=req.body.Birthday.split('-');
     var arr2=req.body.TimeOfBirth.split(':');
@@ -114,8 +245,8 @@ console.log(person);
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'process.env.EMAIL',
-              pass: 'process.env.PASSWORD'
+              user: 'heavenlymoonflow@gmail.com',
+              pass: 'm00nfl0w'
             }
           });
           
@@ -174,8 +305,8 @@ const read = async (req, res) => {
                         var transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
-                                user: 'process.env.EMAIL',
-                                pass: 'process.env.PASSWORD'
+                                user: 'heavenlymoonflow@gmail.com',
+                                pass: 'm00nfl0w'
                             }
                         });
                         
@@ -278,6 +409,136 @@ const update = async (req, res) => {
         let house='1st';
         let sign='Aries'
         let ascendant=0.0;
+        if(req.body.TimeOfBirth == ''){
+            var arr=req.body.Birthday.split('-');
+            let month = arr[1];
+            let day = arr[2];
+            if(month == 3){
+                if(day >= 21){
+                    req.body.Sign = "Aries"
+                    req.body.House = "1st"
+                }
+                else{
+                    req.body.Sign = "Pisces"
+                    req.body.House = "12th"
+                }
+            }
+            else if(month == 4){
+                if(day <= 19){
+                    req.body.Sign = "Aries"
+                    req.body.House = "1st"
+                }
+                else{
+                    req.body.Sign = "Taurus"
+                    req.body.House = "2nd"
+                }
+            }
+            else if(month == 5){
+                if(day <= 20){
+                    req.body.Sign = "Taurus"
+                    req.body.House = "2nd"
+                }
+                else{
+                    req.body.Sign = "Gemini"
+                    req.body.House = "3rd"
+                }
+            }
+            else if(month == 6){
+                if(day <= 20){
+                    req.body.Sign = "Gemini"
+                    req.body.House = "3rd"
+                }
+                else{
+                    req.body.Sign = "Cancer"
+                    req.body.House = "4th"
+                }
+            }
+            else if(month == 7){
+                if(day <= 22){
+                    req.body.Sign = "Cancer"
+                    req.body.House = "4th"
+                }
+                else{
+                    req.body.Sign = "Leo"
+                    req.body.House = "5th"
+                }
+            }
+            else if(month == 8){
+                if(day <= 22){
+                    req.body.Sign = "Leo"
+                    req.body.House = "5th"
+                }
+                else{
+                    req.body.Sign = "Virgo"
+                    req.body.House = "6th"
+                }
+            }
+            else if(month == 9){
+                if(day <= 22){
+                    req.body.Sign = "Virgo"
+                    req.body.House = "6th"
+                }
+                else{
+                    req.body.Sign = "Libra"
+                    req.body.House = "7th"
+                }
+            }
+            else if(month == 10){
+                if(day <= 22){
+                    req.body.Sign = "Libra"
+                    req.body.House = "7th"
+                }
+                else{
+                    req.body.Sign = "Scorpio"
+                    req.body.House = "8th"
+                }
+            }
+            else if(month == 11){
+                if(day <= 21){
+                    req.body.Sign = "Scorpio"
+                    req.body.House = "8th"
+                }
+                else{
+                    req.body.Sign = "Sagittarius"
+                    req.body.House = "9th"
+                }
+            }
+            else if(month == 12){
+                if(day <= 21){
+                    req.body.Sign = "Sagittarius"
+                    req.body.House = "9th"
+                }
+                else{
+                    req.body.Sign = "Capricorn"
+                    req.body.House = "10th"
+                }
+            }
+            else if(month == 1){
+                if(day <= 19){
+                    req.body.Sign = "Capricorn"
+                    req.body.House = "10th"
+                }
+                else{
+                    req.body.Sign = "Aquarius"
+                    req.body.House = "11th"
+                }
+            }
+            else if(month == 2){
+                if(day <= 18){
+                    req.body.Sign = "Aquarius"
+                    req.body.House = "11th"
+                }
+                else{
+                    req.body.Sign = "Pisces"
+                    req.body.House = "12th"
+                }
+            }
+            else{
+                req.body.Sign = "Unable to Calculate"
+                req.body.House = "1st"
+            }
+            
+       }
         //console.log(req);
         if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
         var arr=req.body.Birthday.split('-');
