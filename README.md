@@ -27,11 +27,7 @@ This web app was created using the MERN stack. It features a home page which pro
 Setup the connection based on the environments below.
 - local development: create a config file which exports your db.uri connection. 
 - production: Set the "DB_URI" environment variable in heroku to the specified database uri.
-​
-Admin login details:
-- username: heavenlymoonflow@gmail.com
-- password: m00nfl0w
-​
+
 ### Features
 ​
 Features include:
