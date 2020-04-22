@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose');
 
+//schema for users => all users have email, name, bday, and sign (which we calculate and always have some default at least.  
 
 
 const personalInformationData = new mongoose.Schema({
