@@ -74,6 +74,24 @@ Features include:
 ​
 •Page Authentication: Users cannot go to user/admin pages without login. By keeping user sessions and user information, a user without the correct login credentials is restricted from pages by being rerouted back to home.
 ​
+
+•Email Sending: Fully functional email sending that sends users emails upon signing up and again whenever there is a moon phase change for which admin sends emails.  
+
+ - Functionality:
+- Upon sign up, users receive a welcome email sent using Nodemailer api, logging in admin to their email with Heroku config vars.  
+Email messages are sent to all users who choose not to unsubscribe with every moon change.  To send these custom emails, admin logs in and creates messages for the combination of moon phases, signs, and houses, then sends emails to everyone for their personal horoscope by getting user information from the user database and horoscope information from the horoscope database.  
+
+
+•User Calculation: User sign and house are calculated from the given user information from sign-up.  
+- Functionality:
+- When a user signs up, they enter a place of birth, time of birth, and date of birth.  These allow for the web app to calculate the user’s ascendent sign by:
+
+- Finding the location of birth for the user in latitude and longitude by using the Google Maps API to transform the city, state to latitude and longitude.  
+
+- The Julian Calendar day of the user’s birth is calculated by passing in the time and date of the user’s birth to the swiss ephemeris API.   
+
+- If no time of birth is given, the app defaults to just giving users their sun sign as opposed to their ascendent sign.  If no place of birth is given, the app defaults to the user being of the first house and having a sign of Aries.  
+
 ​
 ### API's Used
 ​
