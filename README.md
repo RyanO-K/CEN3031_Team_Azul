@@ -96,7 +96,7 @@ Node Mailer : Used to send emails to all the subscribers.
 
 ### System Requirements
 #### Config File
-You need to make canfig file that that stores the MongoDB URI key for connecting the backend to the MongoDb atlas cluster that has been created for the specific purpose of storing both the personal information of users and the astrological interpretations for horoscopes. The atlas cluster should whitelist the Heroku where the app is hosted, found in the QuotaGuard Static Ip add-on in the Heroku dashboard.
+You need to make config file that that stores the MongoDB URI key for connecting the backend to the MongoDb atlas cluster that has been created for the specific purpose of storing both the personal information of users and the astrological interpretations for horoscopes. The atlas cluster should whitelist the Heroku where the app is hosted, found in the QuotaGuard Static Ip add-on in the Heroku dashboard.
 File path in order to edit: server/config/config.js
 
 ## List of API's with step by step guide
