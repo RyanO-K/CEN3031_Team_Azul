@@ -16,7 +16,7 @@ import axiosPath from "../../axiosRequests";
 
 import firebase from 'firebase';
 
-
+//button styling
 const ColorButton = withStyles(theme => ({
     root: {
       borderRadius: 20,
@@ -39,7 +39,7 @@ function User(props){
 
 
 
-
+//set state variables of a user
   const classes = useStyles();
   const [newUser, setNewUser] = useState({
     name: '',
@@ -51,6 +51,8 @@ function User(props){
     b:false,
     sign:''
 });
+    
+ //these variables are for putting those with regular and google login together.  p1-p10 correspond with user state vars and represent the same things for each login type
   let p1=null;
   let p2='';
   let p3='';
@@ -64,7 +66,7 @@ function User(props){
     
       useEffect(()=>{
     if(newUser.b){
-
+//if newUser.b s true, then the user is ready to be logged out.  So, we reset the fields as described in UserState.js
       UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
@@ -96,7 +98,7 @@ function User(props){
   const url = 'personal/'
 
   const [data, setData] = useState([])
-
+//for each render, we get the value of data
   useEffect(() => {
     const fetchData = async () => {
       if(p1 !== null){
@@ -108,6 +110,7 @@ function User(props){
 }, [])
 const [st, newStat]=useState(0);
     
+    //if any of these are undefined, we got to this page from a reload, so we already have the values stored in local storage.  
   if(props===undefined || props.location.state===undefined || props.location.state===null || props.location.state.user.email===undefined){
     p1=UserProfile.getLocalStorageEmail();
     p2=UserProfile.getLocalStorageName();
@@ -120,12 +123,15 @@ const [st, newStat]=useState(0);
     p9=UserProfile.getLocalStorageHouse();
     p10=UserProfile.getLocalStorageSign();
     UserProfile.getLocalStorageEmail();
+     
     if(UserProfile.getLocalStorageEmail()!==null && UserProfile.getLocalStorageEmail()!=='' &&UserProfile.getLocalStorageEmail()!=='null'){
     UserProfile.loggedIn=true;
-    }
+    } 
+      //but if the user isnt logged in, they should not be on this page (page authentication) and they will be sent back to home
     else
     ret=true;
   }
+    //if user did not get to page from reload (refresh), props has all values, so we take them back from props and set our local storage vars
   else{
     p1=props.location.state.user.email;
     p2=props.location.state.user.name;
@@ -136,6 +142,7 @@ const [st, newStat]=useState(0);
     p10=props.location.state.sign;
     p6=true;
     UserProfile.loggedIn=true;
+      //regular login
     if(p7===false){
     UserProfile.loggingInWithoutGoogle();
     UserProfile.setEmail(p1);
@@ -156,6 +163,7 @@ const [st, newStat]=useState(0);
     UserProfile.setLocalStorageSign();
 
     }
+      //google login
   else
     UserProfile.loggingInWithGoogle();
 UserProfile.loggedIn=true;
@@ -190,7 +198,7 @@ UserProfile.loggedIn=true;
   newUser.pob=p5;
   newUser.house=p9;
   newUser.sign=p10;
-
+//set data
   useEffect(() => {
     const fetchData = async () => {
       if(p1 !== null){
@@ -201,12 +209,12 @@ UserProfile.loggedIn=true;
       fetchData();
 }, [])
  
-
+//if user not supposed to be here, reroute back to home
 if(ret)
 return <Redirect to='/Home'/>
 
 
-
+//rendering the user info
 const renderTable = () => {
   if(data){
       var email=data.Email;
@@ -235,7 +243,7 @@ const renderTable = () => {
       subscribed='no';
 
       return(
-      //<h1>{str}</h1>
+      
       <div>
           <p style={{marginTop:20}}>Email: {email}</p>
           <p>Birthday: {bday}</p>
@@ -247,47 +255,38 @@ const renderTable = () => {
       </div>
       
       )
-  // return data.map(user => {
-  // return (
-  //     <tr key = {user._id}>
-  //         <td>{user.Name}</td>
-  //         <td>{user.Email}</td>
-  //     </tr>
-  // )
-  // })
+ 
       }
 }
+//rendering user name
 const renderName = () => {
   if(data){
       if(data.Name!==undefined)
       var name=data.Name;
 
       return(
-      //<h1>{str}</h1>
+      
       <div>
         <p style={{fontSize:'45px'}}>Hi, Welcome {name}</p>
       </div>
       
       )
-  // return data.map(user => {
-  // return (
-  //     <tr key = {user._id}>
-  //         <td>{user.Name}</td>
-  //         <td>{user.Email}</td>
-  //     </tr>
-  // )
-  // })
+  
       }
 }
+//if user data still not set, then they must be on the wrong page, so send them home
   if(p1===null && props===null && props.location.state===null&& props.location.state.user.email===null)
     return(<Redirect to="/Home"/>);
    UserProfile.getLocalStorageName();
 
+    //if p7, the user got here via google, else without google
     if(p7===false)
       UserProfile.loggingInWithoutGoogle();
     else
       UserProfile.loggingInWithGoogle();
 UserProfile.loggedIn=true;
+    
+    //set storage variables from UserState.js
     UserProfile.setEmail(p1);
     UserProfile.setName(p2);
     UserProfile.setBirthplace(p5);
@@ -306,10 +305,9 @@ UserProfile.loggedIn=true;
     UserProfile.setLocalStorageName();
 
       
-    //if(newUser.name!==null && newUser.name.length===0)
-      //  window.location.reload();
+   
 
-
+//handle google logout
   function handle2(){
     UserProfile.loggedIn=false;
       const auth2 = window.gapi.auth2.getAuthInstance();
@@ -323,7 +321,7 @@ UserProfile.loggedIn=true;
         
       UserProfile.loggedIn=false;
 
-  
+  //reset storage vars
       UserProfile.setEmail(null);
       UserProfile.setName('');
       UserProfile.loggingOut();
@@ -371,7 +369,7 @@ UserProfile.loggedIn=true;
           UserProfile.loggedIn=false;
         
     }
-
+//regular logout (firebase)
   function handle(){
     firebase.auth().signOut();
         UserProfile.setEmail(null);
@@ -396,6 +394,7 @@ UserProfile.loggedIn=true;
             newStat(3);
             setTimeout(3000);
             UserProfile.loggedIn=false;
+      //reset storage vars
         UserProfile.setLocalStorageBTime();
         UserProfile.setLocalStorageBDay();
         UserProfile.setLocalStorageSign();
@@ -421,7 +420,7 @@ UserProfile.loggedIn=true;
             UserProfile.getLocalStorageisLoggedIn();
 
     }
-    
+    //if not logged in, send user home
     if(newUser.b && GoogleLogin.BasicProfile===undefined){
       UserProfile.loggedIn=false;
       UserProfile.abc='hi';
@@ -429,6 +428,7 @@ UserProfile.loggedIn=true;
 }}/>
 );
     }
+    //set storage vars
     UserProfile.setName(data.Name);
     UserProfile.setBirthplace(data.LocationOfBirth);
     UserProfile.setBirthTime(data.TimeOfBirth);
