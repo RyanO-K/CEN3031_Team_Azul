@@ -32,6 +32,7 @@ Setup the connection based on the environments below.
 ​
 Features include:
 ​
+
   •Horoscope Database:  Database of different horoscopes based on the combination of sun sign, lunar phase, and house that can be viewed and updated via an admin page. The database currently saves every combination of moon phase, house, and sign which will be accessed by the email sender and updated by the admin page
   
   •Axios: Fully functional CRUD capabilities that connect the front end of the website to the back end where the router and database exist. This allows creation and access to user information, horoscope data in order to push out information to your users.
