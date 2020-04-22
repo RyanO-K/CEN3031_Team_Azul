@@ -70,7 +70,7 @@ Features include:
 		
    -  B. Google Login: The database finds a corresponding e-mail to the one authenticated by Google to verify users. 
 		
-•Upon login, the user credentials are fetched via Axios from the database to authenticate the user and get their personal information to display on their user page.  Upon successful authentication, a user session begins that allows a user to remain authenticated until they log out or close the page.  
+•Upon login, the user credentials are fetched via Axios from the database to authenticate the user and get their personal information to display on their user page.  Upon successful authentication, a user session begins that allows a user to remain authenticated until they log out or close the page.  This user session is kept by retrieving user information upon login and keeping the user fields stored in local storage to retrieve at any time until the user logs out, at which point the local storage fields reset to their default values.  
 ​
 •Page Authentication: Users cannot go to user/admin pages without login. By keeping user sessions and user information, a user without the correct login credentials is restricted from pages by being rerouted back to home.
 ​
