@@ -101,32 +101,31 @@ File path in order to edit: server/config/config.js
 
 ## List of API's with step by step guide
 
-- Axios Key: 2h589hg9unfd0sfyg72458ugn540983g
+•Axios Key: 2h589hg9unfd0sfyg72458ugn540983g
 
-Found in /server/controllers/personalInformationController.js (288,385,654,681) and client/src/axiosRequests.js (12,21,30,36)
+- Found in /server/controllers/personalInformationController.js (288,385,654,681) and client/src/axiosRequests.js (12,21,30,36)
+- To change it, access your configuration variables in heroku and change the KEY variable to the new key you wish to use.
 
-To change it, access your configuration variables in heroku and change the KEY variable to the new key you wish to use.
+•Firebase Authentication Key: AIzaSyCTMiGtkLuPLBM15KcBZPpAtQeCThhv4GY
 
-- Firebase Authentication Key: AIzaSyCTMiGtkLuPLBM15KcBZPpAtQeCThhv4GY
+- Found in client/src/views/SignUp/config2.js 
 
-Found in client/src/views/SignUp/config2.js 
+- Used in: client/src/views/SignUp/Login.js, client/src/views/SignUp/SignUp.js, client/src/views/SignUp/ResetPassword.js, client/src/views/SignUp/User.js
 
-Used in: client/src/views/SignUp/Login.js, client/src/views/SignUp/SignUp.js, client/src/views/SignUp/ResetPassword.js, client/src/views/SignUp/User.js
+- Accessing and changing this API key can be done in the firebase console inside of project MoonFlow, by clicking the settings tab on the left and choosing project settings and scrolling down to the API key as a configuration variable near the bottom of the screen.  
 
-Accessing and changing this API key can be done in the firebase console inside of project MoonFlow, by clicking the settings tab on the left and choosing project settings and scrolling down to the API key as a configuration variable near the bottom of the screen.  
+•Google Client ID: 566778365438-ogvkuv418kopqs9vt32qvou0nnb2lh6j.apps.googleusercontent.com
+- Found in CEN3031_Team_Azul/client/src/views/SignUp/config.json
 
-- Google Client ID: 566778365438-ogvkuv418kopqs9vt32qvou0nnb2lh6j.apps.googleusercontent.com
-Found in CEN3031_Team_Azul/client/src/views/SignUp/config.json
+- Used In: client/src/views/SignUp/LoginWithGoogle.js, client/src/views/SignUp/SignUpWithGoogle.js, and client/src/views/SignUp/User.js.
 
-Used In: client/src/views/SignUp/LoginWithGoogle.js, client/src/views/SignUp/SignUpWithGoogle.js, and client/src/views/SignUp/User.js.
+- To access and change this key, one must login to the Google API Console using the Gmail created and from there choose the project with ID: moonflow-274723 and the key can be found in the credentials tab of the dashboard.  To add more URIs for which to be able to sign up / log in (if the web app is hosted from somewhere else), simply click on the OAuth 2.0 Client ID Key of Heavenly Writing and add your URI.  
 
-To access and change this key, one must login to the Google API Console using the Gmail created and from there choose the project with ID: moonflow-274723 and the key can be found in the credentials tab of the dashboard.  To add more URIs for which to be able to sign up / log in (if the web app is hosted from somewhere else), simply click on the OAuth 2.0 Client ID Key of Heavenly Writing and add your URI.  
+•Nodemailer API:
 
-- Nodemailer API:
+- No key, but to send emails, one must have their email and password stored (not in plain text) and this is where heroku config variables of email and password are used (in the user and pass fields of the nodemailer transporter, respectively).  If email and password for gmail are changed, the email and passwords of heroku config vars must be changed as well.  
 
-No key, but to send emails, one must have their email and password stored (not in plain text) and this is where heroku config variables of email and password are used (in the user and pass fields of the nodemailer transporter, respectively).  If email and password for gmail are changed, the email and passwords of heroku config vars must be changed as well.  
-
-Used in client/src/views/PersonalInformationController.js
+- Used in client/src/views/PersonalInformationController.js
 
 ## Environmental Variables
 
