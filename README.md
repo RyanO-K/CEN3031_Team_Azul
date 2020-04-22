@@ -83,3 +83,11 @@ React-Spring – Used for moon and cloud parallax displayed on the home page
 Google Sign-in – Used as an alternative way for users to sign up/in
 
 Axios HTTP Requests - Used to send information back and forth from the client to the server
+
+Firebase authentication: Secure passwords which can also be reset
+
+Swiss Ephemeris: Proper calculation of ascendant sign/houses
+
+Google Geocode API: Calculates the latitude and longitude of the user’s birthplace
+
+React Form Hooks: Used for user sign up/log in text fields
