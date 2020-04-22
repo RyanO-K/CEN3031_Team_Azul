@@ -10,13 +10,15 @@ var nodemailer = require('nodemailer');
 
 var axios = require('axios');
 
-//create a horoscope combo
+//create a user and send them an email
 const create = async (req, res) => {
     let lat ='';
     let long = '';
     let location = '';
     location = req.body.LocationOfBirth;
     //console.log(location)
+    
+    //google maps finds location of person's birth's lat and lon => if no loc of birth specified, give the user gainesville as default place of birth
     await axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
         params:{
             address: location,
@@ -40,6 +42,7 @@ const create = async (req, res) => {
     //console.log(req);
 
     if(req.body.TimeOfBirth == ''){
+        //take tob and ig not given and calculate horoscope sun sign
         var arr=req.body.Birthday.split('-');
         let month = arr[1];
         let day = arr[2];
@@ -173,6 +176,7 @@ const create = async (req, res) => {
     var arr=req.body.Birthday.split('-');
     var arr2=req.body.TimeOfBirth.split(':');
     console.log('10');
+        //calculate julday with swisseph api
     var julday= swisseph.swe_julday(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]), parseInt(arr2[0]), swisseph.SE_GREG_CAL )
     //console.log(julday);
     console.log('30');
@@ -180,6 +184,7 @@ const create = async (req, res) => {
      console.log(houses);   
      ascendant=houses.ascendant;
     });
+        //use the ascendant given by swisseph to calculate ascendent sign
     let num = Math.round(ascendant/30);
     if(num == 1){
         req.body.Sign = 'Aries';
@@ -233,15 +238,16 @@ const create = async (req, res) => {
     console.log('40');
    }
     //console.log(req.body);
-
+    
+//make a person from the body of the request
     const person = new personalInformationCombo(req.body);
 
 console.log(person);
-
+//save the new user in the db
     person.save().then(data => {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).send(person);
-
+//if created successfully send email to new user using heroku config vars for signing in admin for the email
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -256,7 +262,7 @@ console.log(person);
             subject: 'Welcome to Moonflow',
             text: 'Hello '+req.body.Name+' you have now signed up for moonflow'
           };
-          
+          //send mail here
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
               console.log(error);
@@ -283,11 +289,15 @@ console.log(person);
     
 
 };
-//show a horoscope listing
+//show a person listing
 const read = async (req, res) => {
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
         
-
+           //this is to send the admin emails.  What it does is if the user has admin@admin.com2 as the beginning of their email,
+        //take whatever follows that part of the email as the moonphase and send out emails to users (we restricted those emails,
+        //so nobody else can sign up with such emails (with admin@admin.com2 in it).  The admin can click on their desired 
+        //combination of inputs and then send an email because a get request is sent to backend which is identified here as a notice
+        //to node to send out emails.  
             if(req.url.indexOf('/personal/Admin@admin.com2')===0){
             let moonphase=req.url.substring(26);
 
@@ -345,10 +355,11 @@ const read = async (req, res) => {
             }
         }
         
-
+//if not admin@admin.com2, this function functions as one would expect, getting the user associated with the email in the db and 
+        //returning it if they exist
         else{
 
-            //TODO
+            
             
             personalInformationCombo.findOne({ 'Email': req.params.Email}).then(data =>{
                 if(data!=null){
@@ -377,13 +388,14 @@ const read = async (req, res) => {
 
 };
 
-//update a horoscope listing
+//update a user listing => this is a lot like create in that user information is created, only here it's updated
 const update = async (req, res) => {
-    //TODO: Birthday is currently uneditable
+    
 
 
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){
 
+        //get latitude and longitude with google maps api
         let lat ='';
         let long = '';
         let location = '';
@@ -405,10 +417,14 @@ const update = async (req, res) => {
              lat = 29.6516;
              long = 82.3248;
          });
+        //default is g-ville
          //console.log(lat)
+        
+        //if no pob, default house and sign are 1st/aries
         let house='1st';
         let sign='Aries'
         let ascendant=0.0;
+        //same as before => no tob, sun sign calculated
         if(req.body.TimeOfBirth == ''){
             var arr=req.body.Birthday.split('-');
             let month = arr[1];
@@ -540,6 +556,7 @@ const update = async (req, res) => {
             
        }
         //console.log(req);
+        //if everything is there, we calculate julday and using swisseph api, the ascendent sign with it
         if(req.body.LocationOfBirth!==undefined && req.body.TimeOfBirth!==undefined && req.body.TimeOfBirth.length>0 && req.body.LocationOfBirth.length>0){
         var arr=req.body.Birthday.split('-');
         var arr2=req.body.TimeOfBirth.split(':');
@@ -603,7 +620,7 @@ const update = async (req, res) => {
         
         console.log('40');
        }
-
+//then we update the user accordingly
         const person = new personalInformationCombo(req.body);
         personalInformationCombo.findOneAndUpdate({ 'Email': req.params.Email},{
                                                 Name:req.body.Name || Name,
@@ -648,9 +665,8 @@ const update = async (req, res) => {
     }
 };
 
-//remove a horoscopeCombo
+//remove a user
 const remove = async (req, res) => {
-    //TODO
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){    
         personalInformationCombo.findOneAndDelete({ '_id': req.params.Email}).then(data =>{
             if(data != null){
@@ -675,9 +691,9 @@ const remove = async (req, res) => {
     }
 };
 
-//list a horoscopeCombo
+//list all users
 const list = async (req, res) => {
-    //TODO
+
     if(req.headers.authorization == (process.env.KEY||'Bearer 2h589hg9unfd0sfyg72458ugn540983g')){ 
     personalInformationCombo.find().sort().then(data =>{
         res.header('Access-Control-Allow-Origin', '*');
@@ -696,7 +712,7 @@ const list = async (req, res) => {
         })
     }
 };
-
+//get options
 const options = async (req, res) => {
 
     var corsOptions = {
