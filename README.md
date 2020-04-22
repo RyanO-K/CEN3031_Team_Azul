@@ -90,13 +90,11 @@ Email messages are sent to all users who choose not to unsubscribe with every mo
 
 - If no time of birth is given, the app defaults to just giving users their sun sign as opposed to their ascendent sign.  If no place of birth is given, the app defaults to the user being of the first house and having a sign of Aries.  
 
-​
 ### API's Used
-​
 - Material-UI: Used for react styling and buttons
-​
+
 - React-Spring: Used for moon and cloud parallax displayed on the home page
-​
+
 - Google Sign-in: Used as an alternative way for users to sign up/in
 
 - Axios HTTP Requests: Used to send information back and forth from the client to the server
